@@ -2,6 +2,7 @@
   "expo": {
     "name": "pharmazing",
     "slug": "pharmazing",
+    "scheme": "pharmazing",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vincentvanity.pharmazing"
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +23,16 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9835bc40-5f73-4f0a-b919-1be5b7ee0a99"
+      }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
