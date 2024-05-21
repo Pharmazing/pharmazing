@@ -8,6 +8,7 @@ export default function MobileApp() {
     <View style={styles.container}>
       <Text>Open up Mobile.tsx to start working on your app!</Text>
       <Link href="/activity">Activity</Link>
+      <Text>{process.env.EXPO_PUBLIC_API_KEY}</Text>
       <StatusBar style="auto" />
     </View>
   );
