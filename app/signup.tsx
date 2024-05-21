@@ -7,7 +7,7 @@ export default function Page() {
     <View>
       <Text>Sign UP Page</Text>
       <Button
-        title="Back to sign in"
+        title="Log in instead"
         onPress={() => router.replace("/signin")}
       />
     </View>
