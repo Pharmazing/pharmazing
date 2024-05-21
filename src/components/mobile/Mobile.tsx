@@ -7,7 +7,7 @@ export default function MobileApp() {
   return (
     <View style={styles.container}>
       <Text>Open up Mobile.tsx to start working on your app!</Text>
-      <Link href="/activity/index.tsx">Activity</Link>
+      <Link href="/activity">Activity</Link>
       <StatusBar style="auto" />
     </View>
   );

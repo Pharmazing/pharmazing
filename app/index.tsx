@@ -1,6 +1,5 @@
 import React from "react";
-// import { isIOS, isAndroid, isWeb } from "../src/utils";
-import App from "../index";
+import { Redirect } from "expo-router";
 export default function Page() {
-  return <App />;
+  return <Redirect href="/signin" />;
 }
