@@ -1,1 +1,1 @@
-export * from "./hooks/usePlatform";
+export * from "./hooks";

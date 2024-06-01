@@ -2,10 +2,11 @@ import { Link, Stack } from "expo-router";
 import React from "react";
 import { Text } from "react-native";
 import { isAndroid, isIOS, isWeb } from "../src/utils";
+import { SessionProvider } from "../src/utils/context";
 
 export default function RootLayout() {
   return (
-    <>
+    <SessionProvider>
       {(isIOS || isAndroid) && (
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -38,6 +39,6 @@ export default function RootLayout() {
           <Stack.Screen name="signin" options={{ headerShown: false }} />
         </Stack>
       )}
-    </>
+    </SessionProvider>
   );
 }
