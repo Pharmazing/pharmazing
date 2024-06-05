@@ -18,7 +18,6 @@
   "dependencies": {
     "@apollo/client": "^3.10.4",
     "@expo/metro-runtime": "~3.2.1",
-    "@graphql-codegen/typescript-graphql-request": "^6.2.0",
     "@graphql-codegen/typescript-operations": "^4.2.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@react-navigation/drawer": "^6.6.15",
@@ -42,9 +41,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@graphql-codegen/cli": "5.0.2",
-    "@graphql-codegen/introspection": "4.0.3",
     "@graphql-codegen/typescript": "4.0.7",
-    "@graphql-codegen/typescript-document-nodes": "4.0.7",
     "@parcel/watcher": "^2.4.1",
     "@types/react": "~18.2.45",
     "@types/react-native": "^0.73.0",
@@ -55,8 +52,5 @@
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
   },
-  "private": true,
-  "resolutions": {
-    "undici": "5.5.1"
-  }
+  "private": true
 }

@@ -7,9 +7,9 @@ import { useSession } from "../src/utils/context";
 
 export default function Page() {
   const { signIn, session } = useSession();
-  console.log(session);
+  // console.log(session);
   const login = () => {
-    signIn(JSON.stringify({ user: "user" }));
+    signIn(JSON.stringify({ user: "user", token: "wah gwaaaan server" }));
     // Navigate after signing in. You may want to tweak this to ensure sign-in is
     // successful before navigating.
     router.replace("/home");
