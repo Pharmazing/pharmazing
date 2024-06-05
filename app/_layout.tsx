@@ -3,18 +3,13 @@ import React from "react";
 import { Text } from "react-native";
 import { isAndroid, isIOS, isWeb } from "../src/utils";
 import { SessionProvider } from "../src/utils/context";
-// import { ApolloClient } from "@apollo/client";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../src/utils/api/apollo/apolloClient";
 
 export default function RootLayout() {
-  // Initialize Apollo Client
-  const client = new ApolloClient({
-    uri: process.env.EXPO_PUBLIC_API_URL,
-    cache: new InMemoryCache(),
-  });
   return (
-    <ApolloProvider client={client}>
-      <SessionProvider>
+    <SessionProvider>
+      <ApolloProvider client={client}>
         {(isIOS || isAndroid) && (
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -47,7 +42,7 @@ export default function RootLayout() {
             <Stack.Screen name="signin" options={{ headerShown: false }} />
           </Stack>
         )}
-      </SessionProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </SessionProvider>
   );
 }

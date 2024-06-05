@@ -1630,15 +1630,6 @@
     auto-bind "~4.0.0"
     tslib "~2.6.0"
 
-"@graphql-codegen/introspection@4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/introspection/-/introspection-4.0.3.tgz#756e39fb4529ea15d32a122f0bce9b0a66425379"
-  integrity sha512-4cHRG15Zu4MXMF4wTQmywNf4+fkDYv5lTbzraVfliDnB8rJKcaurQpRBi11KVuQUe24YTq/Cfk4uwewfNikWoA==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^5.0.3"
-    "@graphql-codegen/visitor-plugin-common" "^5.0.0"
-    tslib "~2.6.0"
-
 "@graphql-codegen/plugin-helpers@^2.7.2":
   version "2.7.2"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.7.2.tgz#6544f739d725441c826a8af6a49519f588ff9bed"
@@ -1695,26 +1686,6 @@
     change-case-all "1.0.15"
     tslib "~2.6.0"
 
-"@graphql-codegen/typescript-document-nodes@4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-document-nodes/-/typescript-document-nodes-4.0.7.tgz#3f8dea4f5803cc605c4dfdcb01526477569e630d"
-  integrity sha512-rgIFENkOqm/Ses4xf2I+FIrFXqzWA+jfhtf+DoWYVOUshEiN5v4+alQc0CmVpUVNlzy8M1q8djG1zkAJZtQD2A==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^5.0.4"
-    "@graphql-codegen/visitor-plugin-common" "5.2.0"
-    auto-bind "~4.0.0"
-    tslib "~2.6.0"
-
-"@graphql-codegen/typescript-graphql-request@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-graphql-request/-/typescript-graphql-request-6.2.0.tgz#db3bd90cd9070d446b8039384476cc1029929617"
-  integrity sha512-nkp5tr4PrC/+2QkQqi+IB+bc7AavUnUvXPW8MC93HZRvwfMGy6m2Oo7b9JCPZ3vhNpqT2VDWOn/zIZXKz6zJAw==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^3.0.0"
-    "@graphql-codegen/visitor-plugin-common" "2.13.1"
-    auto-bind "~4.0.0"
-    tslib "~2.6.0"
-
 "@graphql-codegen/typescript-operations@^4.2.1":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-4.2.1.tgz#887d5883d33d1e14a6f5dc90f125db343b3759d3"
@@ -1764,7 +1735,7 @@
     parse-filepath "^1.0.2"
     tslib "~2.4.0"
 
-"@graphql-codegen/visitor-plugin-common@5.2.0", "@graphql-codegen/visitor-plugin-common@^5.0.0", "@graphql-codegen/visitor-plugin-common@^5.2.0":
+"@graphql-codegen/visitor-plugin-common@5.2.0", "@graphql-codegen/visitor-plugin-common@^5.2.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-5.2.0.tgz#8c48c0a62575d5f302678aae3994a50e9ac72cd0"
   integrity sha512-0p8AwmARaZCAlDFfQu6Sz+JV6SjbPDx3y2nNM7WAAf0au7Im/GpJ7Ke3xaIYBc1b2rTZ+DqSTJI/zomENGD9NA==
@@ -9492,10 +9463,10 @@ undici-types@~5.26.4:
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
 
-undici@5.5.1, undici@^6.10.1:
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.5.1.tgz#baaf25844a99eaa0b22e1ef8d205bffe587c8f43"
-  integrity sha512-MEvryPLf18HvlCbLSzCW0U00IMftKGI5udnjrQbC5D4P0Hodwffhv+iGfWuJwg16Y/TK11ZFK8i+BPVW2z/eAw==
+undici@^6.10.1:
+  version "6.18.2"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-6.18.2.tgz#f662a5dc33cf654fc412a9912e5a07b138d75c97"
+  integrity sha512-o/MQLTwRm9IVhOqhZ0NQ9oXax1ygPjw6Vs+Vq/4QRjbOAC3B1GCHy7TYxxbExKlb7bzDRzt9vBWU6BDz0RFfYg==
 
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.0"
