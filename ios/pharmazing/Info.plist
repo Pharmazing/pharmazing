@@ -31,6 +31,12 @@
           <string>com.vincentvanity.pharmazing</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.739739212160-9hngin51nv8i8qulhisqt7ka10picum5</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
