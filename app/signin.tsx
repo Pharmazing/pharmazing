@@ -6,7 +6,7 @@ import { isAndroid, isIOS, isWeb } from "../src/utils";
 import { useSession } from "../src/utils/context";
 
 export default function Page() {
-  const { signIn, session } = useSession();
+  const { signIn, session, loginWithGoogle, error } = useSession();
   // console.log(session);
   const login = () => {
     signIn(JSON.stringify({ user: "user", token: "wah gwaaaan server" }));
@@ -21,13 +21,18 @@ export default function Page() {
   const Mobile = () => (
     <View style={styles.container}>
       <Text>Sign In Page</Text>
+      <Button title={"google"} onPress={loginWithGoogle} />
       <Button title={"sign in"} onPress={login} />
       <Button title={"sign up"} onPress={() => router.replace("/signup")} />
+      {error && (
+        <Text style={{ height: 500 }}>Error: {JSON.stringify(error)}</Text>
+      )}
     </View>
   );
   const Web = () => (
     <>
       <Text>Sign In Page</Text>
+      <Button title={"google"} onPress={loginWithGoogle} />
       <Button title={"sign in"} onPress={login} />
       <Button title={"sign up"} onPress={() => router.replace("/signup")} />
     </>
