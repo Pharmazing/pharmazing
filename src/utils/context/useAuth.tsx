@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useStorageState } from "../hooks";
+// import { Text } from "react-native";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const AuthContext = React.createContext<{
@@ -30,13 +31,13 @@ export function useSession() {
   return value;
 }
 
-export function SessionProvider(props: React.PropsWithChildren) {
+export function SessionProvider({ children }: React.PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState("session");
   const [error, setError] = useState<any | null>(null);
   console.log("errpr", JSON.stringify(error));
   const configureGoogleSignIn = () => {
     GoogleSignin.configure({
-      webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
+      webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
       iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
       // androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
     });
@@ -45,6 +46,8 @@ export function SessionProvider(props: React.PropsWithChildren) {
   const loginWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
+      // if (loadingRef.current)
+      //   throw new Error("Google One-tap script is still loading");
       const userInfo = await GoogleSignin.signIn();
       setSession(JSON.stringify(userInfo));
     } catch (error) {
@@ -55,6 +58,9 @@ export function SessionProvider(props: React.PropsWithChildren) {
   useEffect(() => {
     configureGoogleSignIn();
   }, []);
+  // if (loadingRef.current) {
+  //   return <Text>...Loading</Text>;
+  // }
   return (
     <AuthContext.Provider
       value={{
@@ -65,13 +71,14 @@ export function SessionProvider(props: React.PropsWithChildren) {
           setSession(data || "xxx");
         },
         signOut: () => {
+          GoogleSignin.signOut();
           setSession(null);
         },
         session,
         isLoading,
       }}
     >
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 }

@@ -14,7 +14,7 @@ export default function MobileApp() {
   return (
     <View style={styles.container}>
       <Text>Open up Mobile.tsx to start working on your app!</Text>
-      <Text>{process.env.EXPO_PUBLIC_API_KEY}</Text>
+      <Text>{process.env.EXPO_PUBLIC_API_URL}</Text>
       <Button
         title="Getallusers"
         disabled={loading}
