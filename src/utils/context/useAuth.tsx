@@ -51,7 +51,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
       const userInfo = await GoogleSignin.signIn();
       setSession(JSON.stringify(userInfo));
     } catch (error) {
-      setError(error);
+      if (error instanceof Error) setError(error);
     }
   };
 
