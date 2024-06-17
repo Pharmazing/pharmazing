@@ -34,7 +34,6 @@ export function useSession() {
 export function SessionProvider({ children }: React.PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState("session");
   const [error, setError] = useState<any | null>(null);
-  console.log("errpr", JSON.stringify(error));
   const configureGoogleSignIn = () => {
     GoogleSignin.configure({
       webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
