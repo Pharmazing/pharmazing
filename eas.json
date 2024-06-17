@@ -17,6 +17,7 @@
       },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://pharmazing-server.onrender.com/graphql",
+        "EXPO_PUBLIC_API_MEDIA_URL": "https://pharmazing-server.onrender.com/media",
         "EXPO_PUBLIC_GOOGLE_CLIENT_ID": "739739212160-7f7iemtsa6m8n1tm0ute0cike6blmha7.apps.googleusercontent.com",
         "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "739739212160-0ac32nkqefrhrf0mbg3qcgbcvs2aj26q.apps.googleusercontent.com",
         "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "739739212160-9hngin51nv8i8qulhisqt7ka10picum5.apps.googleusercontent.com"

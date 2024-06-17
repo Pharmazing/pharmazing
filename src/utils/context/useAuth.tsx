@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useStorageState } from "../hooks";
-// import { Text } from "react-native";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { router } from "expo-router";
 
 const AuthContext = React.createContext<{
-  signIn: (data?: any) => void;
+  loginAsGuest: () => void;
   signOut: () => void;
   session?: string | null;
   isLoading: boolean;
-  loginWithGoogle?: () => void;
+  loginWithGoogle: () => void;
   error: any | null;
 }>({
-  signIn: () => null,
   signOut: () => null,
+  loginAsGuest: () => null,
   session: null,
   isLoading: false,
   loginWithGoogle: () => null,
@@ -46,32 +46,34 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
   const loginWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      // if (loadingRef.current)
-      //   throw new Error("Google One-tap script is still loading");
       const userInfo = await GoogleSignin.signIn();
       setSession(JSON.stringify(userInfo));
+      setError(null);
     } catch (error) {
       if (error instanceof Error) setError(error);
+    }
+  };
+
+  const loginAsGuest = async () => {
+    try {
+      router.replace("/home");
+      setError(null);
+    } catch (e) {
+      if (error instanceof Error) setError(e);
     }
   };
 
   useEffect(() => {
     configureGoogleSignIn();
   }, []);
-  // if (loadingRef.current) {
-  //   return <Text>...Loading</Text>;
-  // }
   return (
     <AuthContext.Provider
       value={{
         loginWithGoogle,
+        loginAsGuest,
         error,
-        signIn: (data: any) => {
-          // Perform sign-in logic here
-          setSession(data || "xxx");
-        },
         signOut: () => {
-          GoogleSignin.signOut();
+          if (GoogleSignin.hasPreviousSignIn()) GoogleSignin.signOut();
           setSession(null);
         },
         session,

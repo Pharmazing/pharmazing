@@ -1,6 +1,10 @@
-// import { Tabs } from "expo-router";
 import Activity from "../../src/pages/Activity";
+import { SecuredRoute } from "../../src/pages/SecuredRoute";
 
 export default function Page() {
-  return <Activity />;
+  return (
+    <SecuredRoute>
+      <Activity />
+    </SecuredRoute>
+  );
 }
