@@ -6,6 +6,7 @@ import { router } from "expo-router";
 const AuthContext = React.createContext<{
   loginAsGuest: () => void;
   signOut: () => void;
+  setSession: (value: string | null) => void;
   session?: string | null;
   isLoading: boolean;
   loginWithGoogle: () => void;
@@ -17,6 +18,7 @@ const AuthContext = React.createContext<{
   isLoading: false,
   loginWithGoogle: () => null,
   error: null,
+  setSession: () => null,
 });
 
 // This hook can be used to access the user info.
@@ -75,6 +77,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
           if (GoogleSignin.hasPreviousSignIn()) GoogleSignin.signOut();
           setSession(null);
         },
+        setSession,
         session,
         isLoading,
       }}

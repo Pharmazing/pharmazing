@@ -1,0 +1,17 @@
+{
+  "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImMzYWJlNDEzYjIyNjhhZTk3NjQ1OGM4MmMxNTE3OTU0N2U5NzUyN2UiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI3Mzk3MzkyMTIxNjAtOWhuZ2luNTFudjhpOHF1bGhpc3F0N2thMTBwaWN1bTUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI3Mzk3MzkyMTIxNjAtMGFjMzJua3FlZnJocmYwbWJnM3FjZ2JjdnMyYWoyNnEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDA4MjQzNDI4NDQ2OTUxMTA1MTYiLCJlbWFpbCI6InZpbmNldGVycEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImdZb3F0NlM2cUpmQjJkLXIxMjZNM0EiLCJub25jZSI6IkFQMVJKRTBtNTkxamVaNnY0aEtFVUxzU0tPSkJTUy01OFg1TU5GaGJlMXciLCJuYW1lIjoiUGF1bCBDYW1wYmVsbCIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NJakxXVTFlS1lISy1ycFBBeFZNd193U0RxRlRSZlczZUQ4SnRnNEpCeU9YTXEtQlZKYmNnPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IlBhdWwiLCJmYW1pbHlfbmFtZSI6IkNhbXBiZWxsIiwiaWF0IjoxNzE4NjAzNzE1LCJleHAiOjE3MTg2MDczMTV9.SuRdsXYO0P5HGbQLkAmIIvcQnmHpMlL6jEz2d1VlmWo_Qz17MZ-HL4U3fH5Eks7-LQFNuNXViF3BEElwcRDq4GNK4U7uPZc4XCsMVaaWV4SGzTLprwna33lA2pHedHVfZkXf1_GdrMetkk4pilJlbNSdNiP3fFdBX3YEmHkC13RZ0I_VTfM6qua92uBUsObXdnKb0TzVjmvNsIdvX2hPGM4FIJyGSossjEBqmUdyFeTVCtcuFPx3oGdjWeUHPzuwbGwyptb1ficFOPawlh06QYhd2jqHf1WP9u317EilrBJeG9WkF4ls9-7_EgFa1niOeKijeM5myPuOsmei-Q3uwg",
+  "scopes": [
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "openid"
+  ],
+  "serverAuthCode": "4/0ATx3LY63PY1Sf4cfGevB9xVG88DfYfTPuoWeQAb-AM5neNuYlJ9on2AyKzhrRC31YBYRZg",
+  "user": {
+    "email": "vinceterp@gmail.com",
+    "familyName": "Campbell",
+    "givenName": "Paul",
+    "id": "100824342844695110516",
+    "name": "Paul Campbell",
+    "photo": "https://lh3.googleusercontent.com/a/ACg8ocIjLWU1eKYHK-rpPAxVMw_wSDqFTRfW3eD8Jtg4JByOXMq-BVJbcg=s120"
+  }
+}
