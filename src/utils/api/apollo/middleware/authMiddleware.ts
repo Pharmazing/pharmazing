@@ -23,7 +23,7 @@ export const appAuthMiddleware = setContext(async (req, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: parsedToken ? `Bearer ${parsedToken.token}` : "",
+      authorization: parsedToken ? `Bearer ${parsedToken.idToken}` : "",
     },
   };
 });

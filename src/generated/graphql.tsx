@@ -63,7 +63,7 @@ export type CreateUserInput = {
   firstName: Scalars["String"]["input"];
   lastName: Scalars["String"]["input"];
   parish?: InputMaybe<Scalars["String"]["input"]>;
-  password: Scalars["String"]["input"];
+  password?: InputMaybe<Scalars["String"]["input"]>;
   primary?: InputMaybe<Scalars["Boolean"]["input"]>;
   zip?: InputMaybe<Scalars["String"]["input"]>;
 };
@@ -131,8 +131,8 @@ export type MutationEditUserArgs = {
 
 export type Query = {
   __typename?: "Query";
-  getAllUsers?: Maybe<Maybe<User>[]>;
-  getUserAddress?: Maybe<Address[]>;
+  getAllUsers?: Maybe<Array<Maybe<User>>>;
+  getUserAddress?: Maybe<Array<Address>>;
   signIn?: Maybe<User>;
 };
 
@@ -141,13 +141,13 @@ export type QueryGetUserAddressArgs = {
 };
 
 export type QuerySignInArgs = {
-  email: Scalars["String"]["input"];
-  password: Scalars["String"]["input"];
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  password?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type User = {
   __typename?: "User";
-  address?: Maybe<Address[]>;
+  address?: Maybe<Array<Address>>;
   age?: Maybe<Scalars["Int"]["output"]>;
   email?: Maybe<Scalars["String"]["output"]>;
   firstName?: Maybe<Scalars["String"]["output"]>;
@@ -172,20 +172,18 @@ export type CreateUserMutation = {
     password?: string | null;
     token?: string | null;
     userId?: string | null;
-    address?:
-      | {
-          __typename?: "Address";
-          addressId?: string | null;
-          addressLine1?: string | null;
-          addressLine2?: string | null;
-          city?: string | null;
-          country?: string | null;
-          parish?: string | null;
-          primary?: boolean | null;
-          userId?: string | null;
-          zip?: string | null;
-        }[]
-      | null;
+    address?: Array<{
+      __typename?: "Address";
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      country?: string | null;
+      parish?: string | null;
+      primary?: boolean | null;
+      userId?: string | null;
+      zip?: string | null;
+    }> | null;
   } | null;
 };
 
@@ -202,12 +200,10 @@ export type EditUserMutation = {
     lastName?: string | null;
     age?: number | null;
     email?: string | null;
-    address?:
-      | {
-          __typename?: "Address";
-          addressId?: string | null;
-        }[]
-      | null;
+    address?: Array<{
+      __typename?: "Address";
+      addressId?: string | null;
+    }> | null;
   } | null;
 };
 
@@ -223,12 +219,10 @@ export type DeleteUserMutation = {
     email?: string | null;
     firstName?: string | null;
     lastName?: string | null;
-    address?:
-      | {
-          __typename?: "Address";
-          addressId?: string | null;
-        }[]
-      | null;
+    address?: Array<{
+      __typename?: "Address";
+      addressId?: string | null;
+    }> | null;
   } | null;
 };
 
@@ -263,8 +257,8 @@ export type DeleteAddressMutation = {
 };
 
 export type SignInQueryVariables = Exact<{
-  email: Scalars["String"]["input"];
-  password: Scalars["String"]["input"];
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  password?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type SignInQuery = {
@@ -278,12 +272,10 @@ export type SignInQuery = {
     email?: string | null;
     password?: string | null;
     age?: number | null;
-    address?:
-      | {
-          __typename?: "Address";
-          addressId?: string | null;
-        }[]
-      | null;
+    address?: Array<{
+      __typename?: "Address";
+      addressId?: string | null;
+    }> | null;
   } | null;
 };
 
@@ -291,32 +283,28 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAllUsersQuery = {
   __typename?: "Query";
-  getAllUsers?:
-    | ({
-        __typename?: "User";
-        age?: number | null;
-        email?: string | null;
-        firstName?: string | null;
-        lastName?: string | null;
-        password?: string | null;
-        token?: string | null;
-        userId?: string | null;
-        address?:
-          | {
-              __typename?: "Address";
-              addressId?: string | null;
-              addressLine1?: string | null;
-              addressLine2?: string | null;
-              city?: string | null;
-              country?: string | null;
-              parish?: string | null;
-              primary?: boolean | null;
-              userId?: string | null;
-              zip?: string | null;
-            }[]
-          | null;
-      } | null)[]
-    | null;
+  getAllUsers?: Array<{
+    __typename?: "User";
+    age?: number | null;
+    email?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    password?: string | null;
+    token?: string | null;
+    userId?: string | null;
+    address?: Array<{
+      __typename?: "Address";
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      country?: string | null;
+      parish?: string | null;
+      primary?: boolean | null;
+      userId?: string | null;
+      zip?: string | null;
+    }> | null;
+  } | null> | null;
 };
 
 export type GetAddressQueryVariables = Exact<{
@@ -325,12 +313,10 @@ export type GetAddressQueryVariables = Exact<{
 
 export type GetAddressQuery = {
   __typename?: "Query";
-  getUserAddress?:
-    | {
-        __typename?: "Address";
-        addressId?: string | null;
-      }[]
-    | null;
+  getUserAddress?: Array<{
+    __typename?: "Address";
+    addressId?: string | null;
+  }> | null;
 };
 
 export const CreateUserDocument = gql`
@@ -664,7 +650,7 @@ export type DeleteAddressMutationOptions = Apollo.BaseMutationOptions<
   DeleteAddressMutationVariables
 >;
 export const SignInDocument = gql`
-  query SignIn($email: String!, $password: String!) {
+  query SignIn($email: String, $password: String) {
     signIn(email: $email, password: $password) {
       userId
       token
@@ -698,8 +684,7 @@ export const SignInDocument = gql`
  * });
  */
 export function useSignInQuery(
-  baseOptions: Apollo.QueryHookOptions<SignInQuery, SignInQueryVariables> &
-    ({ variables: SignInQueryVariables; skip?: boolean } | { skip: boolean }),
+  baseOptions?: Apollo.QueryHookOptions<SignInQuery, SignInQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<SignInQuery, SignInQueryVariables>(
