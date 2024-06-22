@@ -4,14 +4,10 @@ import { useSession } from "../utils/context";
 
 export default function Settings() {
   const { signOut } = useSession();
-  const logout = () => {
-    signOut();
-    router.replace("signin");
-  };
   return (
     <>
       <Text>Settings Page</Text>
-      <Button title={"Sign out"} onPress={logout} />
+      <Button title={"Sign out"} onPress={signOut} />
     </>
   );
 }

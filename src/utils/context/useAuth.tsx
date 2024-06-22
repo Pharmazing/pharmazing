@@ -3,6 +3,12 @@ import { useStorageState } from "../hooks";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { router } from "expo-router";
 
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
+  iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+  // androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
+});
+
 const AuthContext = React.createContext<{
   loginAsGuest: () => void;
   signOut: () => void;
@@ -36,13 +42,13 @@ export function useSession() {
 export function SessionProvider({ children }: React.PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState("session");
   const [error, setError] = useState<any | null>(null);
-  const configureGoogleSignIn = () => {
-    GoogleSignin.configure({
-      webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
-      iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
-      // androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
-    });
-  };
+  // const configureGoogleSignIn = () => {
+  //   GoogleSignin.configure({
+  //     webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
+  //     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+  //     // androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
+  //   });
+  // };
 
   const loginWithGoogle = async () => {
     try {
@@ -64,19 +70,25 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
     }
   };
 
-  useEffect(() => {
-    configureGoogleSignIn();
-  }, []);
+  const signOut = async () => {
+    console.log("signing out google");
+    await GoogleSignin.signOut();
+
+    setSession(null);
+    setError(null);
+    router.replace("/signin");
+  };
+
+  // useEffect(() => {
+  //   configureGoogleSignIn();
+  // }, []);
   return (
     <AuthContext.Provider
       value={{
         loginWithGoogle,
         loginAsGuest,
         error,
-        signOut: () => {
-          if (GoogleSignin.hasPreviousSignIn()) GoogleSignin.signOut();
-          setSession(null);
-        },
+        signOut,
         setSession,
         session,
         isLoading,
