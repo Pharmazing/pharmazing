@@ -7,7 +7,7 @@ import { isWeb } from "../../hooks";
 
 const httpLink = new HttpLink({
   uri: process.env.EXPO_PUBLIC_API_URL,
-  credentials: "include",
+  credentials: "same-origin",
 });
 
 export const client = new ApolloClient({

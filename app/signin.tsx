@@ -1,11 +1,16 @@
 import { router, useSegments } from "expo-router";
-import React, { useEffect } from "react";
-import { Text, Button, View, ImageBackground } from "react-native";
+import React, { useCallback, useEffect } from "react";
+import {
+  Text,
+  Button,
+  View,
+  ImageBackground,
+  ActivityIndicator,
+} from "react-native";
 import { styles } from "../src/utils/appStyles/styles";
 import { isAndroid, isIOS, isWeb } from "../src/utils";
 import { useSession } from "../src/utils/context";
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
-import Spinner from "react-native-loading-spinner-overlay";
 import {
   useCreateUserMutation,
   useSignInLazyQuery,
@@ -17,95 +22,164 @@ export default function Page() {
   const parsedSession = JSON.parse(session || "{}");
   const segments = useSegments();
   const showContinueAsGuest = segments?.[0] === "signin";
-  const [
-    triggerSignIn,
-    { data: signinResponse, loading: signInLoading, error: signInError },
-  ] = useSignInLazyQuery({ onCompleted: (data) => onSuccess(data) });
+  const [triggerSignIn, { error: signInError, loading: signInLoading }] =
+    useSignInLazyQuery({
+      onCompleted: (data) => onSigninSuccess(data),
+      fetchPolicy: "network-only",
+    });
 
   // handle onSuccess of sign up to nav to home
-  const [
-    triggerSignUp,
-    { data: signUpResponse, loading: signUpLoading, error: signUpError },
-  ] = useCreateUserMutation({ onCompleted: (data) => onSuccess(data) });
-  const onSuccess = (data: any) => {
-    console.log("data", data);
-    if (data?.createUser || data?.signIn) {
-      // set session
-      console.log("session", parsedSession);
+  const [triggerSignUp, { error: signUpError, loading: signUpLoading }] =
+    useCreateUserMutation({
+      onCompleted: (data) => onSignupSuccess(data),
+      fetchPolicy: "network-only",
+    });
+  const onSigninSuccess = async (data: any) => {
+    if (data?.signIn) {
       const newSession = {
         ...parsedSession,
         user: {
           ...parsedSession.user,
-          userId: data?.createUser?.userId || data?.signIn?.userId,
-          address: data?.createUser?.address || data?.signIn?.address,
-          age: data?.createUser?.age || data?.signIn?.age,
+          userId: data?.signIn?.userId,
+          address: data?.signIn?.address,
+          age: data?.signIn?.age,
         },
       };
       setSession(JSON.stringify(newSession));
-      console.log("data", data);
-      // const
     }
-    // sign in and create user response should be similiar so extract data to set session
-    router.replace("/home");
   };
-  const signUpFn = () => {
-    if (parsedSession?.user) {
-      triggerSignUp({
-        variables: {
-          user: {
-            email: parsedSession?.user?.email,
-            firstName: parsedSession?.user?.givenName,
-            lastName: parsedSession?.user?.familyName,
-            // picture: parsedSession?.picture,
-          },
+
+  const onSignupSuccess = async (data: any) => {
+    if (data?.createUser) {
+      const newSession = {
+        ...parsedSession,
+        user: {
+          ...parsedSession.user,
+          userId: data?.createUser?.userId,
+          address: data?.createUser?.address,
+          age: data?.createUser?.age,
         },
-      });
+      };
+      setSession(JSON.stringify(newSession));
     }
   };
+
+  // useEffectOnce(() => {
+  //   const signUpFn = async () => {
+  //     if (parsedSession?.user) {
+  //       // setSent(true);
+  //       await triggerSignUp({
+  //         variables: {
+  //           user: {
+  //             email: parsedSession?.user?.email,
+  //             firstName: parsedSession?.user?.givenName,
+  //             lastName: parsedSession?.user?.familyName,
+  //             // picture: parsedSession?.picture,
+  //           },
+  //         },
+  //       }).catch((e) => console.log(e));
+  //     }
+  //   };
+  //   const signInFn = async () => {
+  //     await triggerSignIn();
+  //   }
+  //   try{
+  //     // await new Promise((resolve) => setTimeout(resolve, 2000));
+  //     if (session && !signInError) {
+  //       console.log("signing in");
+  //       signInFn();
+  //     }
+  //     if (signInError?.message === "user not found" && !signUpError) {
+  //       // create user record using current session data
+  //       console.log("sign in error", signInError?.message);
+  //       signUpFn();
+  //     }
+  //   }catch(e){
+  //     console.log(e)
+  //   }
+  // }, [session, signInError]);
+
+  // useEffect(() => {
+  //   const parsedError = JSON.stringify(signInError || {});
+
+  //   const jsonError = JSON.parse(parsedError);
+
+  //   if (jsonError?.originalError?.message.includes("Token used too late")){
+  //     GoogleSignin.signInSilently().then(userInfo => {
+  //       setSession(JSON.stringify(userInfo));
+  //     });
+  //   }
+  // }, [signInError]);
+
   useEffect(() => {
-    if (session && !signInError) {
-      triggerSignIn();
-    }
+    try {
+      if (parsedSession?.user) {
+        if (!parsedSession?.user?.userId) {
+          triggerSignIn();
+        } else {
+          router.replace("/home");
+        }
+      }
+    } catch (e) {}
+  }, [session]);
+
+  useEffect(() => {
     if (signInError?.message === "user not found") {
       // create user record using current session data
-      console.log("sign in error", signInError?.message);
-      signUpFn();
+      !parsedSession?.user?.userId &&
+        triggerSignUp({
+          variables: {
+            user: {
+              email: parsedSession?.user?.email,
+              firstName: parsedSession?.user?.givenName,
+              lastName: parsedSession?.user?.familyName,
+            },
+          },
+        });
     }
-  }, [session, signInError]);
+  }, [signInError]);
 
-  const Mobile = () => (
-    <View style={styles.container}>
-      <ImageBackground
-        resizeMode="cover"
-        style={styles.backgroundImage}
-        source={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
-      >
-        <Spinner
-          visible={signInLoading || signUpLoading}
-          textContent="Loading"
-        />
-        <Text>Sign In Page</Text>
-        <GoogleSigninButton onPress={loginWithGoogle} />
-        {showContinueAsGuest && (
-          <Button title={"Continue As Guest"} onPress={loginAsGuest} />
-        )}
-        <Button title={"sign up"} onPress={() => router.replace("/signup")} />
-        {error && (
-          <Text style={{ height: 200 }}>Error: {JSON.stringify(error)}</Text>
-        )}
-        {signInError && (
-          <Text style={{ height: 200 }}>
-            Error: {JSON.stringify(signInError)}
-          </Text>
-        )}
-        {signUpError && (
-          <Text style={{ height: 200 }}>
-            Error: {JSON.stringify(signUpError)}
-          </Text>
-        )}
-      </ImageBackground>
-    </View>
-  );
+  // check here to see if the issue s that this needs to be a memo or callback
+  const Mobile = useCallback(() => {
+    return (
+      <View style={styles.container}>
+        {/* <Spinner visible={(signInLoading) || (signUpLoading)} textContent={"Loading"} /> */}
+        <ImageBackground
+          resizeMode="cover"
+          style={styles.backgroundImage}
+          // defaultSource={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
+          source={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
+        >
+          <Text>Sign In Page</Text>
+          <GoogleSigninButton onPress={loginWithGoogle} />
+          {showContinueAsGuest && (
+            <Button title={"Continue As Guest"} onPress={loginAsGuest} />
+          )}
+          <Button title={"sign up"} onPress={() => router.replace("/signup")} />
+          {error && (
+            <Text style={{ height: 200 }}>
+              SessionError: {JSON.stringify(error)}
+            </Text>
+          )}
+          {signInError && (
+            <Text style={{ height: 200 }}>
+              SigninError: {JSON.stringify(signInError)}
+            </Text>
+          )}
+          {signUpError && (
+            <Text style={{ height: 200 }}>
+              Error: {JSON.stringify(signUpError)}
+            </Text>
+          )}
+          {(signInLoading || signUpLoading) && (
+            <View style={styles.loading}>
+              <ActivityIndicator color="#345ABB" size="large" />
+            </View>
+          )}
+        </ImageBackground>
+      </View>
+    );
+  }, [signInLoading, signUpLoading, error, signInError, signUpError]);
   const Web = () => (
     <>
       <Text>Sign In Page</Text>
