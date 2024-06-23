@@ -1,26 +1,12 @@
 import React from "react";
-import { Text } from "react-native";
-import { isAndroid, isIOS, isWeb } from "../utils";
-// import { Link } from "expo-router";
+import { isAndroid, isIOS } from "../utils";
+import CartMobile from "../components/organisms/Cart/Cart.mobile";
 
-export default function Cart() {
-  const Mobile = () => (
-    <>
-      <Text>I am the mobile cart page</Text>
-      {/* <Link href="/home">Home</Link> */}
-    </>
-  );
+export default function CartLayout() {
 
-  const Web = () => (
-    <>
-      <Text>I am the web cart page</Text>
-      {/* <Link href="/home">Home</Link> */}
-    </>
-  );
   return (
     <>
-      {(isIOS || isAndroid) && <Mobile />}
-      {isWeb && <Web />}
+      {(isIOS || isAndroid) && <CartMobile />}
     </>
   );
 }
