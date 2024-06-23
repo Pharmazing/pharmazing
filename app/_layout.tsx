@@ -13,16 +13,7 @@ export default function RootLayout() {
         {(isIOS || isAndroid) && (
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="signup"
-              // options={{
-              //   headerLeft: () => (
-              //     <Link href="/signin">
-              //       <Text>Back</Text>
-              //     </Link>
-              //   ),
-              // }}
-            />
+            <Stack.Screen name="signup" />
             <Stack.Screen name="signin" options={{ headerShown: false }} />
           </Stack>
         )}

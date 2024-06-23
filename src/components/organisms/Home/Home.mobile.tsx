@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, Text, View, ScrollView } from "react-native";
-import { styles } from "../../utils/appStyles/styles";
-import { useGetAllUsersLazyQuery } from "../../generated/graphql";
-import { useSession } from "../../utils/context";
+import { Button, Text, ScrollView } from "react-native";
+import { styles } from "../../../utils/appStyles/styles";
+import { useGetAllUsersLazyQuery } from "../../../generated/graphql";
+import { useSession } from "../../../utils/context";
 
-export default function MobileApp() {
+export default function HomeMobile() {
   const [getAllUsersTrigger, { loading, error, data }] =
     useGetAllUsersLazyQuery({
       variables: {},

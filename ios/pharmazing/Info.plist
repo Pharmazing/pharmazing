@@ -34,6 +34,12 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>exp+pharmazing</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
           <string>com.googleusercontent.apps.739739212160-9hngin51nv8i8qulhisqt7ka10picum5</string>
         </array>
       </dict>
@@ -51,6 +57,7 @@
     </dict>
     <key>NSUserActivityTypes</key>
     <array>
+      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
     </array>
