@@ -3,7 +3,7 @@ import { isIOS, isAndroid, isWeb } from "../utils";
 import { default as Web } from "../components/organisms/Home/Home.web";
 import { default as Mobile } from "../components/organisms/Home/Home.mobile";
 
-export default function Home() {
+export default function HomeLayout() {
   return (
     <>
       {isWeb && <Web />}

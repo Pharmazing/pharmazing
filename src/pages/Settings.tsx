@@ -1,8 +1,7 @@
-import { router } from "expo-router";
 import { Button, Text } from "react-native";
 import { useSession } from "../utils/context";
 
-export default function Settings() {
+export default function SettingsLayout() {
   const { signOut } = useSession();
   return (
     <>
