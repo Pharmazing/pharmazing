@@ -22,7 +22,6 @@ export default function HomeMobile() {
       />
       {loading && <Text>Loading...</Text>}
       {error && <Text>Error: {JSON.stringify(error)}</Text>}
-      {session && <Text>{JSON.stringify(session)}</Text>}
       <Text>{JSON.stringify(data)}</Text>
       <StatusBar style="auto" />
     </ScrollView>

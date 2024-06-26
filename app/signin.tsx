@@ -25,14 +25,12 @@ export default function Page() {
   const [triggerSignIn, { error: signInError, loading: signInLoading }] =
     useSignInLazyQuery({
       onCompleted: (data) => onSigninSuccess(data),
-      fetchPolicy: "network-only",
     });
 
   // handle onSuccess of sign up to nav to home
   const [triggerSignUp, { error: signUpError, loading: signUpLoading }] =
     useCreateUserMutation({
       onCompleted: (data) => onSignupSuccess(data),
-      fetchPolicy: "network-only",
     });
   const onSigninSuccess = async (data: any) => {
     if (data?.signIn) {

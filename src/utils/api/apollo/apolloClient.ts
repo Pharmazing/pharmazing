@@ -13,4 +13,18 @@ const httpLink = new HttpLink({
 export const client = new ApolloClient({
   link: from([isWeb ? webAuthMiddleware : appAuthMiddleware, httpLink]),
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "network-only",
+      errorPolicy: "all",
+    },
+    query: {
+      fetchPolicy: "network-only",
+      errorPolicy: "all",
+    },
+    mutate: {
+      fetchPolicy: "network-only",
+      errorPolicy: "all",
+    },
+  },
 });
