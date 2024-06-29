@@ -41,7 +41,7 @@ export default function Layout() {
               tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
             }}
           />
-          <Tabs.Screen name="somePage" options={{ href: null }} />
+          <Tabs.Screen name="somePage" options={{ tabBarButton: () => null }} />
         </Tabs>
       )}
       {isWeb && (
