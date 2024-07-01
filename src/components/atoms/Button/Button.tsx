@@ -10,7 +10,7 @@ export const Button = ({ btnVariant, title, ...rest }: ButtonProps) => {
       return <SecondaryButton {...rest}>{title}</SecondaryButton>;
     case "danger":
       return (
-        <DangerButton icon={<SettingsIcon />} {...rest}>
+        <DangerButton iconAfter={<SettingsIcon />} {...rest}>
           {title}
         </DangerButton>
       );
