@@ -1,14 +1,18 @@
 import React from "react";
-import { Button, ScrollView, Text } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { useSession } from "../../../utils/context";
+import { Button, ButtonVariantEnum } from "../../atoms";
 
 export default function SettingsMobile() {
-  const { signOut, session } = useSession();
+  const { signOut } = useSession();
   return (
     <ScrollView>
       <Text>Settings Page</Text>
-      {session && <Text>{JSON.stringify(session)}</Text>}
-      <Button title={"Sign out"} onPress={signOut} />
+      <Button
+        btnVariant={ButtonVariantEnum.DANGER}
+        title={"Sign out"}
+        onPress={signOut}
+      />
     </ScrollView>
   );
 }
