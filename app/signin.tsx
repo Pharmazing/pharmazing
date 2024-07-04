@@ -148,7 +148,9 @@ export default function Page() {
           // defaultSource={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
           source={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
         >
-          <Text>Sign In Page</Text>
+          <Text style={{ fontFamily: "Roboto_700Bold_Italic" }}>
+            Sign In Page
+          </Text>
           <GoogleSigninButton onPress={loginWithGoogle} />
           {showContinueAsGuest && (
             <Button title={"Continue As Guest"} onPress={loginAsGuest} />

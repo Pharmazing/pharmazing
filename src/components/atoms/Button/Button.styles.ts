@@ -8,10 +8,11 @@ export const buttonStyles = StyleSheet.create({
   },
   secondary: { borderColor: "blue", borderWidth: 1 },
   danger: {
+    // fontFamily: "Roboto_700Bold",
     borderRadius: 24,
-    backgroundColor: "red",
-    color: "white",
-    height: 50,
+    backgroundColor: "#B00000",
+    opacity: 0.64,
+    height: 40,
   },
 });
 

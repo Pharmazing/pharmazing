@@ -9,7 +9,7 @@ import { TamaguiProvider } from "tamagui";
 import tamaguiConfig from "../tamagui.config";
 // import { useFonts } from 'expo-font';
 // import * as Font from "expo-font";
-import 'expo-dev-client';
+import "expo-dev-client";
 import {
   useFonts,
   Roboto_100Thin,
@@ -24,8 +24,8 @@ import {
   Roboto_700Bold_Italic,
   Roboto_900Black,
   Roboto_900Black_Italic,
-} from '@expo-google-fonts/roboto';
-import * as SplashScreen from 'expo-splash-screen';
+} from "@expo-google-fonts/roboto";
+import * as SplashScreen from "expo-splash-screen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -55,10 +55,9 @@ export default function RootLayout() {
     return null;
   }
 
-
   console.log(loaded);
   console.log(fontsErr);
-  
+
   // if (!loaded){
   //   return null;
   // }
@@ -94,7 +93,9 @@ export default function RootLayout() {
                 options={{
                   headerLeft: () => (
                     <Link href="/signin">
-                      <Text style={{fontFamily: 'RobotoRegular'}}>Back to login</Text>
+                      <Text style={{ fontFamily: "RobotoRegular" }}>
+                        Back to login
+                      </Text>
                     </Link>
                   ),
                 }}
@@ -107,4 +108,3 @@ export default function RootLayout() {
     </TamaguiProvider>
   );
 }
-
