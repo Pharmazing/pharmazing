@@ -12,7 +12,7 @@ export default function Layout() {
   return (
     <>
       {(isIOS || isAndroid) && (
-        <Tabs>
+        <Tabs sceneContainerStyle={{ backgroundColor: "#FAFAFA" }}>
           <Tabs.Screen
             name="home"
             options={{
