@@ -1,6 +1,6 @@
 import React from "react";
 import { useSession } from "../../../utils/context";
-import { Button, ButtonVariantEnum } from "../../atoms";
+import { Box, Button, ButtonVariantEnum } from "../../atoms";
 import { ScrollView, Text } from "tamagui";
 
 export default function SettingsMobile() {
@@ -14,6 +14,17 @@ export default function SettingsMobile() {
       }}
     >
       <Text>Settings Page</Text>
+      <Box
+        style={{
+          width: "100%",
+          display: "flex",
+          height: 200,
+          borderRadius: 24,
+          flexDirection: "column",
+          justifyContent: "space-between",
+          backgroundColor: "#EFEFEF",
+        }}
+      />
       <Button
         btnVariant={ButtonVariantEnum.DANGER}
         title={"Logout"}
