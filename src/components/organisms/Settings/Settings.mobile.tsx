@@ -2,6 +2,7 @@ import React from "react";
 import { useSession } from "../../../utils/context";
 import { Box, Button, ButtonVariantEnum } from "../../atoms";
 import { ScrollView, Text } from "tamagui";
+import { SettingsLink } from "../../molecules";
 
 export default function SettingsMobile() {
   const { signOut } = useSession();
@@ -24,7 +25,9 @@ export default function SettingsMobile() {
           justifyContent: "space-between",
           backgroundColor: "#EFEFEF",
         }}
-      />
+      >
+        <SettingsLink href={""} />
+      </Box>
       <Button
         btnVariant={ButtonVariantEnum.DANGER}
         title={"Logout"}

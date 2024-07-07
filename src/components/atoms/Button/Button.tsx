@@ -20,6 +20,7 @@ export const Button = ({ btnVariant, title, ...rest }: ButtonProps) => {
             },
             shadowOpacity: 0.25,
             shadowRadius: 8,
+            elevation: 5,
           }}
         >
           <DangerButton {...rest}>
