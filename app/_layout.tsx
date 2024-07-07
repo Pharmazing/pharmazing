@@ -7,8 +7,6 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "../src/utils/api/apollo/apolloClient";
 import { TamaguiProvider } from "tamagui";
 import tamaguiConfig from "../tamagui.config";
-// import { useFonts } from 'expo-font';
-// import * as Font from "expo-font";
 import "expo-dev-client";
 import {
   useFonts,
@@ -26,7 +24,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 import * as SplashScreen from "expo-splash-screen";
-
+import { Theme } from "tamagui";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -55,56 +53,39 @@ export default function RootLayout() {
     return null;
   }
 
-  console.log(loaded);
-  console.log(fontsErr);
-
-  // if (!loaded){
-  //   return null;
-  // }
-  // useEffect(() => {
-  //   const getFonts = async () => {
-  //     try {
-  //       await Font.loadAsync({
-  //         'RobotoRegular': {uri: '../assets/fonts/Roboto/RobotoRegular.ttf'},
-  //       });
-
-  //     }catch (err){
-  //       console.log(err);
-  //     }
-  //   };
-  //   getFonts();
-  // }, []);
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <SessionProvider>
-        <ApolloProvider client={client}>
-          {(isIOS || isAndroid) && (
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="signup" />
-              <Stack.Screen name="signin" options={{ headerShown: false }} />
-            </Stack>
-          )}
-          {isWeb && (
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="signup"
-                options={{
-                  headerLeft: () => (
-                    <Link href="/signin">
-                      <Text style={{ fontFamily: "RobotoRegular" }}>
-                        Back to login
-                      </Text>
-                    </Link>
-                  ),
-                }}
-              />
-              <Stack.Screen name="signin" options={{ headerShown: false }} />
-            </Stack>
-          )}
-        </ApolloProvider>
-      </SessionProvider>
+      <Theme name="light">
+        <SessionProvider>
+          <ApolloProvider client={client}>
+            {(isIOS || isAndroid) && (
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="signup" />
+                <Stack.Screen name="signin" options={{ headerShown: false }} />
+              </Stack>
+            )}
+            {isWeb && (
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="signup"
+                  options={{
+                    headerLeft: () => (
+                      <Link href="/signin">
+                        <Text style={{ fontFamily: "RobotoRegular" }}>
+                          Back to login
+                        </Text>
+                      </Link>
+                    ),
+                  }}
+                />
+                <Stack.Screen name="signin" options={{ headerShown: false }} />
+              </Stack>
+            )}
+          </ApolloProvider>
+        </SessionProvider>
+      </Theme>
     </TamaguiProvider>
   );
 }
