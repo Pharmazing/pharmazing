@@ -11,22 +11,35 @@ export default function SettingsMobile() {
       contentContainerStyle={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        padding: 16,
+        flexGrow: 1,
       }}
     >
-      <Text>Settings Page</Text>
       <Box
         style={{
           width: "100%",
-          display: "flex",
-          height: 200,
+          padding: 16,
           borderRadius: 24,
           flexDirection: "column",
-          justifyContent: "space-between",
           backgroundColor: "#EFEFEF",
         }}
       >
-        <SettingsLink href={""} />
+        <Text
+          style={{
+            fontFamily: "Roboto_700Bold",
+            fontSize: 24,
+            marginBottom: 16,
+          }}
+        >
+          Profile
+        </Text>
+        <SettingsLink
+          content={"Personal Info"}
+          href={"/cart"}
+          icon="PersonIcon"
+          style={{ marginBottom: 16 }}
+        />
+        <SettingsLink icon="MapIcon" content={"Addresses"} href={"/cart"} />
       </Box>
       <Button
         btnVariant={ButtonVariantEnum.DANGER}

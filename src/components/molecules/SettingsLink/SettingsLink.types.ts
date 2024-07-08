@@ -1,3 +1,9 @@
-import { LinkProps } from "expo-router/build/link/Link";
+import { ReactNode } from "react";
+import { PressableProps } from "react-native";
+import { IconNamesType } from "../../atoms/Icon/Icons.types";
 
-export type SettingsLinkProps = LinkProps;
+export interface SettingsLinkProps extends PressableProps {
+  content: ReactNode | string;
+  href?: string;
+  icon?: IconNamesType;
+}
