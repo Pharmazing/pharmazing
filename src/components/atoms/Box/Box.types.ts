@@ -1,6 +1,3 @@
-import { ScrollViewProps, StackProps } from "tamagui";
+import { ViewProps } from "react-native";
 
-type ExtTypes = StackProps & ScrollViewProps;
-export interface BoxProps extends ExtTypes {
-  scrollable?: boolean;
-}
+export interface BoxProps extends ViewProps {}

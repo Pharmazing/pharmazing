@@ -29,7 +29,7 @@ export const SettingsLink = ({
           {typeof content === "string" ? (
             <Text style={settingsLinkStyles.textStyle}>{content}</Text>
           ) : (
-            { content }
+            content
           )}
         </Box>
         <Icon name="ChevronRightIcon" height={32} width={32} />

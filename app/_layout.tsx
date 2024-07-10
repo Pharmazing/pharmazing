@@ -5,8 +5,6 @@ import { isAndroid, isIOS, isWeb } from "../src/utils";
 import { SessionProvider } from "../src/utils/context";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../src/utils/api/apollo/apolloClient";
-import { TamaguiProvider } from "tamagui";
-import tamaguiConfig from "../tamagui.config";
 import "expo-dev-client";
 import "../src/utils/unistyles/unistyles";
 
@@ -26,7 +24,7 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 import * as SplashScreen from "expo-splash-screen";
-import { Theme } from "tamagui";
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -56,38 +54,34 @@ export default function RootLayout() {
   }
 
   return (
-    <TamaguiProvider config={tamaguiConfig}>
-      <Theme name="light">
-        <SessionProvider>
-          <ApolloProvider client={client}>
-            {(isIOS || isAndroid) && (
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="signup" />
-                <Stack.Screen name="signin" options={{ headerShown: false }} />
-              </Stack>
-            )}
-            {isWeb && (
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="signup"
-                  options={{
-                    headerLeft: () => (
-                      <Link href="/signin">
-                        <Text style={{ fontFamily: "RobotoRegular" }}>
-                          Back to login
-                        </Text>
-                      </Link>
-                    ),
-                  }}
-                />
-                <Stack.Screen name="signin" options={{ headerShown: false }} />
-              </Stack>
-            )}
-          </ApolloProvider>
-        </SessionProvider>
-      </Theme>
-    </TamaguiProvider>
+    <SessionProvider>
+      <ApolloProvider client={client}>
+        {(isIOS || isAndroid) && (
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="signup" />
+            <Stack.Screen name="signin" options={{ headerShown: false }} />
+          </Stack>
+        )}
+        {isWeb && (
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="signup"
+              options={{
+                headerLeft: () => (
+                  <Link href="/signin">
+                    <Text style={{ fontFamily: "RobotoRegular" }}>
+                      Back to login
+                    </Text>
+                  </Link>
+                ),
+              }}
+            />
+            <Stack.Screen name="signin" options={{ headerShown: false }} />
+          </Stack>
+        )}
+      </ApolloProvider>
+    </SessionProvider>
   );
 }

@@ -1,43 +1,31 @@
-import { ButtonProps } from "./Button.types";
-import { DangerButton, PrimaryButton, SecondaryButton } from "./Button.styles";
-import { Text } from "tamagui";
+import { Text } from "react-native";
+import { useStyles } from "react-native-unistyles";
 import DropShadow from "react-native-drop-shadow";
+import { ButtonProps } from "./Button.types";
+import { buttonStyles } from "./Button.styles";
+
+import { TouchableOpacity } from "react-native";
 
 export const Button = ({ btnVariant, title, ...rest }: ButtonProps) => {
+  const { styles } = useStyles(buttonStyles);
   switch (btnVariant) {
     case "primary":
-      return <PrimaryButton {...rest}>{title}</PrimaryButton>;
+      return <TouchableOpacity {...rest}>{title}</TouchableOpacity>;
     case "secondary":
-      return <SecondaryButton {...rest}>{title}</SecondaryButton>;
+      return <TouchableOpacity {...rest}>{title}</TouchableOpacity>;
     case "danger":
       return (
-        <DropShadow
-          style={{
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 8,
-            elevation: 5,
-          }}
-        >
-          <DangerButton {...rest}>
-            <Text
-              style={{
-                fontFamily: "Roboto_700Bold",
-                color: "#fff",
-                fontSize: 16,
-                opacity: 1,
-              }}
-            >
-              {title}
-            </Text>
-          </DangerButton>
+        <DropShadow style={styles.shadow}>
+          <TouchableOpacity style={styles.danger} {...rest}>
+            <Text style={styles.textStyle}>{title}</Text>
+          </TouchableOpacity>
         </DropShadow>
       );
     default:
-      return <PrimaryButton {...rest}>{title}</PrimaryButton>;
+      return (
+        <TouchableOpacity style={styles.primary} {...rest}>
+          {title}
+        </TouchableOpacity>
+      );
   }
 };
