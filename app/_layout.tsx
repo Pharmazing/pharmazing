@@ -8,6 +8,8 @@ import { client } from "../src/utils/api/apollo/apolloClient";
 import { TamaguiProvider } from "tamagui";
 import tamaguiConfig from "../tamagui.config";
 import "expo-dev-client";
+import "../src/utils/unistyles/unistyles";
+
 import {
   useFonts,
   Roboto_100Thin,

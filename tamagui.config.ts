@@ -1,5 +1,5 @@
 import { config } from "@tamagui/config/v3";
-import { createTamagui } from "tamagui"; // or '@tamagui/core'
+import { createFont, createTamagui } from "tamagui"; // or '@tamagui/core'
 
 const blackPalette = [
   "#000000",
@@ -32,6 +32,9 @@ const themes = {
   },
   dark: {},
 };
+// const fonts = {
+//   "Roboto700Bold": createFont({family: "Roboto_700Bold", size: { small: 4 } }),
+// };
 
 // const tokens = createTokens({ size: { small: 4 } } as any);
 const tamaguiConfig = createTamagui({ ...config, themes });

@@ -1,1 +1,1 @@
-export * from "./SettingsLink";
+export * from "./SettingsBox";
