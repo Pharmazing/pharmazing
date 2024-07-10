@@ -1,11 +1,6 @@
-import { Stack, ScrollView } from "tamagui";
 import { BoxProps } from "./Box.types";
+import { View } from "react-native";
 
-export const Box = ({ children, scrollable, ...rest }: BoxProps) => {
-  const component = scrollable ? (
-    <ScrollView {...rest}>{children}</ScrollView>
-  ) : (
-    <Stack {...rest}>{children}</Stack>
-  );
-  return component;
+export const Box = ({ children, ...rest }: BoxProps) => {
+  return <View {...rest}>{children}</View>;
 };

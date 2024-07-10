@@ -1,5 +1,5 @@
 import { SettingsBoxProps } from "./SettingsBox.types";
-import { Text } from "tamagui";
+import { Text } from "react-native";
 import { SettingsLink } from "./SettingsLink";
 import { settingsBoxStyles } from "./SettingsBox.styles";
 import { useStyles } from "react-native-unistyles";

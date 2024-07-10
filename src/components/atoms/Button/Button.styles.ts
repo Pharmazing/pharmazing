@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
-import { styled, Button } from "tamagui";
+import { createStyleSheet } from "react-native-unistyles";
 
-export const buttonStyles = StyleSheet.create({
+export const buttonStyles = createStyleSheet({
   primary: {
     borderColor: "green",
     borderWidth: 1,
@@ -13,17 +12,27 @@ export const buttonStyles = StyleSheet.create({
     opacity: 0.64,
     height: 48,
     margin: 16,
+    width: 200,
+    display: "flex",
+    borderWidth: 1,
+    borderColor: "#B00000",
+    justifyContent: "center",
+    alignItems: "center",
   },
-});
-
-export const PrimaryButton = styled(Button, {
-  ...buttonStyles.primary,
-});
-
-export const SecondaryButton = styled(Button, {
-  ...buttonStyles.secondary,
-});
-
-export const DangerButton = styled(Button, {
-  ...buttonStyles.danger,
+  textStyle: {
+    fontFamily: "Roboto_700Bold",
+    color: "#fff",
+    fontSize: 16,
+    opacity: 1,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.35,
+    shadowRadius: 8,
+    // elevation: 5,
+  },
 });
