@@ -1,9 +1,9 @@
-import { Pressable } from "react-native";
-import { StyledLinkContainer, settingsLinkStyles } from "./SettingsLink.styles";
+import { Pressable, Text } from "react-native";
+import { settingsLinkStyles } from "./SettingsLink.styles";
 import { SettingsLinkProps } from "./SettingsLink.types";
 import { router } from "expo-router";
-import { Text } from "tamagui";
 import { Box, Icon } from "../../atoms";
+import { useStyles } from "react-native-unistyles";
 
 export const SettingsLink = ({
   href,
@@ -11,11 +11,12 @@ export const SettingsLink = ({
   icon,
   ...rest
 }: SettingsLinkProps) => {
+  const { styles } = useStyles(settingsLinkStyles);
   const callbackFn = () => href && router.replace(href);
 
   return (
     <Pressable onPress={() => callbackFn()} {...rest}>
-      <StyledLinkContainer>
+      <Box style={styles.linkContainer}>
         <Box
           style={{
             display: "flex",
@@ -24,7 +25,7 @@ export const SettingsLink = ({
             gap: 16,
           }}
         >
-          {icon && <Icon name={icon} height={32} width={32} />}
+          {icon && <Icon name={icon} height={28} width={28} />}
           {typeof content === "string" ? (
             <Text style={settingsLinkStyles.textStyle}>{content}</Text>
           ) : (
@@ -32,7 +33,7 @@ export const SettingsLink = ({
           )}
         </Box>
         <Icon name="ChevronRightIcon" height={32} width={32} />
-      </StyledLinkContainer>
+      </Box>
     </Pressable>
   );
 };

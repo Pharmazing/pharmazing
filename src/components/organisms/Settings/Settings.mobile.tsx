@@ -1,8 +1,8 @@
 import React from "react";
 import { useSession } from "../../../utils/context";
-import { Box, Button, ButtonVariantEnum } from "../../atoms";
-import { ScrollView, Text } from "tamagui";
-import { SettingsLink } from "../../molecules";
+import { Button, ButtonVariantEnum } from "../../atoms";
+import { ScrollView } from "tamagui";
+import { SettingsBox } from "../../molecules";
 
 export default function SettingsMobile() {
   const { signOut } = useSession();
@@ -15,32 +15,13 @@ export default function SettingsMobile() {
         flexGrow: 1,
       }}
     >
-      <Box
-        style={{
-          width: "100%",
-          padding: 16,
-          borderRadius: 24,
-          flexDirection: "column",
-          backgroundColor: "#EFEFEF",
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: "Roboto_700Bold",
-            fontSize: 24,
-            marginBottom: 16,
-          }}
-        >
-          Profile
-        </Text>
-        <SettingsLink
-          content={"Personal Info"}
-          href={"/cart"}
-          icon="PersonIcon"
-          style={{ marginBottom: 16 }}
-        />
-        <SettingsLink icon="MapIcon" content={"Addresses"} href={"/cart"} />
-      </Box>
+      <SettingsBox
+        title="Profile"
+        settingLinks={[
+          { content: "Personal Info", icon: "PersonIcon", href: "/cart" },
+          { content: "Addresses", icon: "MapIcon", href: "/cart" },
+        ]}
+      />
       <Button
         btnVariant={ButtonVariantEnum.DANGER}
         title={"Logout"}
