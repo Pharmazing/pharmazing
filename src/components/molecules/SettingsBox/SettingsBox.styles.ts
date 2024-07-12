@@ -4,6 +4,7 @@ export const settingsBoxStyles = createStyleSheet({
     fontFamily: "Roboto_700Bold",
     fontSize: 24,
     marginBottom: 16,
+    color: "#484848",
   },
   container: {
     width: "100%",

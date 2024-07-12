@@ -12,7 +12,7 @@ export const buttonStyles = createStyleSheet({
     opacity: 0.64,
     height: 48,
     margin: 16,
-    width: 200,
+    width: { xs: 200, sm: 220, md: 240, lg: 260, xl: 280 },
     display: "flex",
     borderWidth: 1,
     borderColor: "#B00000",
@@ -22,7 +22,7 @@ export const buttonStyles = createStyleSheet({
   textStyle: {
     fontFamily: "Roboto_700Bold",
     color: "#fff",
-    fontSize: 16,
+    fontSize: { xs: 16, sm: 18, md: 20, lg: 22, xl: 24 },
     opacity: 1,
   },
   shadow: {

@@ -1,3 +1,4 @@
+import React from "react";
 import { BoxProps } from "./Box.types";
 import { View } from "react-native";
 

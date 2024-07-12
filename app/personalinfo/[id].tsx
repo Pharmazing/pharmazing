@@ -1,15 +1,18 @@
 import React from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
+import { Box } from "../../src/components/atoms";
 
 export default function Page() {
   const { id } = useLocalSearchParams();
 
   return (
-    <View>
+    <Box>
       <Stack.Screen
-        options={{ headerTitle: `Details for ${id}`, headerBackTitle: "Home" }}
+        options={{
+          headerTitle: `details for ${id}`,
+          headerBackTitle: "Settings",
+        }}
       />
-    </View>
+    </Box>
   );
 }
