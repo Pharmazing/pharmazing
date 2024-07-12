@@ -1,12 +1,6 @@
 import { router, useSegments } from "expo-router";
 import React, { useCallback, useEffect } from "react";
-import {
-  Text,
-  Button,
-  View,
-  ImageBackground,
-  ActivityIndicator,
-} from "react-native";
+import { Text, Button, View, ImageBackground } from "react-native";
 import { styles } from "../src/utils/appStyles/styles";
 import { isAndroid, isIOS, isWeb } from "../src/utils";
 import { useSession } from "../src/utils/context";
@@ -15,6 +9,7 @@ import {
   useCreateUserMutation,
   useSignInLazyQuery,
 } from "../src/generated/graphql";
+import { LoadingIndicator } from "../src/components/atoms";
 
 export default function Page() {
   const { loginAsGuest, session, loginWithGoogle, error, setSession } =
@@ -61,53 +56,6 @@ export default function Page() {
       setSession(JSON.stringify(newSession));
     }
   };
-
-  // useEffectOnce(() => {
-  //   const signUpFn = async () => {
-  //     if (parsedSession?.user) {
-  //       // setSent(true);
-  //       await triggerSignUp({
-  //         variables: {
-  //           user: {
-  //             email: parsedSession?.user?.email,
-  //             firstName: parsedSession?.user?.givenName,
-  //             lastName: parsedSession?.user?.familyName,
-  //             // picture: parsedSession?.picture,
-  //           },
-  //         },
-  //       }).catch((e) => console.log(e));
-  //     }
-  //   };
-  //   const signInFn = async () => {
-  //     await triggerSignIn();
-  //   }
-  //   try{
-  //     // await new Promise((resolve) => setTimeout(resolve, 2000));
-  //     if (session && !signInError) {
-  //       console.log("signing in");
-  //       signInFn();
-  //     }
-  //     if (signInError?.message === "user not found" && !signUpError) {
-  //       // create user record using current session data
-  //       console.log("sign in error", signInError?.message);
-  //       signUpFn();
-  //     }
-  //   }catch(e){
-  //     console.log(e)
-  //   }
-  // }, [session, signInError]);
-
-  // useEffect(() => {
-  //   const parsedError = JSON.stringify(signInError || {});
-
-  //   const jsonError = JSON.parse(parsedError);
-
-  //   if (jsonError?.originalError?.message.includes("Token used too late")){
-  //     GoogleSignin.signInSilently().then(userInfo => {
-  //       setSession(JSON.stringify(userInfo));
-  //     });
-  //   }
-  // }, [signInError]);
 
   useEffect(() => {
     try {
@@ -172,9 +120,7 @@ export default function Page() {
             </Text>
           )}
           {(signInLoading || signUpLoading) && (
-            <View style={styles.loading}>
-              <ActivityIndicator color="#345ABB" size="large" />
-            </View>
+            <LoadingIndicator size="large" color="#345ABB" />
           )}
         </ImageBackground>
       </View>

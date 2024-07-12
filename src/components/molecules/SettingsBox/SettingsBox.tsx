@@ -1,5 +1,5 @@
 import { SettingsBoxProps } from "./SettingsBox.types";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { SettingsLink } from "./SettingsLink";
 import { settingsBoxStyles } from "./SettingsBox.styles";
 import { useStyles } from "react-native-unistyles";
@@ -15,12 +15,27 @@ export const SettingsBox = ({
     <Box style={styles.container} {...rest}>
       {title && <Text style={styles.header}>{title}</Text>}
       {settingLinks.map((linkProps, index) => {
+        const isLast = settingLinks.length - 1 === index;
+        const isFirst = index === 0;
         return (
-          <SettingsLink
-            {...linkProps}
-            key={index}
-            style={{ marginBottom: index === settingLinks.length - 1 ? 0 : 16 }}
-          />
+          <View key={index}>
+            <SettingsLink
+              {...linkProps}
+              style={{
+                marginBottom: isLast ? 0 : 16,
+                marginTop: isFirst ? 0 : 16,
+              }}
+            />
+            {!isLast && (
+              <View
+                style={{
+                  height: 2,
+                  backgroundColor: "#DFDFDF",
+                  borderRadius: 20,
+                }}
+              />
+            )}
+          </View>
         );
       })}
     </Box>

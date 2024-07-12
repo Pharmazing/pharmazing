@@ -27,3 +27,5 @@ UnistylesRegistry.addBreakpoints(breakpoints)
     // you can pass here optional config described below
     adaptiveThemes: true,
   });
+
+export {};

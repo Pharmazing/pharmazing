@@ -1,7 +1,6 @@
+import React from "react";
 import { router } from "expo-router";
-import React, { useEffect } from "react";
 import { View, Text, Button } from "react-native";
-import { useSession } from "../src/utils/context";
 
 export default function Page() {
   return (

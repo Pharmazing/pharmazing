@@ -9,13 +9,14 @@ export const SettingsLink = ({
   href,
   content,
   icon,
+  disabled = false,
   ...rest
 }: SettingsLinkProps) => {
   const { styles } = useStyles(settingsLinkStyles);
-  const callbackFn = () => href && router.replace(href);
+  const callbackFn = () => href && router.push(href);
 
   return (
-    <Pressable onPress={() => callbackFn()} {...rest}>
+    <Pressable disabled={disabled} onPress={() => callbackFn()} {...rest}>
       <Box style={styles.linkContainer}>
         <Box
           style={{
@@ -25,14 +26,30 @@ export const SettingsLink = ({
             gap: 16,
           }}
         >
-          {icon && <Icon name={icon} height={28} width={28} />}
+          {icon && (
+            <Icon
+              name={icon}
+              height={28}
+              width={28}
+              color={disabled ? "#DFDFDF" : ""}
+            />
+          )}
           {typeof content === "string" ? (
-            <Text style={settingsLinkStyles.textStyle}>{content}</Text>
+            <Text
+              style={settingsLinkStyles.textStyle({ disabled: !!disabled })}
+            >
+              {content}
+            </Text>
           ) : (
             content
           )}
         </Box>
-        <Icon name="ChevronRightIcon" height={32} width={32} />
+        <Icon
+          name="ChevronRightIcon"
+          height={32}
+          width={32}
+          color={disabled ? "#DFDFDF" : ""}
+        />
       </Box>
     </Pressable>
   );

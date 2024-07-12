@@ -1,3 +1,4 @@
+import React from "react";
 import { Text } from "react-native";
 import { useStyles } from "react-native-unistyles";
 import DropShadow from "react-native-drop-shadow";

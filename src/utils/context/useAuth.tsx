@@ -71,7 +71,6 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
   };
 
   const signOut = async () => {
-    console.log("signing out google");
     await GoogleSignin.signOut();
 
     setSession(null);
