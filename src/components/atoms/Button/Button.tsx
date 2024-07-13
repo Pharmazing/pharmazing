@@ -7,7 +7,7 @@ import { buttonStyles } from "./Button.styles";
 
 import { TouchableOpacity } from "react-native";
 
-export const Button = ({ btnVariant, title, ...rest }: ButtonProps) => {
+export const Button = ({ btnVariant, title, style, ...rest }: ButtonProps) => {
   const { styles } = useStyles(buttonStyles);
   switch (btnVariant) {
     case "primary":
@@ -17,7 +17,7 @@ export const Button = ({ btnVariant, title, ...rest }: ButtonProps) => {
     case "danger":
       return (
         <DropShadow style={styles.shadow}>
-          <TouchableOpacity style={styles.danger} {...rest}>
+          <TouchableOpacity style={[styles.danger, style]} {...rest}>
             <Text style={styles.textStyle}>{title}</Text>
           </TouchableOpacity>
         </DropShadow>
