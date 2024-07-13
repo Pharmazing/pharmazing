@@ -10,8 +10,8 @@ export default function SettingsMobile() {
     () => parsedSession?.user?.userId || "",
     [session, parsedSession],
   );
-  console.log("userId", userId);
-  console.log("parsedSession", parsedSession);
+  // console.log("userId", userId);
+  // console.log("parsedSession", parsedSession);
   return (
     <ScrollBox
       contentContainerStyle={{
@@ -35,13 +35,13 @@ export default function SettingsMobile() {
               content: "Notifications",
               icon: "MapIcon",
               href: "/cart",
-              disabled: !userId,
+              // disabled: !userId,
             },
             {
               content: "Addresses",
               icon: "MapIcon",
               href: "/cart",
-              disabled: !userId,
+              // disabled: !userId,
             },
           ]}
         />
