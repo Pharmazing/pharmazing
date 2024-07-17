@@ -1,16 +1,21 @@
 import React, { useRef } from "react";
-import { Animated, Keyboard, TextInput, View } from "react-native";
+import { Animated, Keyboard, TextInput, View, Text } from "react-native";
 import { TextInputProps } from "./Input.types";
 import OutsidePressHandler from "react-native-outside-press";
 import { useStyles } from "react-native-unistyles";
 import { textInputStyles } from "./Input.styles";
+import { Controller } from "react-hook-form";
 
 export const AnimatedInputField = ({
   label,
-  value,
-  handleChange,
-  handleError,
+  name,
+  control,
+  watch,
+  rules,
+  ...rest
 }: TextInputProps) => {
+  const value = watch(name);
+  // const value = control._formValues[name];
   const { styles } = useStyles(textInputStyles);
   const floatingLabelAnimation = useRef(
     new Animated.Value(value ? 1 : 0),
@@ -50,20 +55,38 @@ export const AnimatedInputField = ({
 
   return (
     <View style={styles.container}>
-      <OutsidePressHandler onOutsidePress={() => Keyboard.dismiss()}>
-        {label && (
-          <Animated.Text style={[styles.label, floatingLabelStyle]}>
-            {label}
-          </Animated.Text>
-        )}
-        <TextInput
-          style={styles.input}
-          value={value}
-          onChangeText={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlurDefault}
-        />
-      </OutsidePressHandler>
+      <Controller
+        control={control}
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => {
+          return (
+            <OutsidePressHandler onOutsidePress={() => Keyboard.dismiss()}>
+              {label && (
+                <Animated.Text style={[styles.label, floatingLabelStyle]}>
+                  {label}
+                </Animated.Text>
+              )}
+              <TextInput
+                autoCapitalize="none"
+                style={styles.input}
+                value={value}
+                onChangeText={onChange}
+                onFocus={handleFocus}
+                onBlur={() => {
+                  onBlur();
+                  handleBlurDefault();
+                }}
+                {...rest}
+              />
+              {<Text style={{ color: "red" }}>{error?.message}</Text>}
+            </OutsidePressHandler>
+          );
+        }}
+        name={name}
+        rules={rules}
+      />
     </View>
   );
 };

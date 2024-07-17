@@ -15,47 +15,52 @@ export default function Page() {
   const { loginAsGuest, session, loginWithGoogle, error, setSession } =
     useSession();
   const parsedSession = JSON.parse(session || "{}");
+
   const segments = useSegments();
   const showContinueAsGuest = segments?.[0] === "signin";
-  const [triggerSignIn, { error: signInError, loading: signInLoading }] =
-    useSignInLazyQuery({
-      onCompleted: (data) => onSigninSuccess(data),
-    });
+
+  const [
+    triggerSignIn,
+    { data: signInData, error: signInError, loading: signInLoading },
+  ] = useSignInLazyQuery();
 
   // handle onSuccess of sign up to nav to home
-  const [triggerSignUp, { error: signUpError, loading: signUpLoading }] =
-    useCreateUserMutation({
-      onCompleted: (data) => onSignupSuccess(data),
-    });
-  const onSigninSuccess = async (data: any) => {
-    if (data?.signIn) {
-      const newSession = {
-        ...parsedSession,
-        user: {
-          ...parsedSession.user,
-          userId: data?.signIn?.userId,
-          address: data?.signIn?.address,
-          age: data?.signIn?.age,
-        },
-      };
-      setSession(JSON.stringify(newSession));
-    }
-  };
+  const [
+    triggerSignUp,
+    { data: signUpData, error: signUpError, loading: signUpLoading },
+  ] = useCreateUserMutation();
 
-  const onSignupSuccess = async (data: any) => {
-    if (data?.createUser) {
-      const newSession = {
-        ...parsedSession,
-        user: {
-          ...parsedSession.user,
-          userId: data?.createUser?.userId,
-          address: data?.createUser?.address,
-          age: data?.createUser?.age,
-        },
-      };
-      setSession(JSON.stringify(newSession));
-    }
-  };
+  if (signInData?.signIn) {
+    const newSession = {
+      ...parsedSession,
+      user: {
+        ...parsedSession.user,
+        userId: signInData?.signIn?.userId,
+        email: signInData?.signIn?.email,
+        address: signInData?.signIn?.address,
+        age: signInData?.signIn?.age,
+        givenName: signInData?.signIn?.firstName,
+        familyName: signInData?.signIn?.lastName,
+      },
+    };
+    setSession(JSON.stringify(newSession));
+  }
+
+  if (signUpData?.createUser) {
+    const newSession = {
+      ...parsedSession,
+      user: {
+        ...parsedSession.user,
+        userId: signUpData?.createUser?.userId,
+        address: signUpData?.createUser?.address,
+        age: signUpData?.createUser?.age,
+        email: signUpData?.createUser?.email,
+        givenName: signUpData?.createUser?.firstName,
+        familyName: signUpData?.createUser?.lastName,
+      },
+    };
+    setSession(JSON.stringify(newSession));
+  }
 
   useEffect(() => {
     try {

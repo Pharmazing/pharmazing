@@ -10,8 +10,6 @@ export default function SettingsMobile() {
     () => parsedSession?.user?.userId || "",
     [session, parsedSession],
   );
-  // console.log("userId", userId);
-  // console.log("parsedSession", parsedSession);
   return (
     <ScrollBox
       contentContainerStyle={{
@@ -21,7 +19,7 @@ export default function SettingsMobile() {
         flexGrow: 1,
       }}
     >
-      {userId && (
+      {
         <SettingsBox
           title="Profile"
           settingLinks={[
@@ -32,20 +30,20 @@ export default function SettingsMobile() {
               // disabled: !userId,
             },
             {
-              content: "Notifications",
-              icon: "MapIcon",
-              href: "/cart",
+              content: "Addresses",
+              icon: "LocationIcon",
+              href: `/addresses/${userId || "1"}`,
               // disabled: !userId,
             },
             {
-              content: "Addresses",
-              icon: "MapIcon",
+              content: "Prescriptions",
+              icon: "PrescriptionIcon",
               href: "/cart",
-              // disabled: !userId,
+              disabled: true,
             },
           ]}
         />
-      )}
+      }
       <Button
         btnVariant={ButtonVariantEnum.DANGER}
         title={"Logout"}

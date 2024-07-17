@@ -14,7 +14,9 @@ export default function Layout() {
             name="home"
             options={{
               title: "Home",
-              tabBarIcon: ({ color }) => <Icon name="HomeIcon" color={color} />,
+              tabBarIcon: ({ color }) => (
+                <Icon name="LocalPharmacyIcon" color={color} />
+              ),
             }}
           />
           <Tabs.Screen

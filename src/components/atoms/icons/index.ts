@@ -5,3 +5,6 @@ export { default as HomeIcon } from "./HomeIcon";
 export { default as PersonIcon } from "./PersonIcon";
 export { default as SettingsIcon } from "./SettingsIcon";
 export { default as MapIcon } from "./MapIcon";
+export { default as LocationIcon } from "./LocationIcon";
+export { default as PrescriptionIcon } from "./PrescriptionIcon";
+export { default as LocalPharmacyIcon } from "./LocalPharmacyIcon";

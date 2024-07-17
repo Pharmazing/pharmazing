@@ -6,6 +6,7 @@ import { SessionProvider } from "../src/utils/context";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../src/utils/api/apollo/apolloClient";
 import { EventProvider } from "react-native-outside-press";
+import Toast from "react-native-toast-message";
 import "expo-dev-client";
 import "../src/utils/unistyles/unistyles";
 
@@ -84,6 +85,7 @@ export default function RootLayout() {
             </Stack>
           )}
         </ApolloProvider>
+        <Toast />
       </SessionProvider>
     </EventProvider>
   );

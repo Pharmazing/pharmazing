@@ -26,15 +26,12 @@ export const createUserMutation = gql`
 `;
 
 export const editUserMutation = gql`
-  mutation EditUser($user: DeleteUserInput) {
-    deleteUser(user: $user) {
+  mutation EditUser($user: EditUserInput) {
+    editUser(user: $user) {
       userId
       firstName
       lastName
       age
-      address {
-        addressId
-      }
       email
     }
   }
@@ -58,6 +55,13 @@ export const createAddressMutation = gql`
   mutation CreateAddress($userId: String!, $address: CreateAddressInput) {
     createAddress(userId: $userId, address: $address) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;
@@ -66,6 +70,13 @@ export const editAddressMutation = gql`
   mutation EditAddress($userId: String!, $address: EditAddressInput) {
     editAddress(userId: $userId, address: $address) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;
@@ -74,6 +85,13 @@ export const deleteAddressMutation = gql`
   mutation DeleteAddress($userId: String!, $addressId: String!) {
     deleteAddress(userId: $userId, addressId: $addressId) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;
