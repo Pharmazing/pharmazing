@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "react-native";
 import { ScrollBox } from "../../atoms";
-export default function ActivityMobile() {
+export function ActivityMobile() {
   return (
     <ScrollBox>
       <Text>I am the mobile activity page</Text>

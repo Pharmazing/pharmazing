@@ -1,11 +1,6 @@
 import Svg, { ClipPath, Defs, G, Path, Rect, SvgProps } from "react-native-svg";
 
-export default function PersonIcon({
-  color,
-  width,
-  height,
-  ...rest
-}: SvgProps) {
+export function PersonIcon({ color, width, height, ...rest }: SvgProps) {
   return (
     <Svg
       width={width}

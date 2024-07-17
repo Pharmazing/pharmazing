@@ -5,7 +5,6 @@ import { isAndroid, isIOS, isWeb } from "../src/utils";
 import { SessionProvider } from "../src/utils/context";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../src/utils/api/apollo/apolloClient";
-import { EventProvider } from "react-native-outside-press";
 import Toast from "react-native-toast-message";
 import "expo-dev-client";
 import "../src/utils/unistyles/unistyles";
@@ -56,37 +55,35 @@ export default function RootLayout() {
   }
 
   return (
-    <EventProvider>
-      <SessionProvider>
-        <ApolloProvider client={client}>
-          {(isIOS || isAndroid) && (
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="signup" />
-              <Stack.Screen name="signin" options={{ headerShown: false }} />
-            </Stack>
-          )}
-          {isWeb && (
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="signup"
-                options={{
-                  headerLeft: () => (
-                    <Link href="/signin">
-                      <Text style={{ fontFamily: "RobotoRegular" }}>
-                        Back to login
-                      </Text>
-                    </Link>
-                  ),
-                }}
-              />
-              <Stack.Screen name="signin" options={{ headerShown: false }} />
-            </Stack>
-          )}
-        </ApolloProvider>
-        <Toast />
-      </SessionProvider>
-    </EventProvider>
+    <SessionProvider>
+      <ApolloProvider client={client}>
+        {(isIOS || isAndroid) && (
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="signup" />
+            <Stack.Screen name="signin2" options={{ headerShown: false }} />
+          </Stack>
+        )}
+        {isWeb && (
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="signup"
+              options={{
+                headerLeft: () => (
+                  <Link href="/signin">
+                    <Text style={{ fontFamily: "RobotoRegular" }}>
+                      Back to login
+                    </Text>
+                  </Link>
+                ),
+              }}
+            />
+            <Stack.Screen name="signin" options={{ headerShown: false }} />
+          </Stack>
+        )}
+      </ApolloProvider>
+      <Toast />
+    </SessionProvider>
   );
 }

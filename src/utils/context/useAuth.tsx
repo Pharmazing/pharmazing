@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useStorageState } from "../hooks";
+import { isAndroid, isIOS, useStorageState } from "../hooks";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { router } from "expo-router";
 
@@ -10,7 +10,7 @@ GoogleSignin.configure({
 });
 
 const AuthContext = React.createContext<{
-  loginAsGuest: () => void;
+  loginAsGuest: (val?: boolean) => void;
   signOut: () => void;
   setSession: (value: string | null) => void;
   session?: string | null;
@@ -61,9 +61,9 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
     }
   };
 
-  const loginAsGuest = async () => {
+  const loginAsGuest = async (setLocation?: boolean) => {
     try {
-      router.replace("/home");
+      router.replace(setLocation ? "/signin2/setlocation" : "/home");
       setError(null);
     } catch (e) {
       if (error instanceof Error) setError(e);
@@ -75,7 +75,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
 
     setSession(null);
     setError(null);
-    router.replace("/signin");
+    router.replace(isIOS || isAndroid ? "/signin2" : "/signin");
   };
 
   // useEffect(() => {

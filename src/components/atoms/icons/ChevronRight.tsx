@@ -1,6 +1,6 @@
 import Svg, { G, Path, Defs, Rect, SvgProps, ClipPath } from "react-native-svg";
 
-export default function ChevronRight({
+export function ChevronRightIcon({
   color,
   height = 24,
   width = 24,

@@ -1,1 +1,1 @@
-export { default as Addresses } from "./Addresses";
+export { Addresses } from "./Addresses";

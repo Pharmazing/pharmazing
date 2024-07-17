@@ -6,7 +6,7 @@ import { useSession } from "../../../utils/context";
 import { router } from "expo-router";
 import { ScrollBox } from "../../atoms";
 
-export default function HomeMobile() {
+export function HomeMobile() {
   const [getAllUsersTrigger, { loading, error, data }] =
     useGetAllUsersLazyQuery({
       variables: {},
