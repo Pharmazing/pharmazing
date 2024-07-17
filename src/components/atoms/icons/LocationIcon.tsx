@@ -1,11 +1,6 @@
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-export default function LocationIcon({
-  color,
-  height,
-  width,
-  ...rest
-}: SvgProps) {
+export function LocationIcon({ color, height, width, ...rest }: SvgProps) {
   return (
     <Svg
       height={height || 24}

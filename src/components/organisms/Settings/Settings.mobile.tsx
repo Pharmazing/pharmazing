@@ -3,7 +3,7 @@ import { useSession } from "../../../utils/context";
 import { Button, ButtonVariantEnum, ScrollBox } from "../../atoms";
 import { SettingsBox } from "../../molecules";
 
-export default function SettingsMobile() {
+export function SettingsMobile() {
   const { signOut, session } = useSession();
   const parsedSession = JSON.parse(session || "{}");
   const userId = useMemo(

@@ -1,11 +1,6 @@
 import Svg, { SvgProps, Path } from "react-native-svg";
 
-export default function LocalPharmacyIcon({
-  color,
-  height,
-  width,
-  ...rest
-}: SvgProps) {
+export function LocalPharmacyIcon({ color, height, width, ...rest }: SvgProps) {
   return (
     <Svg
       height={height || 32}

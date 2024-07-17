@@ -12,7 +12,7 @@ import { useEditUserMutation } from "../../../generated/graphql";
 import { useToast } from "../../../utils/hooks/useToast";
 import { router } from "expo-router";
 
-export default function PersonalInfo() {
+export function PersonalInfo() {
   const { session, setSession } = useSession();
   const { showToast: showSuccessToast } = useToast({
     type: "success",

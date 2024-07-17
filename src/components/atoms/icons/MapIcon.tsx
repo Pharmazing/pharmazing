@@ -1,6 +1,6 @@
 import Svg, { ClipPath, Defs, G, Path, Rect, SvgProps } from "react-native-svg";
 
-export default function MapIcon({ color, height, width, ...rest }: SvgProps) {
+export function MapIcon({ color, height, width, ...rest }: SvgProps) {
   return (
     <Svg
       width={width}

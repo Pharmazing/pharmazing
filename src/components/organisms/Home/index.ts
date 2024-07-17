@@ -1,2 +1,2 @@
-export { default as WebHome } from "./Home.web";
-export { default as MobileHome } from "./Home.mobile";
+export { HomeWeb } from "./Home.web";
+export { HomeMobile } from "./Home.mobile";

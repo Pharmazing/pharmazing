@@ -1,6 +1,6 @@
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-export default function PrescriptionIcon({ color, ...rest }: SvgProps) {
+export function PrescriptionIcon({ color, ...rest }: SvgProps) {
   return (
     <Svg
       height="24px"

@@ -1,6 +1,6 @@
 import Svg, { SvgProps, Path } from "react-native-svg";
 
-export default function CartIcon({ color, ...rest }: SvgProps) {
+export function CartIcon({ color, ...rest }: SvgProps) {
   return (
     <Svg width={24} height={24} viewBox="0 0 22 22" fill="none" {...rest}>
       <Path

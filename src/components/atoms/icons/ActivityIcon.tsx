@@ -1,6 +1,6 @@
 import Svg, { SvgProps, Path } from "react-native-svg";
 
-export default function ActivityIcon({ color, ...rest }: SvgProps) {
+export function ActivityIcon({ color, ...rest }: SvgProps) {
   return (
     <Svg viewBox="0 0 20 20" height={24} width={24} fill="none" {...rest}>
       <Path

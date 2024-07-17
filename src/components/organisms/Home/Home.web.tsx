@@ -5,7 +5,7 @@ import { useGetAllUsersLazyQuery } from "../../../generated/graphql";
 import { useSession } from "../../../utils/context";
 import { router } from "expo-router";
 
-export default function HomeWeb() {
+export function HomeWeb() {
   const { session } = useSession();
   const [getAllUsersTrigger, { loading, error, data }] =
     useGetAllUsersLazyQuery({

@@ -1,1 +1,1 @@
-export { default as CartMobile } from "./Cart.mobile";
+export { CartMobile } from "./Cart.mobile";
