@@ -31,7 +31,7 @@ export const SettingsLink = ({
               name={icon}
               height={28}
               width={28}
-              color={disabled ? "#DFDFDF" : ""}
+              color={disabled ? "#DFDFDF" : "#5F6368"}
             />
           )}
           {typeof content === "string" ? (

@@ -1,6 +1,9 @@
-export interface TextInputProps {
+import { Control, ControllerProps, UseFormWatch } from "react-hook-form";
+import { TextInputProps as TextInputComponentProps } from "react-native";
+export interface TextInputProps extends TextInputComponentProps {
   label?: string;
-  value: string;
-  handleChange: (val: string) => void;
-  handleError?: (error: any) => void;
+  control: Control<any, any>;
+  name: string;
+  watch: UseFormWatch<any>;
+  rules?: ControllerProps["rules"];
 }

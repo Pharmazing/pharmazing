@@ -1,20 +1,18 @@
-import React from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { Box, ScrollBox } from "../../src/components/atoms";
-import { PersonalInfo } from "../../src/components/organisms";
+import { Box } from "../../src/components/atoms";
+import { Addresses } from "../../src/components/organisms";
 
 export default function Page() {
   const { id } = useLocalSearchParams();
-
   return (
     <Box style={{ flex: 1 }}>
       <Stack.Screen
         options={{
-          headerTitle: `details for ${id}`,
+          headerTitle: `addresses for ${id}`,
           headerBackTitle: "Settings",
         }}
       />
-      <PersonalInfo />
+      <Addresses />
     </Box>
   );
 }

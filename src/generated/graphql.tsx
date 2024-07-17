@@ -54,18 +54,11 @@ export type CreateAddressInput = {
 };
 
 export type CreateUserInput = {
-  addressLine1?: InputMaybe<Scalars["String"]["input"]>;
-  addressLine2?: InputMaybe<Scalars["String"]["input"]>;
   age?: InputMaybe<Scalars["Int"]["input"]>;
-  city?: InputMaybe<Scalars["String"]["input"]>;
-  country?: InputMaybe<Scalars["String"]["input"]>;
   email: Scalars["String"]["input"];
   firstName: Scalars["String"]["input"];
   lastName: Scalars["String"]["input"];
-  parish?: InputMaybe<Scalars["String"]["input"]>;
   password?: InputMaybe<Scalars["String"]["input"]>;
-  primary?: InputMaybe<Scalars["Boolean"]["input"]>;
-  zip?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type DeleteUserInput = {
@@ -188,22 +181,18 @@ export type CreateUserMutation = {
 };
 
 export type EditUserMutationVariables = Exact<{
-  user?: InputMaybe<DeleteUserInput>;
+  user?: InputMaybe<EditUserInput>;
 }>;
 
 export type EditUserMutation = {
   __typename?: "Mutation";
-  deleteUser?: {
+  editUser?: {
     __typename?: "User";
     userId?: string | null;
     firstName?: string | null;
     lastName?: string | null;
     age?: number | null;
     email?: string | null;
-    address?: Array<{
-      __typename?: "Address";
-      addressId?: string | null;
-    }> | null;
   } | null;
 };
 
@@ -233,7 +222,17 @@ export type CreateAddressMutationVariables = Exact<{
 
 export type CreateAddressMutation = {
   __typename?: "Mutation";
-  createAddress?: { __typename?: "Address"; addressId?: string | null } | null;
+  createAddress?: {
+    __typename?: "Address";
+    addressId?: string | null;
+    addressLine1?: string | null;
+    addressLine2?: string | null;
+    city?: string | null;
+    parish?: string | null;
+    country?: string | null;
+    zip?: string | null;
+    primary?: boolean | null;
+  } | null;
 };
 
 export type EditAddressMutationVariables = Exact<{
@@ -243,7 +242,17 @@ export type EditAddressMutationVariables = Exact<{
 
 export type EditAddressMutation = {
   __typename?: "Mutation";
-  editAddress?: { __typename?: "Address"; addressId?: string | null } | null;
+  editAddress?: {
+    __typename?: "Address";
+    addressId?: string | null;
+    addressLine1?: string | null;
+    addressLine2?: string | null;
+    city?: string | null;
+    parish?: string | null;
+    country?: string | null;
+    zip?: string | null;
+    primary?: boolean | null;
+  } | null;
 };
 
 export type DeleteAddressMutationVariables = Exact<{
@@ -253,7 +262,17 @@ export type DeleteAddressMutationVariables = Exact<{
 
 export type DeleteAddressMutation = {
   __typename?: "Mutation";
-  deleteAddress?: { __typename?: "Address"; addressId?: string | null } | null;
+  deleteAddress?: {
+    __typename?: "Address";
+    addressId?: string | null;
+    addressLine1?: string | null;
+    addressLine2?: string | null;
+    city?: string | null;
+    parish?: string | null;
+    country?: string | null;
+    zip?: string | null;
+    primary?: boolean | null;
+  } | null;
 };
 
 export type SignInQueryVariables = Exact<{
@@ -275,6 +294,13 @@ export type SignInQuery = {
     address?: Array<{
       __typename?: "Address";
       addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
     }> | null;
   } | null;
 };
@@ -316,6 +342,13 @@ export type GetAddressQuery = {
   getUserAddress?: Array<{
     __typename?: "Address";
     addressId?: string | null;
+    addressLine1?: string | null;
+    addressLine2?: string | null;
+    city?: string | null;
+    parish?: string | null;
+    country?: string | null;
+    zip?: string | null;
+    primary?: boolean | null;
   }> | null;
 };
 
@@ -387,15 +420,12 @@ export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
   CreateUserMutationVariables
 >;
 export const EditUserDocument = gql`
-  mutation EditUser($user: DeleteUserInput) {
-    deleteUser(user: $user) {
+  mutation EditUser($user: EditUserInput) {
+    editUser(user: $user) {
       userId
       firstName
       lastName
       age
-      address {
-        addressId
-      }
       email
     }
   }
@@ -500,6 +530,13 @@ export const CreateAddressDocument = gql`
   mutation CreateAddress($userId: String!, $address: CreateAddressInput) {
     createAddress(userId: $userId, address: $address) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;
@@ -551,6 +588,13 @@ export const EditAddressDocument = gql`
   mutation EditAddress($userId: String!, $address: EditAddressInput) {
     editAddress(userId: $userId, address: $address) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;
@@ -602,6 +646,13 @@ export const DeleteAddressDocument = gql`
   mutation DeleteAddress($userId: String!, $addressId: String!) {
     deleteAddress(userId: $userId, addressId: $addressId) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;
@@ -661,6 +712,13 @@ export const SignInDocument = gql`
       age
       address {
         addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
       }
     }
   }
@@ -813,6 +871,13 @@ export const GetAddressDocument = gql`
   query GetAddress($userId: String!) {
     getUserAddress(userId: $userId) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;

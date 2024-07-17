@@ -12,6 +12,13 @@ export const getUserQuery = gql`
       age
       address {
         addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
       }
     }
   }
@@ -46,6 +53,13 @@ export const getAddressesQuery = gql`
   query GetAddress($userId: String!) {
     getUserAddress(userId: $userId) {
       addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
     }
   }
 `;
