@@ -84,14 +84,7 @@ export const editAddressMutation = gql`
 export const deleteAddressMutation = gql`
   mutation DeleteAddress($userId: String!, $addressId: String!) {
     deleteAddress(userId: $userId, addressId: $addressId) {
-      addressId
-      addressLine1
-      addressLine2
-      city
-      parish
-      country
-      zip
-      primary
+      success
     }
   }
 `;

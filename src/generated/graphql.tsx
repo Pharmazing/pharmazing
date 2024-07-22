@@ -61,6 +61,11 @@ export type CreateUserInput = {
   password?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type DeleteAddressResult = {
+  __typename?: "DeleteAddressResult";
+  success: Scalars["Boolean"]["output"];
+};
+
 export type DeleteUserInput = {
   password: Scalars["String"]["input"];
   userId: Scalars["String"]["input"];
@@ -89,7 +94,7 @@ export type Mutation = {
   __typename?: "Mutation";
   createAddress?: Maybe<Address>;
   createUser?: Maybe<User>;
-  deleteAddress?: Maybe<Address>;
+  deleteAddress?: Maybe<DeleteAddressResult>;
   deleteUser?: Maybe<User>;
   editAddress?: Maybe<Address>;
   editUser?: Maybe<User>;
@@ -263,15 +268,8 @@ export type DeleteAddressMutationVariables = Exact<{
 export type DeleteAddressMutation = {
   __typename?: "Mutation";
   deleteAddress?: {
-    __typename?: "Address";
-    addressId?: string | null;
-    addressLine1?: string | null;
-    addressLine2?: string | null;
-    city?: string | null;
-    parish?: string | null;
-    country?: string | null;
-    zip?: string | null;
-    primary?: boolean | null;
+    __typename?: "DeleteAddressResult";
+    success: boolean;
   } | null;
 };
 
@@ -645,14 +643,7 @@ export type EditAddressMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteAddressDocument = gql`
   mutation DeleteAddress($userId: String!, $addressId: String!) {
     deleteAddress(userId: $userId, addressId: $addressId) {
-      addressId
-      addressLine1
-      addressLine2
-      city
-      parish
-      country
-      zip
-      primary
+      success
     }
   }
 `;
