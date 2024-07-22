@@ -129,9 +129,12 @@ export default function Page() {
               Error: {JSON.stringify(signUpError)}
             </Text>
           )}
-       
-            <LoadingIndicator size="large" color="#345ABB" loading={signInLoading || signUpLoading} />
-          
+
+          <LoadingIndicator
+            size="large"
+            color="#345ABB"
+            loading={signInLoading || signUpLoading}
+          />
         </ImageBackground>
       </View>
     );

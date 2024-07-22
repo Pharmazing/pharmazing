@@ -2,6 +2,7 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { Box } from "../../src/components/atoms";
 import { Addresses } from "../../src/components/organisms";
 import { isAndroid, isIOS } from "../../src/utils";
+import { useSession } from "../../src/utils/context";
 
 export default function Page() {
   const { id } = useLocalSearchParams();
