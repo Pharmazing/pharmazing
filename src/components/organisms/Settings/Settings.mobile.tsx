@@ -38,7 +38,7 @@ export function SettingsMobile() {
             {
               content: "Prescriptions",
               icon: "PrescriptionIcon",
-              href: "/cart",
+              href: "/settings/prescriptions",
               disabled: true,
             },
           ]}

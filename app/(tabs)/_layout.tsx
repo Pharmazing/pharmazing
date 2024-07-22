@@ -1,11 +1,13 @@
 import React from "react";
-import { Tabs } from "expo-router";
+import { Tabs, router, useSegments } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { isAndroid, isIOS, isWeb } from "../../src/utils";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Icon } from "../../src/components/atoms";
+import { Button } from "react-native";
 
 export default function Layout() {
+  const segments = useSegments();
   return (
     <>
       {(isIOS || isAndroid) && (
@@ -45,6 +47,7 @@ export default function Layout() {
             }}
           />
           <Tabs.Screen name="somePage" options={{ tabBarButton: () => null }} />
+          {/* <Tabs.Screen name="prescriptions" options={{ tabBarButton: () => null, headerShown: true, headerLeft: () => <Button title="Back" onPress={() => router.replace('/settings')}/> }} /> */}
         </Tabs>
       )}
       {isWeb && (
@@ -64,6 +67,10 @@ export default function Layout() {
               name="settings"
               options={{ drawerItemStyle: { display: "none" } }}
             />
+            {/* <Drawer.Screen
+              name="prescriptions"
+              options={{ drawerItemStyle: { display: "none" } }}
+            /> */}
           </Drawer>
         </GestureHandlerRootView>
       )}
