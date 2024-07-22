@@ -40,13 +40,7 @@ export const editUserMutation = gql`
 export const deleteUserMutation = gql`
   mutation DeleteUser($user: DeleteUserInput) {
     deleteUser(user: $user) {
-      userId
-      email
-      address {
-        addressId
-      }
-      firstName
-      lastName
+      success
     }
   }
 `;
