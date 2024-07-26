@@ -12,7 +12,7 @@ export const SettingsLink = ({
   disabled = false,
   ...rest
 }: SettingsLinkProps) => {
-  const { styles } = useStyles(settingsLinkStyles);
+  const { styles, theme } = useStyles(settingsLinkStyles);
   const callbackFn = () => href && router.push(href);
 
   return (
@@ -31,13 +31,11 @@ export const SettingsLink = ({
               name={icon}
               height={28}
               width={28}
-              color={disabled ? "#DFDFDF" : "#5F6368"}
+              color={disabled ? theme.colors.Gray200 : ""}
             />
           )}
           {typeof content === "string" ? (
-            <Text
-              style={settingsLinkStyles.textStyle({ disabled: !!disabled })}
-            >
+            <Text style={styles.textStyle({ disabled: !!disabled })}>
               {content}
             </Text>
           ) : (
@@ -48,7 +46,7 @@ export const SettingsLink = ({
           name="ChevronRightIcon"
           height={32}
           width={32}
-          color={disabled ? "#DFDFDF" : ""}
+          color={disabled ? theme.colors.Gray200 : ""}
         />
       </Box>
     </Pressable>

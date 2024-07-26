@@ -10,10 +10,11 @@ import {
 
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Icon } from "../../atoms";
-
-const ITEM_HEIGHT = 70;
+import { useStyles } from "react-native-unistyles";
+import { ITEM_HEIGHT, addressListStyles } from "./AddressList.styles";
 
 export function AddressList() {
+  const { styles } = useStyles(addressListStyles);
   const [listData, setListData] = useState(
     Array(12)
       .fill("")
@@ -228,59 +229,3 @@ export function AddressList() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-  },
-  backTextWhite: {
-    color: "#FFF",
-  },
-  rowFront: {
-    alignItems: "center",
-    backgroundColor: "#CCC",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    justifyContent: "center",
-    height: ITEM_HEIGHT,
-    width: "100%",
-    display: "flex",
-  },
-  rowBack: {
-    alignItems: "center",
-    // backgroundColor: ",
-    flex: 1,
-    flexDirection: "row",
-    borderWidth: 1,
-    borderColor: "blue",
-    // height: ITEM_HEIGHT,
-    justifyContent: "space-between",
-    paddingLeft: 15,
-  },
-  backRightBtn: {
-    alignItems: "flex-end",
-    bottom: 0,
-    justifyContent: "center",
-    position: "absolute",
-    top: 0,
-    // backgroundColor: "blue",
-    width: 25,
-
-    paddingRight: 17,
-  },
-  backRightBtnLeft: {
-    backgroundColor: "blue",
-    right: 75,
-  },
-  backRightBtnRight: {
-    backgroundColor: "#B00000",
-    right: 0,
-    // opacity: 0.8,
-  },
-  trash: {
-    height: 25,
-    width: 25,
-    marginRight: 7,
-  },
-});

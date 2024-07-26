@@ -1,12 +1,20 @@
 import Svg, { Path, SvgProps } from "react-native-svg";
+import { useStyles } from "react-native-unistyles";
 
-export function LocationIcon({ color, height, width, ...rest }: SvgProps) {
+export function LocationIcon({
+  color,
+  height = 24,
+  width = 24,
+  ...rest
+}: SvgProps) {
+  const { theme } = useStyles();
+  color = color || theme.colors.icon.default;
   return (
     <Svg
-      height={height || 24}
+      height={height}
       viewBox="0 0 24 24"
-      width={width || 24}
-      fill={color || "#5F6368"}
+      width={width}
+      fill={color}
       {...rest}
     >
       <Path d="M0 0h24v24H0z" fill="none" />

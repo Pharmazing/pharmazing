@@ -10,7 +10,7 @@ export const SettingsBox = ({
   settingLinks,
   ...rest
 }: SettingsBoxProps) => {
-  const { styles } = useStyles(settingsBoxStyles);
+  const { styles, theme } = useStyles(settingsBoxStyles);
   return (
     <Box style={styles.container} {...rest}>
       {title && <Text style={styles.header}>{title}</Text>}
@@ -30,7 +30,7 @@ export const SettingsBox = ({
               <View
                 style={{
                   height: 2,
-                  backgroundColor: "#DFDFDF",
+                  backgroundColor: theme.colors.Gray200,
                   borderRadius: 20,
                 }}
               />

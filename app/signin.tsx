@@ -136,7 +136,6 @@ export default function Page() {
 
           <LoadingIndicator
             size="large"
-            color="#345ABB"
             loading={signInLoading || signUpLoading}
           />
         </ImageBackground>
