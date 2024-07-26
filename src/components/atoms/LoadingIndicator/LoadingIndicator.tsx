@@ -7,11 +7,15 @@ export const LoadingIndicator = ({
   loading,
   ...rest
 }: LoadingIndicatorProps) => {
-  const { styles } = useStyles(loadingStyles);
+  const { styles, theme } = useStyles(loadingStyles);
   return (
     loading && (
       <View style={styles.loading}>
-        <ActivityIndicator color="#345ABB" size="large" {...rest} />
+        <ActivityIndicator
+          color={theme.colors.loadingPrimary}
+          size="large"
+          {...rest}
+        />
       </View>
     )
   );

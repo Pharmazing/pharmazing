@@ -1,10 +1,10 @@
 import { createStyleSheet } from "react-native-unistyles";
 
-export const settingsLinkStyles = createStyleSheet({
+export const settingsLinkStyles = createStyleSheet((theme) => ({
   textStyle: ({ disabled }: { disabled?: boolean }) => ({
     fontFamily: "Roboto_500Medium",
     fontSize: 18,
-    color: disabled ? "#DFDFDF" : "#484848",
+    color: disabled ? theme.colors.Gray200 : "#484848",
   }),
   linkContainer: {
     alignItems: "center",
@@ -13,4 +13,4 @@ export const settingsLinkStyles = createStyleSheet({
     display: "flex",
     flexDirection: "row",
   },
-});
+}));

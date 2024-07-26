@@ -1,11 +1,14 @@
 import Svg, { SvgProps, Path } from "react-native-svg";
+import { useStyles } from "react-native-unistyles";
 
 export function CartIcon({ color, ...rest }: SvgProps) {
+  const { theme } = useStyles();
+  color = color || theme.colors.tabBarIcon.default;
   return (
     <Svg width={24} height={24} viewBox="0 0 22 22" fill="none" {...rest}>
       <Path
         d="M4.66653 3.22222H21.0001L18.7779 11H5.86313M19.889 15.4444H6.55568L4.33346 1H1.00012M7.66679 19.8889C7.66679 20.5026 7.16932 21 6.55568 21C5.94203 21 5.44457 20.5026 5.44457 19.8889C5.44457 19.2752 5.94203 18.7778 6.55568 18.7778C7.16932 18.7778 7.66679 19.2752 7.66679 19.8889ZM19.889 19.8889C19.889 20.5026 19.3916 21 18.7779 21C18.1642 21 17.6668 20.5026 17.6668 19.8889C17.6668 19.2752 18.1642 18.7778 18.7779 18.7778C19.3916 18.7778 19.889 19.2752 19.889 19.8889Z"
-        stroke={color || "#505050"}
+        stroke={color}
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
