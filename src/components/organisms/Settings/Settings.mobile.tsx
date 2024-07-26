@@ -39,7 +39,7 @@ export function SettingsMobile() {
               content: "Prescriptions",
               icon: "PrescriptionIcon",
               href: "/settings/prescriptions",
-              disabled: true,
+              // disabled: true,
             },
           ]}
         />

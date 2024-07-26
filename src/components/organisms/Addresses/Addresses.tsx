@@ -1,16 +1,16 @@
-import { Text } from "react-native";
 import { useSession } from "../../../utils/context";
-import { Box, ScrollBox } from "../../atoms";
+import { Box } from "../../atoms";
 
-import { SwipeListView } from "react-native-swipe-list-view";
+// import { SwipeListView } from "react-native-swipe-list-view";
+import { AddressList } from "../../molecules";
 
 export function Addresses() {
   const { session } = useSession();
   const parsedSession = JSON.parse(session || "{}");
-  parsedSession?.user?.address.forEach((addy: any) => console.log(addy));
+  parsedSession?.user?.address?.forEach((addy: any) => console.log(addy));
   return (
-    <>
-      <SwipeListView
+    <Box style={{ flex: 1 }}>
+      {/* <SwipeListView
         data={parsedSession?.user?.address || []}
         renderItem={({ item }: any) => {
           // console.log('from list', item)
@@ -32,7 +32,8 @@ export function Addresses() {
         }}
         leftOpenValue={75}
         rightOpenValue={-75}
-      />
-    </>
+      /> */}
+      <AddressList />
+    </Box>
   );
 }

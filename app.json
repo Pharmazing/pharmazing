@@ -14,12 +14,20 @@
     },
     "ios": {
       "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyCJoGXhdn24pj2-aOOSpG2ahQGBeddmYJ0"
+      },
       "bundleIdentifier": "com.vincentvanity.pharmazing"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCtPsZodG3NtL7QEq6tiU1D70uXqjeshCE"
+        }
       },
       "package": "com.vincentvanity.pharmazing"
     },
@@ -38,6 +46,13 @@
         "@react-native-google-signin/google-signin",
         {
           "iosUrlScheme": "com.googleusercontent.apps.739739212160-9hngin51nv8i8qulhisqt7ka10picum5"
+        }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "project": "pharmazing",
+          "organization": "pharmazing-g7"
         }
       ]
     ]

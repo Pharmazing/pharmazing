@@ -8,3 +8,4 @@ export * from "./MapIcon";
 export * from "./LocationIcon";
 export * from "./PrescriptionIcon";
 export * from "./LocalPharmacyIcon";
+export * from "./TrashIcon";
