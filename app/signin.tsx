@@ -10,6 +10,7 @@ import {
   useSignInLazyQuery,
 } from "../src/generated/graphql";
 import { LoadingIndicator } from "../src/components/atoms";
+import * as Sentry from "@sentry/react-native";
 
 export default function Page() {
   const { loginAsGuest, session, loginWithGoogle, error, setSession } =
@@ -110,7 +111,10 @@ export default function Page() {
           {showContinueAsGuest && (
             <Button
               title={"Continue As Guest"}
-              onPress={() => loginAsGuest(isSecondarySignin)}
+              onPress={() => {
+                loginAsGuest(isSecondarySignin);
+                Sentry.captureMessage("Continue As Guest");
+              }}
             />
           )}
           <Button title={"sign up"} onPress={() => router.replace("/signup")} />
@@ -139,12 +143,20 @@ export default function Page() {
       </View>
     );
   }, [signInLoading, signUpLoading, error, signInError, signUpError]);
+
   const Web = () => (
     <>
       <Text>Sign In Page</Text>
       <GoogleSigninButton onPress={loginWithGoogle} />
       {showContinueAsGuest && (
-        <Button title={"Continue As Guest"} onPress={() => loginAsGuest()} />
+        <Button
+          title={"Continue As Guest"}
+          onPress={() => {
+            loginAsGuest(isSecondarySignin);
+            // Sentry.captureMessage("Continue As Guest clicked");
+            // throw new Error("Continue As Guest clicked");
+          }}
+        />
       )}
       <Button title={"sign up"} onPress={() => router.replace("/signup")} />
     </>

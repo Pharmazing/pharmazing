@@ -1,4 +1,4 @@
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useNavigationContainerRef } from "expo-router";
 import React, { useEffect } from "react";
 import { Text } from "react-native";
 import { isAndroid, isIOS, isWeb } from "../src/utils";
@@ -8,7 +8,7 @@ import { client } from "../src/utils/api/apollo/apolloClient";
 import Toast from "react-native-toast-message";
 import "expo-dev-client";
 import "../src/utils/unistyles/unistyles";
-
+import { isRunningInExpoGo } from "expo";
 import {
   useFonts,
   Roboto_100Thin,
@@ -25,10 +25,27 @@ import {
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
 import * as SplashScreen from "expo-splash-screen";
+import * as Sentry from "@sentry/react-native";
+
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+
+Sentry.init({
+  dsn: "https://3555aa46162c3f2476b5db54c5fdce83@o4507655177895936.ingest.us.sentry.io/4507655191724032",
+  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  integrations: [
+    new Sentry.ReactNativeTracing({
+      // Pass instrumentation to be used as `routingInstrumentation`
+      routingInstrumentation,
+      enableNativeFramesTracking: !isRunningInExpoGo(),
+
+      // ...
+    }),
+  ],
+});
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
   const [loaded, fontsErr] = useFonts({
     Roboto_100Thin,
     Roboto_100Thin_Italic,
@@ -49,6 +66,14 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded, fontsErr]);
+
+  const ref = useNavigationContainerRef();
+
+  useEffect(() => {
+    if (ref) {
+      routingInstrumentation.registerNavigationContainer(ref);
+    }
+  }, [ref]);
 
   if (!loaded && !fontsErr) {
     return null;
@@ -87,3 +112,5 @@ export default function RootLayout() {
     </SessionProvider>
   );
 }
+
+export default Sentry.wrap(RootLayout);
