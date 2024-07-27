@@ -1,8 +1,9 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from "react-native-maps";
 import { Box } from "../../atoms";
 import { Button } from "react-native";
+import { isAndroid } from "../../../utils";
 
 type Location = {
   latitude: number;
@@ -25,7 +26,7 @@ export const SetLocation = () => {
         region={region}
         onRegionChange={setRegion}
         style={{ flex: 1 }}
-        provider={PROVIDER_GOOGLE}
+        provider={isAndroid ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
       />
 
       <Box style={{ position: "absolute", borderWidth: 1, width: "100%" }}>

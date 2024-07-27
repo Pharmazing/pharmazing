@@ -8,11 +8,11 @@ export const addressListStyles = createStyleSheet((theme) => ({
     flex: 1,
   },
   backTextWhite: {
-    color: "#FFF",
+    color: theme.colors.white,
   },
   rowFront: {
     alignItems: "center",
-    backgroundColor: "#CCC",
+    backgroundColor: theme.colors.addressBtnFg,
     borderBottomColor: "black",
     borderBottomWidth: 1,
     justifyContent: "center",
@@ -20,7 +20,7 @@ export const addressListStyles = createStyleSheet((theme) => ({
     width: "100%",
     display: "flex",
   },
-  rowBack: {
+  rowBack: ({ leftActionActivated }) => ({
     alignItems: "center",
     // backgroundColor: ",
     flex: 1,
@@ -30,7 +30,10 @@ export const addressListStyles = createStyleSheet((theme) => ({
     // height: ITEM_HEIGHT,
     justifyContent: "space-between",
     paddingLeft: 15,
-  },
+    backgroundColor: leftActionActivated
+      ? theme.colors.Green500
+      : "transparent",
+  }),
   backRightBtn: {
     alignItems: "flex-end",
     bottom: 0,

@@ -21,12 +21,12 @@ export const buttonStyles = createStyleSheet((theme) => ({
   },
   textStyle: {
     fontFamily: "Roboto_700Bold",
-    color: "#fff",
+    color: theme.colors.white,
     fontSize: { xs: 16, sm: 18, md: 20, lg: 22, xl: 24 },
     opacity: 1,
   },
   shadow: {
-    shadowColor: "#000",
+    shadowColor: theme.colors.black,
     shadowOffset: {
       width: 2,
       height: 2,
