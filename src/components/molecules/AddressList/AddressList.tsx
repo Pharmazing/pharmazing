@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
   Text,
   Animated,
   TouchableOpacity,
   TouchableHighlight,
   View,
+  Dimensions,
 } from "react-native";
 
 import { SwipeListView } from "react-native-swipe-list-view";
@@ -13,8 +13,26 @@ import { Icon } from "../../atoms";
 import { useStyles } from "react-native-unistyles";
 import { ITEM_HEIGHT, addressListStyles } from "./AddressList.styles";
 
+const windowDimensions = Dimensions.get("window");
+const screenDimensions = Dimensions.get("screen");
+
 export function AddressList() {
-  const { styles } = useStyles(addressListStyles);
+  const [dimensions, setDimensions] = useState({
+    window: windowDimensions,
+    screen: screenDimensions,
+  });
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener(
+      "change",
+      ({ window, screen }) => {
+        setDimensions({ window, screen });
+      },
+    );
+    return () => subscription?.remove();
+  }, []);
+
+  const { styles, theme } = useStyles(addressListStyles);
   const [listData, setListData] = useState(
     Array(12)
       .fill("")
@@ -93,7 +111,7 @@ export function AddressList() {
           onPress={() => console.log("You touched me")}
           style={styles.rowFront}
           // color when pressed
-          underlayColor={"#AAA"}
+          underlayColor={theme.colors.addressBtnBg}
         >
           <View>
             <Text>I am {data.item.text} in a SwipeListView</Text>
@@ -127,7 +145,7 @@ export function AddressList() {
 
     if (rightActionActivated) {
       Animated.spring(rowActionAnimatedValue, {
-        toValue: 400,
+        toValue: dimensions.window.width,
         useNativeDriver: false,
       }).start();
     } else {
@@ -140,9 +158,8 @@ export function AddressList() {
     return (
       <Animated.View
         style={[
-          styles.rowBack,
+          styles.rowBack({ leftActionActivated }),
           { height: rowHeightAnimatedValue },
-          leftActionActivated && { backgroundColor: "#72AE68" },
         ]}
       >
         {!rightActionActivated && (
@@ -184,7 +201,7 @@ export function AddressList() {
                   },
                 ]}
               >
-                <Icon name="TrashIcon" color={"#fff"} />
+                <Icon name="TrashIcon" color={theme.colors.white} />
               </Animated.View>
             </TouchableOpacity>
           </Animated.View>

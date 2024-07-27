@@ -1,6 +1,6 @@
 import { createStyleSheet } from "react-native-unistyles";
 
-export const loadingStyles = createStyleSheet({
+export const loadingStyles = createStyleSheet((theme) => ({
   loading: {
     position: "absolute",
     left: 0,
@@ -11,6 +11,7 @@ export const loadingStyles = createStyleSheet({
     // zIndex: 1000,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#B9B9B995",
+    backgroundColor: theme.colors.loadingBackground,
+    opacity: 0.8,
   },
-});
+}));

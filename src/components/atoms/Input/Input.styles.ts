@@ -1,13 +1,13 @@
 import { createStyleSheet } from "react-native-unistyles";
 
-export const textInputStyles = createStyleSheet({
+export const textInputStyles = createStyleSheet((theme) => ({
   container: {
     marginBottom: 16,
     marginHorizontal: 10,
   },
   input: {
     borderBottomWidth: 1,
-    borderColor: "#000",
+    borderColor: theme.colors.black,
     padding: 10,
     fontSize: 16,
     fontWeight: "bold",
@@ -18,4 +18,4 @@ export const textInputStyles = createStyleSheet({
     position: "absolute",
     fontFamily: "Roboto_700Bold",
   },
-});
+}));
