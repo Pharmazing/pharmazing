@@ -1,11 +1,8 @@
 import Svg, { SvgProps, Path } from "react-native-svg";
-import { useStyles } from "react-native-unistyles";
 
 export function SettingsIcon({ color, ...rest }: SvgProps) {
-  const { theme } = useStyles();
-  color = color || theme.colors.tabBarIcon.default;
   return (
-    <Svg width={24} height={24} viewBox="0 0 22 22" fill="none" {...rest}>
+    <Svg viewBox="0 0 22 22" fill="none" {...rest}>
       <Path
         d="M14 11C14 12.6569 12.6569 14 11 14C9.3431 14 8 12.6569 8 11C8 9.3431 9.3431 8 11 8C12.6569 8 14 9.3431 14 11Z"
         stroke={color}

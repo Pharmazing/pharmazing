@@ -1,14 +1,6 @@
 import Svg, { ClipPath, Defs, G, Path, Rect, SvgProps } from "react-native-svg";
-import { useStyles } from "react-native-unistyles";
 
-export function PersonIcon({
-  color,
-  width = 24,
-  height = 24,
-  ...rest
-}: SvgProps) {
-  const { theme } = useStyles();
-  color = color || theme.colors.icon.default;
+export function PersonIcon({ color, width, height, ...rest }: SvgProps) {
   return (
     <Svg
       width={width}
@@ -25,7 +17,7 @@ export function PersonIcon({
       </G>
       <Defs>
         <ClipPath id="clip0_537_63">
-          <Rect width={width} height={height} fill="white" />
+          <Rect width={width} height={height} fill={color} />
         </ClipPath>
       </Defs>
     </Svg>

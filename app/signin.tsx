@@ -113,7 +113,7 @@ export default function Page() {
               title={"Continue As Guest"}
               onPress={() => {
                 loginAsGuest(isSecondarySignin);
-                Sentry.captureMessage("Continue As Guest");
+                // Sentry.captureMessage("Continue As Guest");
               }}
             />
           )}

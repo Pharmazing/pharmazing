@@ -12,6 +12,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { Icon } from "../../atoms";
 import { useStyles } from "react-native-unistyles";
 import { ITEM_HEIGHT, addressListStyles } from "./AddressList.styles";
+import { ListDataType } from "./AddressList.types";
 
 const windowDimensions = Dimensions.get("window");
 const screenDimensions = Dimensions.get("screen");
@@ -33,7 +34,7 @@ export function AddressList() {
   }, []);
 
   const { styles, theme } = useStyles(addressListStyles);
-  const [listData, setListData] = useState(
+  const [listData, setListData] = useState<ListDataType>(
     Array(12)
       .fill("")
       .map((_, i) => ({
@@ -61,9 +62,9 @@ export function AddressList() {
     console.log("This row opened", rowKey);
   };
 
-  const onLeftActionStatusChange = (rowKey: any) => {
-    console.log("onLeftActionStatusChange", rowKey);
-  };
+  // const onLeftActionStatusChange = (rowKey: any) => {
+  //   console.log("onLeftActionStatusChange", rowKey);
+  // };
 
   const onRightActionStatusChange = (rowKey: any) => {
     console.log("onRightActionStatusChange", rowKey);
@@ -73,9 +74,9 @@ export function AddressList() {
     console.log("onRightAction", rowKey);
   };
 
-  const onLeftAction = (rowKey: any) => {
-    console.log("onLeftAction", rowKey);
-  };
+  // const onLeftAction = (rowKey: any) => {
+  //   console.log("onLeftAction", rowKey);
+  // };
 
   const VisibleItem = (props: any) => {
     console.log("left state", props.leftActionState);
@@ -83,7 +84,7 @@ export function AddressList() {
     const {
       rowHeightAnimatedValue,
       rightActionState,
-      leftActionState,
+      // leftActionState,
       data,
       removeRow,
     } = props;
@@ -100,18 +101,13 @@ export function AddressList() {
 
     return (
       <Animated.View
-        style={[
-          styles.rowFront,
-          { height: rowHeightAnimatedValue },
-          leftActionState && { backgroundColor: "lightgreen" },
-          //   {borderWidth: 1, borderColor: 'blue'}
-        ]}
+        style={[styles.rowFront(), { height: rowHeightAnimatedValue }]}
       >
         <TouchableHighlight
           onPress={() => console.log("You touched me")}
-          style={styles.rowFront}
+          style={styles.rowFront()}
           // color when pressed
-          underlayColor={theme.colors.addressBtnBg}
+          underlayColor={theme.colors.white}
         >
           <View>
             <Text>I am {data.item.text} in a SwipeListView</Text>
@@ -134,12 +130,12 @@ export function AddressList() {
 
   const HiddenItemWithActions = (props: any) => {
     const {
-      leftActionActivated,
+      // leftActionActivated,
       rightActionActivated,
       swipeAnimatedValue,
       rowActionAnimatedValue,
       rowHeightAnimatedValue,
-      onClose,
+      // onClose,
       onDelete,
     } = props;
 
@@ -157,14 +153,11 @@ export function AddressList() {
 
     return (
       <Animated.View
-        style={[
-          styles.rowBack({ leftActionActivated }),
-          { height: rowHeightAnimatedValue },
-        ]}
+        style={[styles.rowBack(), { height: rowHeightAnimatedValue }]}
       >
-        {!rightActionActivated && (
+        {/* {!rightActionActivated && (
           <Text style={{ width: 75 }}>Make Primary</Text>
-        )}
+        )} */}
         {/* {!leftActionActivated && (
                     <TouchableOpacity
                         style={[styles.backRightBtn, styles.backRightBtnLeft]}
@@ -173,7 +166,7 @@ export function AddressList() {
                         <Text style={styles.backTextWhite}>Closed</Text>
                     </TouchableOpacity>
                 )} */}
-        {!leftActionActivated && (
+        {
           <Animated.View
             style={[
               styles.backRightBtn,
@@ -205,7 +198,7 @@ export function AddressList() {
               </Animated.View>
             </TouchableOpacity>
           </Animated.View>
-        )}
+        }
       </Animated.View>
     );
   };
@@ -219,7 +212,7 @@ export function AddressList() {
         rowMap={rowMap}
         rowActionAnimatedValue={rowActionAnimatedValue}
         rowHeightAnimatedValue={rowHeightAnimatedValue}
-        onClose={() => closeRow(rowMap, data.item.key)}
+        // onClose={() => closeRow(rowMap, data.item.key)}
         onDelete={() => deleteRow(rowMap, data.item.key)}
       />
     );
@@ -228,20 +221,21 @@ export function AddressList() {
   return (
     <View style={styles.container}>
       <SwipeListView
+        disableRightSwipe
         data={listData}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         onRowDidOpen={onRowDidOpen}
-        leftOpenValue={75}
         rightOpenValue={-75}
-        leftActivationValue={200}
         rightActivationValue={-250}
-        leftActionValue={0}
         rightActionValue={-400}
-        onLeftAction={onLeftAction}
         onRightAction={onRightAction}
-        onLeftActionStatusChange={onLeftActionStatusChange}
         onRightActionStatusChange={onRightActionStatusChange}
+        // leftOpenValue={75}
+        // leftActivationValue={200}
+        // leftActionValue={0}
+        // onLeftAction={onLeftAction}
+        // onLeftActionStatusChange={onLeftActionStatusChange}
       />
     </View>
   );
