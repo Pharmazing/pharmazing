@@ -1,14 +1,6 @@
 import Svg, { G, Path, Defs, Rect, SvgProps, ClipPath } from "react-native-svg";
-import { useStyles } from "react-native-unistyles";
 
-export function ChevronRightIcon({
-  color,
-  height = 24,
-  width = 24,
-  ...rest
-}: SvgProps) {
-  const { theme } = useStyles();
-  color = color || theme.colors.icon.default;
+export function ChevronRightIcon({ color, height, width, ...rest }: SvgProps) {
   return (
     <Svg
       width={width}
@@ -25,7 +17,7 @@ export function ChevronRightIcon({
       </G>
       <Defs>
         <ClipPath id="clip0_537_59">
-          <Rect width={width} height={height} fill="white" />
+          <Rect width={width} height={height} fill={color} />
         </ClipPath>
       </Defs>
     </Svg>

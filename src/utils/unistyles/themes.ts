@@ -10,6 +10,7 @@ export const lightTheme = {
     tabsContentBg: "#FAFAFA",
     tabBarIcon: {
       default: "#505050",
+      focused: "#345ABB",
     },
     addressBtnBg: "#AAAAAA",
     addressBtnFg: "#CCCCCC",
@@ -17,11 +18,22 @@ export const lightTheme = {
       default: "#5F6368",
     },
   },
-  margins: {
-    sm: 2,
-    md: 4,
-    lg: 8,
-    xl: 12,
+  size: {
+    icon: {
+      xs: 8,
+      sm: 16,
+      md: 24,
+      lg: 32,
+      xl: 48,
+    },
+    margin: {
+      xs: 2,
+      sm: 4,
+      md: 8,
+      lg: 16,
+      xl: 24,
+      xxl: 32,
+    },
   },
 } as const;
 
@@ -39,16 +51,28 @@ export const darkTheme = {
     addressBtnFg: "#CCCCCC",
     tabBarIcon: {
       default: "#505050",
+      focused: "#345ABB",
     },
     icon: {
       default: "#5F6368",
     },
   },
-  margins: {
-    sm: 2,
-    md: 4,
-    lg: 8,
-    xl: 12,
+  size: {
+    icon: {
+      xs: 8,
+      sm: 16,
+      md: 24,
+      lg: 32,
+      xl: 48,
+    },
+    margin: {
+      xs: 2,
+      sm: 4,
+      md: 8,
+      lg: 16,
+      xl: 24,
+      xxl: 32,
+    },
   },
 } as const;
 

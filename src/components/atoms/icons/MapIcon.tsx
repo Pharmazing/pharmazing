@@ -1,9 +1,6 @@
 import Svg, { ClipPath, Defs, G, Path, Rect, SvgProps } from "react-native-svg";
-import { useStyles } from "react-native-unistyles";
 
-export function MapIcon({ color, height = 24, width = 24, ...rest }: SvgProps) {
-  const { theme } = useStyles();
-  color = color || theme.colors.icon.default;
+export function MapIcon({ color, height, width, ...rest }: SvgProps) {
   return (
     <Svg
       width={width}
@@ -20,7 +17,7 @@ export function MapIcon({ color, height = 24, width = 24, ...rest }: SvgProps) {
       </G>
       <Defs>
         <ClipPath id="clip0_537_45">
-          <Rect width="24" height="24" fill="white" />
+          <Rect width={width} height={height} fill="white" />
         </ClipPath>
       </Defs>
     </Svg>
