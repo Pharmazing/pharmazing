@@ -10,11 +10,24 @@ export const addressListStyles = createStyleSheet((theme) => ({
   backTextWhite: {
     color: theme.colors.white,
   },
+  rowFrontContent: {
+    gap: theme.size.margin.lg,
+    // borderWidth: 1,
+    // borderColor: 'blue',
+    height: "100%",
+    width: "100%",
+    padding: theme.size.margin.lg,
+    flexDirection: "row",
+    alignItems: "center",
+  },
   rowFront: (/*{ leftActionState }: { leftActionState?: boolean }*/) => ({
     alignItems: "center",
+
     backgroundColor: "white",
-    borderBottomColor: theme.colors.Gray200,
-    borderBottomWidth: 1,
+    // borderWidth: 1,
+    // borderColor: 'red',
+    // borderBottomColor: theme.colors.Gray200,
+    // borderBottomWidth: 1,
     justifyContent: "center",
     height: ITEM_HEIGHT,
     width: "100%",
