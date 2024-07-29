@@ -9,10 +9,11 @@ import {
 } from "react-native";
 
 import { SwipeListView } from "react-native-swipe-list-view";
-import { Icon } from "../../atoms";
+import { Box, Icon } from "../../atoms";
 import { useStyles } from "react-native-unistyles";
 import { ITEM_HEIGHT, addressListStyles } from "./AddressList.styles";
 import { ListDataType } from "./AddressList.types";
+import AlertAsync from "react-native-alert-async";
 
 const windowDimensions = Dimensions.get("window");
 const screenDimensions = Dimensions.get("screen");
@@ -39,8 +40,12 @@ export function AddressList() {
       .fill("")
       .map((_, i) => ({
         key: `${i}`,
-        text: `item #${i}`,
-        initialLeftActionState: i % 2 !== 0,
+        addressId: `${i}`,
+        addressLine1: "123 Jump Lane",
+        addressLine2: "456",
+        parish: "Kingston",
+        primary: i === 2,
+        // initialLeftActionState: i % 2 !== 0,
       })),
   );
 
@@ -59,71 +64,84 @@ export function AddressList() {
   };
 
   const onRowDidOpen = (rowKey: any) => {
-    console.log("This row opened", rowKey);
+    // console.log("This row opened", rowKey);
   };
 
-  // const onLeftActionStatusChange = (rowKey: any) => {
-  //   console.log("onLeftActionStatusChange", rowKey);
-  // };
-
   const onRightActionStatusChange = (rowKey: any) => {
-    console.log("onRightActionStatusChange", rowKey);
+    // console.log("onRightActionStatusChange", rowKey);
   };
 
   const onRightAction = (rowKey: any) => {
-    console.log("onRightAction", rowKey);
+    // console.log("onRightAction", rowKey);
   };
 
-  // const onLeftAction = (rowKey: any) => {
-  //   console.log("onLeftAction", rowKey);
-  // };
-
   const VisibleItem = (props: any) => {
-    console.log("left state", props.leftActionState);
-
     const {
       rowHeightAnimatedValue,
       rightActionState,
-      // leftActionState,
+      rightActionActivated,
       data,
-      removeRow,
+      onClose,
+      onDelete,
     } = props;
+    (async () => {
+      if (rightActionActivated && rightActionState) {
+        const choice = await AlertAsync(
+          "Delete Address",
+          `Are you sure you want to delete ${data.item.addressLine1}?`,
+          [
+            { text: "Yes", onPress: () => Promise.resolve("yes") },
+            { text: "No, go back", onPress: () => Promise.resolve("no") },
+          ],
+          {
+            cancelable: true,
+            onDismiss: () => Promise.resolve("no"),
+          },
+        );
 
-    if (rightActionState) {
-      Animated.timing(rowHeightAnimatedValue, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: false,
-      }).start(() => {
-        removeRow();
-      });
-    }
+        if (choice === "yes") {
+          Animated.timing(rowHeightAnimatedValue, {
+            toValue: 0,
+            duration: 200,
+            useNativeDriver: false,
+          }).start(() => {
+            onDelete();
+          });
+        } else if (choice === "no") {
+          onClose();
+        }
+      }
+    })();
 
     return (
       <Animated.View
         style={[styles.rowFront(), { height: rowHeightAnimatedValue }]}
       >
-        <TouchableHighlight
-          onPress={() => console.log("You touched me")}
-          style={styles.rowFront()}
-          // color when pressed
-          underlayColor={theme.colors.white}
-        >
-          <View>
-            <Text>I am {data.item.text} in a SwipeListView</Text>
-          </View>
-        </TouchableHighlight>
+        <Box style={styles.rowFrontContent}>
+          <Icon
+            name="LocationIcon"
+            color={data.item.primary ? theme.colors.Red700 : ""}
+          />
+          <Box style={{ flex: 1 }}>
+            <Text style={{ fontSize: 16, fontWeight: "700" }}>
+              {data.item.addressLine1}, {data.item.addressLine2}
+            </Text>
+            <Text>KGN10, Kingston, Jamaica</Text>
+          </Box>
+          <Icon name="EditIcon" />
+        </Box>
       </Animated.View>
     );
   };
 
-  const renderItem = (data: { item: { key: any } }, rowMap: any) => {
+  const renderItem = (data: any, rowMap: any) => {
     const rowHeightAnimatedValue = new Animated.Value(ITEM_HEIGHT);
     return (
       <VisibleItem
         rowHeightAnimatedValue={rowHeightAnimatedValue}
         data={data}
-        removeRow={() => deleteRow(rowMap, data.item.key)}
+        onClose={() => closeRow(rowMap, data.item.key)}
+        onDelete={() => deleteRow(rowMap, data.item.key)}
       />
     );
   };
@@ -135,7 +153,8 @@ export function AddressList() {
       swipeAnimatedValue,
       rowActionAnimatedValue,
       rowHeightAnimatedValue,
-      // onClose,
+      onClose,
+      data,
       onDelete,
     } = props;
 
@@ -176,7 +195,28 @@ export function AddressList() {
           >
             <TouchableOpacity
               style={[styles.backRightBtn, styles.backRightBtnRight]}
-              onPress={onDelete}
+              onPress={async () => {
+                const choice = await AlertAsync(
+                  `Delete Address ${data.item.addressId}`,
+                  `Are you sure you want to delete ${data.item.addressLine1}?`,
+                  [
+                    { text: "Yes", onPress: () => Promise.resolve("yes") },
+                    {
+                      text: "No, go back",
+                      onPress: () => Promise.resolve("no"),
+                    },
+                  ],
+                  {
+                    cancelable: true,
+                    onDismiss: () => Promise.resolve("no"),
+                  },
+                );
+                if (choice === "yes") {
+                  onDelete();
+                } else if (choice === "no") {
+                  onClose();
+                }
+              }}
             >
               <Animated.View
                 style={[
@@ -212,7 +252,7 @@ export function AddressList() {
         rowMap={rowMap}
         rowActionAnimatedValue={rowActionAnimatedValue}
         rowHeightAnimatedValue={rowHeightAnimatedValue}
-        // onClose={() => closeRow(rowMap, data.item.key)}
+        onClose={() => closeRow(rowMap, data.item.key)}
         onDelete={() => deleteRow(rowMap, data.item.key)}
       />
     );
@@ -231,6 +271,10 @@ export function AddressList() {
         rightActionValue={-400}
         onRightAction={onRightAction}
         onRightActionStatusChange={onRightActionStatusChange}
+        // closeOnRowPress
+        // closeOnRowBeginSwipe
+        // stickyHeaderHiddenOnScroll
+        // stopRightSwipe={-175}
         // leftOpenValue={75}
         // leftActivationValue={200}
         // leftActionValue={0}
