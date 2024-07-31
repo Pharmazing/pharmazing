@@ -4,7 +4,7 @@ export const settingsLinkStyles = createStyleSheet((theme) => ({
   textStyle: ({ disabled }: { disabled?: boolean }) => ({
     fontFamily: "Roboto_500Medium",
     fontSize: 18,
-    color: disabled ? theme.colors.Gray200 : "#484848",
+    color: disabled ? theme.colors.Gray200 : theme.colors.Gray600,
   }),
   linkContainer: {
     alignItems: "center",
