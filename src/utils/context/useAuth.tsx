@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { isAndroid, isIOS, useStorageState } from "../hooks";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { router } from "expo-router";
+import React, { useEffect, useState } from 'react';
+import { isAndroid, isIOS, useStorageState } from '../hooks';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { router } from 'expo-router';
 
 GoogleSignin.configure({
   webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
@@ -30,9 +30,9 @@ const AuthContext = React.createContext<{
 // This hook can be used to access the user info.
 export function useSession() {
   const value = React.useContext(AuthContext);
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== 'production') {
     if (!value) {
-      throw new Error("useSession must be wrapped in a <SessionProvider />");
+      throw new Error('useSession must be wrapped in a <SessionProvider />');
     }
   }
 
@@ -40,7 +40,7 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: React.PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState("session");
+  const [[isLoading, session], setSession] = useStorageState('session');
   const [error, setError] = useState<any | null>(null);
   // const configureGoogleSignIn = () => {
   //   GoogleSignin.configure({
@@ -63,7 +63,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
 
   const loginAsGuest = async (setLocation?: boolean) => {
     try {
-      router.replace(setLocation ? "/signin2/setlocation" : "/home");
+      router.replace(setLocation ? '/signin2/setlocation' : '/home');
       setError(null);
     } catch (e) {
       if (error instanceof Error) setError(e);
@@ -75,7 +75,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
 
     setSession(null);
     setError(null);
-    router.replace(isIOS || isAndroid ? "/signin2" : "/signin");
+    router.replace(isIOS || isAndroid ? '/signin2' : '/signin');
   };
 
   // useEffect(() => {

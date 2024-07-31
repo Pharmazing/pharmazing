@@ -1,14 +1,14 @@
-import { Link, Stack, useNavigationContainerRef } from "expo-router";
-import React, { useEffect } from "react";
-import { Text } from "react-native";
-import { isAndroid, isIOS, isWeb } from "../src/utils";
-import { SessionProvider } from "../src/utils/context";
-import { ApolloProvider } from "@apollo/client";
-import { client } from "../src/utils/api/apollo/apolloClient";
-import Toast from "react-native-toast-message";
-import "expo-dev-client";
-import "../src/utils/unistyles/unistyles";
-import { isRunningInExpoGo } from "expo";
+import { Link, Stack, useNavigationContainerRef } from 'expo-router';
+import React, { useEffect } from 'react';
+import { Text } from 'react-native';
+import { isAndroid, isIOS, isWeb } from '../src/utils';
+import { SessionProvider } from '../src/utils/context';
+import { ApolloProvider } from '@apollo/client';
+import { client } from '../src/utils/api/apollo/apolloClient';
+import Toast from 'react-native-toast-message';
+import 'expo-dev-client';
+import '../src/utils/unistyles/unistyles';
+import { isRunningInExpoGo } from 'expo';
 import {
   useFonts,
   Roboto_100Thin,
@@ -23,14 +23,15 @@ import {
   Roboto_700Bold_Italic,
   Roboto_900Black,
   Roboto_900Black_Italic,
-} from "@expo-google-fonts/roboto";
-import * as SplashScreen from "expo-splash-screen";
-import * as Sentry from "@sentry/react-native";
+} from '@expo-google-fonts/roboto';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Sentry from '@sentry/react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
 Sentry.init({
-  dsn: "https://3555aa46162c3f2476b5db54c5fdce83@o4507655177895936.ingest.us.sentry.io/4507655191724032",
+  dsn: 'https://3555aa46162c3f2476b5db54c5fdce83@o4507655177895936.ingest.us.sentry.io/4507655191724032',
   debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
   integrations: [
     new Sentry.ReactNativeTracing({
@@ -80,36 +81,42 @@ function RootLayout() {
   }
 
   return (
-    <SessionProvider>
-      <ApolloProvider client={client}>
-        {(isIOS || isAndroid) && (
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="signup" />
-            <Stack.Screen name="signin2" options={{ headerShown: false }} />
-          </Stack>
-        )}
-        {isWeb && (
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="signup"
-              options={{
-                headerLeft: () => (
-                  <Link href="/signin">
-                    <Text style={{ fontFamily: "RobotoRegular" }}>
-                      Back to login
-                    </Text>
-                  </Link>
-                ),
-              }}
-            />
-            <Stack.Screen name="signin" options={{ headerShown: false }} />
-          </Stack>
-        )}
-      </ApolloProvider>
-      <Toast />
-    </SessionProvider>
+    <SafeAreaProvider>
+      <SessionProvider>
+        <ApolloProvider client={client}>
+          {(isIOS || isAndroid) && (
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="signup" />
+              <Stack.Screen name="signin2" options={{ headerShown: false }} />
+            </Stack>
+          )}
+          {isWeb && (
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="signup"
+                options={{
+                  headerLeft: () => (
+                    <Link href="/signin">
+                      <Text
+                        style={{
+                          fontFamily: 'RobotoRegular',
+                        }}
+                      >
+                        Back to login
+                      </Text>
+                    </Link>
+                  ),
+                }}
+              />
+              <Stack.Screen name="signin" options={{ headerShown: false }} />
+            </Stack>
+          )}
+        </ApolloProvider>
+        <Toast />
+      </SessionProvider>
+    </SafeAreaProvider>
   );
 }
 

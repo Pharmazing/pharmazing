@@ -1,1 +1,1 @@
-export * from "./SetLocation.native";
+export * from './SetLocation.native';

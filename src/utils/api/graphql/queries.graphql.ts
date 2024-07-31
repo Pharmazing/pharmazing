@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const getUserQuery = gql`
   query SignIn($email: String, $password: String) {

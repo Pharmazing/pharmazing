@@ -1,4 +1,4 @@
-import Toast, { ToastShowParams } from "react-native-toast-message";
+import Toast, { ToastShowParams } from 'react-native-toast-message';
 
 export interface useToastProps extends ToastShowParams {}
 

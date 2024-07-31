@@ -1,5 +1,5 @@
-import { Stack } from "expo-router";
-import * as Constants from "expo-constants";
+import { Stack } from 'expo-router';
+import * as Constants from 'expo-constants';
 
 export default function Layout() {
   return (
@@ -10,7 +10,9 @@ export default function Layout() {
           name="setlocation"
           options={{
             headerShown: false,
-            contentStyle: { paddingTop: Constants.default.statusBarHeight },
+            contentStyle: {
+              paddingTop: Constants.default.statusBarHeight,
+            },
           }}
         />
       </Stack>

@@ -1,4 +1,4 @@
-import { ActivityIndicatorProps } from "react-native";
+import { ActivityIndicatorProps } from 'react-native';
 
 export interface LoadingIndicatorProps extends ActivityIndicatorProps {
   loading?: boolean;

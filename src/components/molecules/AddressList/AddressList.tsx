@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from "react";
-import {
-  Text,
-  Animated,
-  TouchableOpacity,
-  TouchableHighlight,
-  View,
-  Dimensions,
-} from "react-native";
+import React, { useEffect, useState } from 'react';
+import { Text, Animated, TouchableOpacity, Dimensions } from 'react-native';
 
-import { SwipeListView } from "react-native-swipe-list-view";
-import { Box, Icon } from "../../atoms";
-import { useStyles } from "react-native-unistyles";
-import { ITEM_HEIGHT, addressListStyles } from "./AddressList.styles";
-import { ListDataType } from "./AddressList.types";
-import AlertAsync from "react-native-alert-async";
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { Box, Icon } from '../../atoms';
+import { useStyles } from 'react-native-unistyles';
+import { ITEM_HEIGHT, addressListStyles } from './AddressList.styles';
+import { AddressListProps, ListDataType } from './AddressList.types';
+import AlertAsync from 'react-native-alert-async';
 
-const windowDimensions = Dimensions.get("window");
-const screenDimensions = Dimensions.get("screen");
+const windowDimensions = Dimensions.get('window');
+const screenDimensions = Dimensions.get('screen');
 
-export function AddressList() {
+export function AddressList({
+  openEditModal,
+  editModalOpen,
+}: AddressListProps) {
   const [dimensions, setDimensions] = useState({
     window: windowDimensions,
     screen: screenDimensions,
@@ -26,10 +22,10 @@ export function AddressList() {
 
   useEffect(() => {
     const subscription = Dimensions.addEventListener(
-      "change",
+      'change',
       ({ window, screen }) => {
         setDimensions({ window, screen });
-      },
+      }
     );
     return () => subscription?.remove();
   }, []);
@@ -37,16 +33,16 @@ export function AddressList() {
   const { styles, theme } = useStyles(addressListStyles);
   const [listData, setListData] = useState<ListDataType>(
     Array(12)
-      .fill("")
+      .fill('')
       .map((_, i) => ({
         key: `${i}`,
         addressId: `${i}`,
-        addressLine1: "123 Jump Lane",
-        addressLine2: "456",
-        parish: "Kingston",
+        addressLine1: '123 Jump Lane',
+        addressLine2: '456',
+        parish: 'Kingston',
         primary: i === 2,
         // initialLeftActionState: i % 2 !== 0,
-      })),
+      }))
   );
 
   const closeRow = (rowMap: any, rowKey: any) => {
@@ -87,19 +83,22 @@ export function AddressList() {
     (async () => {
       if (rightActionActivated && rightActionState) {
         const choice = await AlertAsync(
-          "Delete Address",
+          'Delete Address',
           `Are you sure you want to delete ${data.item.addressLine1}?`,
           [
-            { text: "Yes", onPress: () => Promise.resolve("yes") },
-            { text: "No, go back", onPress: () => Promise.resolve("no") },
+            { text: 'Yes', onPress: () => Promise.resolve('yes') },
+            {
+              text: 'No, go back',
+              onPress: () => Promise.resolve('no'),
+            },
           ],
           {
             cancelable: true,
-            onDismiss: () => Promise.resolve("no"),
-          },
+            onDismiss: () => Promise.resolve('no'),
+          }
         );
 
-        if (choice === "yes") {
+        if (choice === 'yes') {
           Animated.timing(rowHeightAnimatedValue, {
             toValue: 0,
             duration: 200,
@@ -107,7 +106,7 @@ export function AddressList() {
           }).start(() => {
             onDelete();
           });
-        } else if (choice === "no") {
+        } else if (choice === 'no') {
           onClose();
         }
       }
@@ -120,15 +119,21 @@ export function AddressList() {
         <Box style={styles.rowFrontContent}>
           <Icon
             name="LocationIcon"
-            color={data.item.primary ? theme.colors.Red700 : ""}
+            color={data.item.primary ? theme.colors.Red700 : ''}
           />
           <Box style={{ flex: 1 }}>
-            <Text style={{ fontSize: 16, fontWeight: "700" }}>
+            <Text style={{ fontSize: 16, fontWeight: '700' }}>
               {data.item.addressLine1}, {data.item.addressLine2}
             </Text>
             <Text>KGN10, Kingston, Jamaica</Text>
           </Box>
-          <Icon name="EditIcon" />
+          <TouchableOpacity
+            onPress={() => {
+              openEditModal(data);
+            }}
+          >
+            <Icon name="EditIcon" />
+          </TouchableOpacity>
         </Box>
       </Animated.View>
     );
@@ -200,20 +205,23 @@ export function AddressList() {
                   `Delete Address ${data.item.addressId}`,
                   `Are you sure you want to delete ${data.item.addressLine1}?`,
                   [
-                    { text: "Yes", onPress: () => Promise.resolve("yes") },
                     {
-                      text: "No, go back",
-                      onPress: () => Promise.resolve("no"),
+                      text: 'Yes',
+                      onPress: () => Promise.resolve('yes'),
+                    },
+                    {
+                      text: 'No, go back',
+                      onPress: () => Promise.resolve('no'),
                     },
                   ],
                   {
                     cancelable: true,
-                    onDismiss: () => Promise.resolve("no"),
-                  },
+                    onDismiss: () => Promise.resolve('no'),
+                  }
                 );
-                if (choice === "yes") {
+                if (choice === 'yes') {
                   onDelete();
-                } else if (choice === "no") {
+                } else if (choice === 'no') {
                   onClose();
                 }
               }}
@@ -227,7 +235,7 @@ export function AddressList() {
                         scale: swipeAnimatedValue.interpolate({
                           inputRange: [-70, -15],
                           outputRange: [1, 0],
-                          extrapolate: "clamp",
+                          extrapolate: 'clamp',
                         }),
                       },
                     ],
@@ -259,28 +267,30 @@ export function AddressList() {
   };
 
   return (
-    <View style={styles.container}>
-      <SwipeListView
-        disableRightSwipe
-        data={listData}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        onRowDidOpen={onRowDidOpen}
-        rightOpenValue={-75}
-        rightActivationValue={-250}
-        rightActionValue={-400}
-        onRightAction={onRightAction}
-        onRightActionStatusChange={onRightActionStatusChange}
-        // closeOnRowPress
-        // closeOnRowBeginSwipe
-        // stickyHeaderHiddenOnScroll
-        // stopRightSwipe={-175}
-        // leftOpenValue={75}
-        // leftActivationValue={200}
-        // leftActionValue={0}
-        // onLeftAction={onLeftAction}
-        // onLeftActionStatusChange={onLeftActionStatusChange}
-      />
-    </View>
+    <SwipeListView
+      style={{
+        pointerEvents: editModalOpen ? 'none' : 'auto',
+        opacity: editModalOpen ? 0.5 : 1,
+      }}
+      disableRightSwipe
+      data={listData}
+      renderItem={renderItem}
+      renderHiddenItem={renderHiddenItem}
+      onRowDidOpen={onRowDidOpen}
+      rightOpenValue={-75}
+      rightActivationValue={-250}
+      rightActionValue={-400}
+      onRightAction={onRightAction}
+      onRightActionStatusChange={onRightActionStatusChange}
+      // closeOnRowPress
+      // closeOnRowBeginSwipe
+      // stickyHeaderHiddenOnScroll
+      // stopRightSwipe={-175}
+      // leftOpenValue={75}
+      // leftActivationValue={200}
+      // leftActionValue={0}
+      // onLeftAction={onLeftAction}
+      // onLeftActionStatusChange={onLeftActionStatusChange}
+    />
   );
 }

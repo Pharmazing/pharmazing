@@ -1,4 +1,4 @@
-import Svg, { G, Path, Defs, Rect, SvgProps, ClipPath } from "react-native-svg";
+import Svg, { G, Path, Defs, Rect, SvgProps, ClipPath } from 'react-native-svg';
 
 export function ChevronRightIcon({ color, height, width, ...rest }: SvgProps) {
   return (

@@ -1,9 +1,9 @@
-import { SettingsBoxProps } from "./SettingsBox.types";
-import { Text, View } from "react-native";
-import { SettingsLink } from "./SettingsLink";
-import { settingsBoxStyles } from "./SettingsBox.styles";
-import { useStyles } from "react-native-unistyles";
-import { Box } from "../../atoms";
+import { SettingsBoxProps } from './SettingsBox.types';
+import { Text, View } from 'react-native';
+import { SettingsLink } from './SettingsLink';
+import { settingsBoxStyles } from './SettingsBox.styles';
+import { useStyles } from 'react-native-unistyles';
+import { Box } from '../../atoms';
 
 export const SettingsBox = ({
   title,

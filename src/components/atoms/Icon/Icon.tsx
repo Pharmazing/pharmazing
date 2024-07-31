@@ -1,7 +1,7 @@
-import { FunctionComponent, ReactElement } from "react";
-import { IconProps } from "./Icons.types";
-import * as Icons from "../icons";
-import { useStyles } from "react-native-unistyles";
+import { FunctionComponent, ReactElement } from 'react';
+import { IconProps } from './Icons.types';
+import * as Icons from '../icons';
+import { useStyles } from 'react-native-unistyles';
 
 export const Icon: FunctionComponent<IconProps> = ({
   name,

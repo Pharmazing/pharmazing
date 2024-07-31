@@ -1,7 +1,7 @@
-import { ActivityIndicator, View } from "react-native";
-import { LoadingIndicatorProps } from "./LoadingIndicator.types";
-import { loadingStyles } from "./LoadingIndicator.styles";
-import { useStyles } from "react-native-unistyles";
+import { ActivityIndicator, View } from 'react-native';
+import { LoadingIndicatorProps } from './LoadingIndicator.types';
+import { loadingStyles } from './LoadingIndicator.styles';
+import { useStyles } from 'react-native-unistyles';
 
 export const LoadingIndicator = ({
   loading,

@@ -1,20 +1,20 @@
-import React from "react";
-import { Text } from "react-native";
-import { useStyles } from "react-native-unistyles";
-import DropShadow from "react-native-drop-shadow";
-import { ButtonProps } from "./Button.types";
-import { buttonStyles } from "./Button.styles";
+import React from 'react';
+import { Text } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
+import DropShadow from 'react-native-drop-shadow';
+import { ButtonProps } from './Button.types';
+import { buttonStyles } from './Button.styles';
 
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity } from 'react-native';
 
 export const Button = ({ btnVariant, title, style, ...rest }: ButtonProps) => {
   const { styles } = useStyles(buttonStyles);
   switch (btnVariant) {
-    case "primary":
+    case 'primary':
       return <TouchableOpacity {...rest}>{title}</TouchableOpacity>;
-    case "secondary":
+    case 'secondary':
       return <TouchableOpacity {...rest}>{title}</TouchableOpacity>;
-    case "danger":
+    case 'danger':
       return (
         <DropShadow style={styles.shadow}>
           <TouchableOpacity style={[styles.danger, style]} {...rest}>
@@ -24,7 +24,7 @@ export const Button = ({ btnVariant, title, style, ...rest }: ButtonProps) => {
       );
     default:
       return (
-        <TouchableOpacity style={styles.primary} {...rest}>
+        <TouchableOpacity style={[styles.primary, style]} {...rest}>
           {title}
         </TouchableOpacity>
       );

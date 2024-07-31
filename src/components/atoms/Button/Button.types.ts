@@ -1,8 +1,8 @@
-import { TouchableOpacityProps } from "react-native";
+import { TouchableOpacityProps } from 'react-native';
 export enum ButtonVariantEnum {
-  PRIMARY = "primary",
-  SECONDARY = "secondary",
-  DANGER = "danger",
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  DANGER = 'danger',
 }
 
 export interface ButtonProps extends TouchableOpacityProps {

@@ -1,9 +1,9 @@
-import { Pressable, Text } from "react-native";
-import { settingsLinkStyles } from "./SettingsLink.styles";
-import { SettingsLinkProps } from "./SettingsLink.types";
-import { router } from "expo-router";
-import { Box, Icon } from "../../atoms";
-import { useStyles } from "react-native-unistyles";
+import { Pressable, Text } from 'react-native';
+import { settingsLinkStyles } from './SettingsLink.styles';
+import { SettingsLinkProps } from './SettingsLink.types';
+import { router } from 'expo-router';
+import { Box, Icon } from '../../atoms';
+import { useStyles } from 'react-native-unistyles';
 
 export const SettingsLink = ({
   href,
@@ -20,9 +20,9 @@ export const SettingsLink = ({
       <Box style={styles.linkContainer}>
         <Box
           style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
             gap: 16,
           }}
         >
@@ -31,10 +31,10 @@ export const SettingsLink = ({
               name={icon}
               height={28}
               width={28}
-              color={disabled ? theme.colors.Gray200 : ""}
+              color={disabled ? theme.colors.Gray200 : ''}
             />
           )}
-          {typeof content === "string" ? (
+          {typeof content === 'string' ? (
             <Text style={styles.textStyle({ disabled: !!disabled })}>
               {content}
             </Text>
@@ -46,7 +46,7 @@ export const SettingsLink = ({
           name="ChevronRightIcon"
           height={32}
           width={32}
-          color={disabled ? theme.colors.Gray200 : ""}
+          color={disabled ? theme.colors.Gray200 : ''}
         />
       </Box>
     </Pressable>

@@ -1,1 +1,1 @@
-export { SettingsMobile } from "./Settings.mobile";
+export { SettingsMobile } from './Settings.mobile';

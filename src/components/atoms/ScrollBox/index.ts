@@ -1,2 +1,2 @@
-export * from "./ScrollBox";
-export * from "./ScrollBox.types";
+export * from './ScrollBox';
+export * from './ScrollBox.types';

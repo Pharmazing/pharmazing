@@ -1,2 +1,2 @@
-export * from "./LoadingIndicator";
-export * from "./LoadingIndicator.types";
+export * from './LoadingIndicator';
+export * from './LoadingIndicator.types';
