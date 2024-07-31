@@ -1,3 +1,3 @@
-import { ViewProps } from "react-native";
+import { ViewProps } from 'react-native';
 
 export interface BoxProps extends ViewProps {}

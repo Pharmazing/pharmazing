@@ -1,2 +1,2 @@
-export * from "./sentry";
-export * from "./sentry.web";
+export * from './sentry';
+export * from './sentry.web';

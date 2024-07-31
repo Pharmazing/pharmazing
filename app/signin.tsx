@@ -1,27 +1,27 @@
-import { router, useSegments } from "expo-router";
-import React, { useCallback, useEffect } from "react";
-import { Text, Button, View, ImageBackground } from "react-native";
-import { styles } from "../src/utils/appStyles/styles";
-import { isAndroid, isIOS, isWeb } from "../src/utils";
-import { useSession } from "../src/utils/context";
-import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
+import { router, useSegments } from 'expo-router';
+import React, { useCallback, useEffect } from 'react';
+import { Text, Button, View, ImageBackground } from 'react-native';
+import { styles } from '../src/utils/appStyles/styles';
+import { isAndroid, isIOS, isWeb } from '../src/utils';
+import { useSession } from '../src/utils/context';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import {
   useCreateUserMutation,
   useSignInLazyQuery,
-} from "../src/generated/graphql";
-import { LoadingIndicator } from "../src/components/atoms";
-import * as Sentry from "@sentry/react-native";
+} from '../src/generated/graphql';
+import { LoadingIndicator } from '../src/components/atoms';
+import * as Sentry from '@sentry/react-native';
 
 export default function Page() {
   const { loginAsGuest, session, loginWithGoogle, error, setSession } =
     useSession();
-  const parsedSession = JSON.parse(session || "{}");
+  const parsedSession = JSON.parse(session || '{}');
 
   const segments = useSegments();
   const showContinueAsGuest =
-    segments?.[0] === "signin" || segments?.[0] === "signin2";
-  const isSecondarySignin = segments?.[0] === "signin2";
-  console.log("isSecondarySignin", isSecondarySignin);
+    segments?.[0] === 'signin' || segments?.[0] === 'signin2';
+  const isSecondarySignin = segments?.[0] === 'signin2';
+  console.log('isSecondarySignin', isSecondarySignin);
   const [
     triggerSignIn,
     { data: signInData, error: signInError, loading: signInLoading },
@@ -71,14 +71,14 @@ export default function Page() {
         if (!parsedSession?.user?.userId) {
           triggerSignIn();
         } else {
-          router.replace(isSecondarySignin ? "/signin2/setlocation" : "/home");
+          router.replace(isSecondarySignin ? '/signin2/setlocation' : '/home');
         }
       }
     } catch (e) {}
   }, [session]);
 
   useEffect(() => {
-    if (signInError?.message === "user not found") {
+    if (signInError?.message === 'user not found') {
       // create user record using current session data
       !parsedSession?.user?.userId &&
         triggerSignUp({
@@ -102,22 +102,24 @@ export default function Page() {
           resizeMode="cover"
           style={styles.backgroundImage}
           // defaultSource={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
-          source={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
+          source={{
+            uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png`,
+          }}
         >
-          <Text style={{ fontFamily: "Roboto_700Bold_Italic" }}>
+          <Text style={{ fontFamily: 'Roboto_700Bold_Italic' }}>
             Sign In Page
           </Text>
           <GoogleSigninButton onPress={loginWithGoogle} />
           {showContinueAsGuest && (
             <Button
-              title={"Continue As Guest"}
+              title={'Continue As Guest'}
               onPress={() => {
                 loginAsGuest(isSecondarySignin);
                 // Sentry.captureMessage("Continue As Guest");
               }}
             />
           )}
-          <Button title={"sign up"} onPress={() => router.replace("/signup")} />
+          <Button title={'sign up'} onPress={() => router.replace('/signup')} />
           {error && (
             <Text style={{ height: 200 }}>
               SessionError: {JSON.stringify(error)}
@@ -149,7 +151,7 @@ export default function Page() {
       <GoogleSigninButton onPress={loginWithGoogle} />
       {showContinueAsGuest && (
         <Button
-          title={"Continue As Guest"}
+          title={'Continue As Guest'}
           onPress={() => {
             loginAsGuest(isSecondarySignin);
             // Sentry.captureMessage("Continue As Guest clicked");
@@ -157,7 +159,7 @@ export default function Page() {
           }}
         />
       )}
-      <Button title={"sign up"} onPress={() => router.replace("/signup")} />
+      <Button title={'sign up'} onPress={() => router.replace('/signup')} />
     </>
   );
   return (

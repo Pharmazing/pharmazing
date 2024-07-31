@@ -1,6 +1,6 @@
-import React from "react";
-import { Stack, useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
+import React from 'react';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import { View } from 'react-native';
 
 export default function Page() {
   const { id } = useLocalSearchParams();
@@ -8,7 +8,10 @@ export default function Page() {
   return (
     <View>
       <Stack.Screen
-        options={{ headerTitle: `Details for ${id}`, headerBackTitle: "Home" }}
+        options={{
+          headerTitle: `Details for ${id}`,
+          headerBackTitle: 'Home',
+        }}
       />
     </View>
   );

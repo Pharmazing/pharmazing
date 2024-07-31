@@ -1,7 +1,7 @@
-import React from "react";
-import { router } from "expo-router";
-import { View, Text, Button } from "react-native";
-import { isAndroid, isIOS } from "../src/utils";
+import React from 'react';
+import { router } from 'expo-router';
+import { View, Text, Button } from 'react-native';
+import { isAndroid, isIOS } from '../src/utils';
 
 export default function Page() {
   return (
@@ -10,7 +10,7 @@ export default function Page() {
       <Button
         title="Log in instead"
         onPress={() =>
-          router.replace(isIOS || isAndroid ? "/signin2" : "/signin")
+          router.replace(isIOS || isAndroid ? '/signin2' : '/signin')
         }
       />
     </View>

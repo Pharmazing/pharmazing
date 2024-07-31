@@ -1,3 +1,3 @@
-import { ScrollViewProps } from "react-native";
+import { ScrollViewProps } from 'react-native';
 
 export interface ScrollBoxProps extends ScrollViewProps {}

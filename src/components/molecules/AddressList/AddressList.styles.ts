@@ -1,11 +1,11 @@
-import { createStyleSheet } from "react-native-unistyles";
+import { createStyleSheet } from 'react-native-unistyles';
 
 export const ITEM_HEIGHT = 70;
 
 export const addressListStyles = createStyleSheet((theme) => ({
   container: {
     backgroundColor: theme.colors.white,
-    flex: 1,
+    // flex: 1,
   },
   backTextWhite: {
     color: theme.colors.white,
@@ -14,42 +14,42 @@ export const addressListStyles = createStyleSheet((theme) => ({
     gap: theme.size.lg,
     // borderWidth: 1,
     // borderColor: 'blue',
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
     padding: theme.size.lg,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   rowFront: (/*{ leftActionState }: { leftActionState?: boolean }*/) => ({
-    alignItems: "center",
+    alignItems: 'center',
 
-    backgroundColor: "white",
+    backgroundColor: 'white',
     // borderWidth: 1,
     // borderColor: 'red',
     // borderBottomColor: theme.colors.Gray200,
     // borderBottomWidth: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     height: ITEM_HEIGHT,
-    width: "100%",
-    display: "flex",
+    width: '100%',
+    display: 'flex',
   }),
   rowBack: (/*{ leftActionActivated }*/) => ({
-    alignItems: "center",
+    alignItems: 'center',
     // backgroundColor: ",
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     // height: ITEM_HEIGHT,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     paddingLeft: 15,
     // backgroundColor: leftActionActivated
     //   ? theme.colors.Green500
     //   : "transparent",
   }),
   backRightBtn: {
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
     bottom: 0,
-    justifyContent: "center",
-    position: "absolute",
+    justifyContent: 'center',
+    position: 'absolute',
     top: 0,
     // backgroundColor: "blue",
     width: 25,
@@ -67,8 +67,8 @@ export const addressListStyles = createStyleSheet((theme) => ({
   trash: {
     height: 24,
     width: 24,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginRight: 7,
   },
 }));

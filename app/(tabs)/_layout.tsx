@@ -1,40 +1,46 @@
-import React from "react";
-import { Tabs } from "expo-router";
-import { Drawer } from "expo-router/drawer";
-import { isAndroid, isIOS, isWeb } from "../../src/utils";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Icon } from "../../src/components/atoms";
-import { useStyles } from "react-native-unistyles";
+import React from 'react';
+import { Tabs } from 'expo-router';
+import { Drawer } from 'expo-router/drawer';
+import { isAndroid, isIOS, isWeb } from '../../src/utils';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Icon } from '../../src/components/atoms';
+import { useStyles } from 'react-native-unistyles';
 
 export default function Layout() {
   const { theme } = useStyles();
   return isIOS || isAndroid ? (
-    <Tabs sceneContainerStyle={{ backgroundColor: theme.colors.tabsContentBg }}>
+    <Tabs
+      sceneContainerStyle={{
+        backgroundColor: theme.colors.tabsContentBg,
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
+          title: 'Home',
           tabBarIcon: ({ color }) => <Icon name="HomeIcon" color={color} />,
         }}
       />
       <Tabs.Screen
         name="activity"
         options={{
-          title: "Activity",
+          title: 'Activity',
           tabBarIcon: ({ color }) => <Icon name="ActivityIcon" color={color} />,
         }}
       />
       <Tabs.Screen
         name="cart"
         options={{
-          title: "Cart",
-          tabBarIcon: ({ color }) => <Icon name="CartIcon" color={color} />,
+          title: 'Cart',
+          tabBarIcon: ({ color }) => (
+            <Icon name="CartIcon" color={color} height={30} width={30} />
+          ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: "Settings",
+          title: 'Settings',
           tabBarIcon: ({ color }) => <Icon name="SettingsIcon" color={color} />,
         }}
       />
@@ -48,15 +54,15 @@ export default function Layout() {
         <Drawer.Screen name="somePage" />
         <Drawer.Screen
           name="activity"
-          options={{ drawerItemStyle: { display: "none" } }}
+          options={{ drawerItemStyle: { display: 'none' } }}
         />
         <Drawer.Screen
           name="cart"
-          options={{ drawerItemStyle: { display: "none" } }}
+          options={{ drawerItemStyle: { display: 'none' } }}
         />
         <Drawer.Screen
           name="settings"
-          options={{ drawerItemStyle: { display: "none" } }}
+          options={{ drawerItemStyle: { display: 'none' } }}
         />
         {/* <Drawer.Screen
               name="prescriptions"

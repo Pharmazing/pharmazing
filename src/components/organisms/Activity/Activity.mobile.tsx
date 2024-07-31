@@ -1,6 +1,6 @@
-import React from "react";
-import { Text } from "react-native";
-import { ScrollBox } from "../../atoms";
+import React from 'react';
+import { Text } from 'react-native';
+import { ScrollBox } from '../../atoms';
 export function ActivityMobile() {
   return (
     <ScrollBox>

@@ -6,3 +6,8 @@ export type ListDataType = {
   key: string;
   //   initialLeftActionState: boolean;
 }[];
+
+export type AddressListProps = {
+  openEditModal: (data?: any) => void;
+  editModalOpen?: boolean;
+};

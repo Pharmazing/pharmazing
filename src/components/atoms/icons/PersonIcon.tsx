@@ -1,4 +1,4 @@
-import Svg, { ClipPath, Defs, G, Path, Rect, SvgProps } from "react-native-svg";
+import Svg, { ClipPath, Defs, G, Path, Rect, SvgProps } from 'react-native-svg';
 
 export function PersonIcon({ color, width, height, ...rest }: SvgProps) {
   return (

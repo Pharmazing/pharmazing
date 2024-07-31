@@ -1,4 +1,4 @@
-import Svg, { SvgProps, Path } from "react-native-svg";
+import Svg, { SvgProps, Path } from 'react-native-svg';
 
 export function SettingsIcon({ color, ...rest }: SvgProps) {
   return (

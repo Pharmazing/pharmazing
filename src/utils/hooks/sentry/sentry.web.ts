@@ -1,5 +1,5 @@
-import * as Sentry from "@sentry/react";
-import { isWeb } from "../usePlatform";
+import * as Sentry from '@sentry/react';
+import { isWeb } from '../usePlatform';
 
 // Sentry.init({
 //   dsn: "https://1da2829fe68218bfe795f83b61931515@o4507655177895936.ingest.us.sentry.io/4507663472590848",
@@ -19,7 +19,7 @@ import { isWeb } from "../usePlatform";
 isWeb
   ? () =>
       Sentry.init({
-        dsn: "https://1da2829fe68218bfe795f83b61931515@o4507655177895936.ingest.us.sentry.io/4507663472590848",
+        dsn: 'https://1da2829fe68218bfe795f83b61931515@o4507655177895936.ingest.us.sentry.io/4507663472590848',
         integrations: [
           Sentry.browserTracingIntegration(),
           Sentry.replayIntegration(),
@@ -28,7 +28,7 @@ isWeb
         tracesSampleRate: 1.0, //  Capture 100% of the transactions
         // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
         tracePropagationTargets: [
-          "localhost",
+          'localhost',
           /^https:\/\/yourserver\.io\/api/,
         ],
         // Session Replay

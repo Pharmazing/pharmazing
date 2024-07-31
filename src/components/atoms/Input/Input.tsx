@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-import { Animated, Keyboard, TextInput, View, Text } from "react-native";
-import { TextInputProps } from "./Input.types";
-import OutsidePressHandler from "react-native-outside-press";
-import { useStyles } from "react-native-unistyles";
-import { textInputStyles } from "./Input.styles";
-import { Controller } from "react-hook-form";
+import React, { useRef } from 'react';
+import { Animated, Keyboard, TextInput, View, Text } from 'react-native';
+import { TextInputProps } from './Input.types';
+import OutsidePressHandler from 'react-native-outside-press';
+import { useStyles } from 'react-native-unistyles';
+import { textInputStyles } from './Input.styles';
+import { Controller } from 'react-hook-form';
 
 export const AnimatedInputField = ({
   label,
@@ -18,7 +18,7 @@ export const AnimatedInputField = ({
   // const value = control._formValues[name];
   const { styles } = useStyles(textInputStyles);
   const floatingLabelAnimation = useRef(
-    new Animated.Value(value ? 1 : 0),
+    new Animated.Value(value ? 1 : 0)
   ).current;
 
   const handleFocus = () => {
@@ -80,7 +80,7 @@ export const AnimatedInputField = ({
                 }}
                 {...rest}
               />
-              {<Text style={{ color: "red" }}>{error?.message}</Text>}
+              {<Text style={{ color: 'red' }}>{error?.message}</Text>}
             </OutsidePressHandler>
           );
         }}

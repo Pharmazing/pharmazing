@@ -1,20 +1,20 @@
-import React, { useMemo } from "react";
-import { useSession } from "../../../utils/context";
-import { Button, ButtonVariantEnum, ScrollBox } from "../../atoms";
-import { SettingsBox } from "../../molecules";
+import React, { useMemo } from 'react';
+import { useSession } from '../../../utils/context';
+import { Button, ButtonVariantEnum, ScrollBox } from '../../atoms';
+import { SettingsBox } from '../../molecules';
 
 export function SettingsMobile() {
   const { signOut, session } = useSession();
-  const parsedSession = JSON.parse(session || "{}");
+  const parsedSession = JSON.parse(session || '{}');
   const userId = useMemo(
-    () => parsedSession?.user?.userId || "",
-    [session, parsedSession],
+    () => parsedSession?.user?.userId || '',
+    [session, parsedSession]
   );
   return (
     <ScrollBox
       contentContainerStyle={{
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         padding: 16,
         flexGrow: 1,
       }}
@@ -24,21 +24,21 @@ export function SettingsMobile() {
           title="Profile"
           settingLinks={[
             {
-              content: "Personal Info",
-              icon: "PersonIcon",
-              href: `/personalinfo/${userId || "1"}`,
+              content: 'Personal Info',
+              icon: 'PersonIcon',
+              href: `/personalinfo/${userId || '1'}`,
               // disabled: !userId,
             },
             {
-              content: "Addresses",
-              icon: "LocationIcon",
-              href: `/addresses/${userId || "1"}`,
+              content: 'Addresses',
+              icon: 'LocationIcon',
+              href: `/addresses/${userId || '1'}`,
               // disabled: !userId,
             },
             {
-              content: "Prescriptions",
-              icon: "PrescriptionIcon",
-              href: "/settings/prescriptions",
+              content: 'Prescriptions',
+              icon: 'PrescriptionIcon',
+              href: '/settings/prescriptions',
               // disabled: true,
             },
           ]}
@@ -46,7 +46,7 @@ export function SettingsMobile() {
       }
       <Button
         btnVariant={ButtonVariantEnum.DANGER}
-        title={"Logout"}
+        title={'Logout'}
         onPress={signOut}
       />
     </ScrollBox>

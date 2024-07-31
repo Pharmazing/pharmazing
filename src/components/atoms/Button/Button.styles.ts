@@ -1,11 +1,11 @@
-import { createStyleSheet } from "react-native-unistyles";
+import { createStyleSheet } from 'react-native-unistyles';
 
 export const buttonStyles = createStyleSheet((theme) => ({
   primary: {
-    borderColor: "green",
+    borderColor: 'green',
     borderWidth: 1,
   },
-  secondary: { borderColor: "blue", borderWidth: 1 },
+  secondary: { borderColor: 'blue', borderWidth: 1 },
   danger: {
     borderRadius: 24,
     backgroundColor: theme.colors.Red700,
@@ -13,14 +13,14 @@ export const buttonStyles = createStyleSheet((theme) => ({
     height: 48,
     margin: 16,
     width: { xs: 200, sm: 220, md: 240, lg: 260, xl: 280 },
-    display: "flex",
+    display: 'flex',
     borderWidth: 1,
     borderColor: theme.colors.Red700,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textStyle: {
-    fontFamily: "Roboto_700Bold",
+    fontFamily: 'Roboto_700Bold',
     color: theme.colors.white,
     fontSize: { xs: 16, sm: 18, md: 20, lg: 22, xl: 24 },
     opacity: 1,

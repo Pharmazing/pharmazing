@@ -1,1 +1,1 @@
-export { ActivityMobile } from "./Activity.mobile";
+export { ActivityMobile } from './Activity.mobile';

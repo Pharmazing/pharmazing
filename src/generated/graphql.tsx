@@ -1,5 +1,5 @@
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -18,7 +18,7 @@ export type MakeEmpty<
 export type Incremental<T> =
   | T
   | {
-      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
     };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
@@ -31,67 +31,67 @@ export type Scalars = {
 };
 
 export type Address = {
-  __typename?: "Address";
-  addressId?: Maybe<Scalars["ID"]["output"]>;
-  addressLine1?: Maybe<Scalars["String"]["output"]>;
-  addressLine2?: Maybe<Scalars["String"]["output"]>;
-  city?: Maybe<Scalars["String"]["output"]>;
-  country?: Maybe<Scalars["String"]["output"]>;
-  parish?: Maybe<Scalars["String"]["output"]>;
-  primary?: Maybe<Scalars["Boolean"]["output"]>;
-  userId?: Maybe<Scalars["ID"]["output"]>;
-  zip?: Maybe<Scalars["String"]["output"]>;
+  __typename?: 'Address';
+  addressId?: Maybe<Scalars['ID']['output']>;
+  addressLine1?: Maybe<Scalars['String']['output']>;
+  addressLine2?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  parish?: Maybe<Scalars['String']['output']>;
+  primary?: Maybe<Scalars['Boolean']['output']>;
+  userId?: Maybe<Scalars['ID']['output']>;
+  zip?: Maybe<Scalars['String']['output']>;
 };
 
 export type CreateAddressInput = {
-  addressLine1: Scalars["String"]["input"];
-  addressLine2?: InputMaybe<Scalars["String"]["input"]>;
-  city: Scalars["String"]["input"];
-  country: Scalars["String"]["input"];
-  parish: Scalars["String"]["input"];
-  primary: Scalars["Boolean"]["input"];
-  zip: Scalars["String"]["input"];
+  addressLine1: Scalars['String']['input'];
+  addressLine2?: InputMaybe<Scalars['String']['input']>;
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  parish: Scalars['String']['input'];
+  primary: Scalars['Boolean']['input'];
+  zip: Scalars['String']['input'];
 };
 
 export type CreateUserInput = {
-  age?: InputMaybe<Scalars["Int"]["input"]>;
-  email: Scalars["String"]["input"];
-  firstName: Scalars["String"]["input"];
-  lastName: Scalars["String"]["input"];
-  password?: InputMaybe<Scalars["String"]["input"]>;
+  age?: InputMaybe<Scalars['Int']['input']>;
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  password?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DeleteAddressResult = {
-  __typename?: "DeleteAddressResult";
-  success: Scalars["Boolean"]["output"];
+  __typename?: 'DeleteAddressResult';
+  success: Scalars['Boolean']['output'];
 };
 
 export type DeleteUserInput = {
-  password?: InputMaybe<Scalars["String"]["input"]>;
-  userId: Scalars["String"]["input"];
+  password?: InputMaybe<Scalars['String']['input']>;
+  userId: Scalars['String']['input'];
 };
 
 export type EditAddressInput = {
-  addressId: Scalars["ID"]["input"];
-  addressLine1?: InputMaybe<Scalars["String"]["input"]>;
-  addressLine2?: InputMaybe<Scalars["String"]["input"]>;
-  city?: InputMaybe<Scalars["String"]["input"]>;
-  country?: InputMaybe<Scalars["String"]["input"]>;
-  parish?: InputMaybe<Scalars["String"]["input"]>;
-  primary?: InputMaybe<Scalars["Boolean"]["input"]>;
-  zip?: InputMaybe<Scalars["String"]["input"]>;
+  addressId: Scalars['ID']['input'];
+  addressLine1?: InputMaybe<Scalars['String']['input']>;
+  addressLine2?: InputMaybe<Scalars['String']['input']>;
+  city?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  parish?: InputMaybe<Scalars['String']['input']>;
+  primary?: InputMaybe<Scalars['Boolean']['input']>;
+  zip?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type EditUserInput = {
-  age?: InputMaybe<Scalars["Int"]["input"]>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  firstName?: InputMaybe<Scalars["String"]["input"]>;
-  lastName?: InputMaybe<Scalars["String"]["input"]>;
-  userId: Scalars["String"]["input"];
+  age?: InputMaybe<Scalars['Int']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  userId: Scalars['String']['input'];
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createAddress?: Maybe<Address>;
   createUser?: Maybe<User>;
   deleteAddress?: Maybe<DeleteAddressResult>;
@@ -102,7 +102,7 @@ export type Mutation = {
 
 export type MutationCreateAddressArgs = {
   address?: InputMaybe<CreateAddressInput>;
-  userId: Scalars["String"]["input"];
+  userId: Scalars['String']['input'];
 };
 
 export type MutationCreateUserArgs = {
@@ -110,8 +110,8 @@ export type MutationCreateUserArgs = {
 };
 
 export type MutationDeleteAddressArgs = {
-  addressId: Scalars["String"]["input"];
-  userId: Scalars["String"]["input"];
+  addressId: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
 };
 
 export type MutationDeleteUserArgs = {
@@ -120,7 +120,7 @@ export type MutationDeleteUserArgs = {
 
 export type MutationEditAddressArgs = {
   address?: InputMaybe<EditAddressInput>;
-  userId: Scalars["String"]["input"];
+  userId: Scalars['String']['input'];
 };
 
 export type MutationEditUserArgs = {
@@ -128,31 +128,31 @@ export type MutationEditUserArgs = {
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getUserAddress?: Maybe<Array<Address>>;
   signIn?: Maybe<User>;
 };
 
 export type QueryGetUserAddressArgs = {
-  userId: Scalars["String"]["input"];
+  userId: Scalars['String']['input'];
 };
 
 export type QuerySignInArgs = {
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["String"]["input"]>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
-  __typename?: "User";
+  __typename?: 'User';
   address?: Maybe<Array<Address>>;
-  age?: Maybe<Scalars["Int"]["output"]>;
-  email?: Maybe<Scalars["String"]["output"]>;
-  firstName?: Maybe<Scalars["String"]["output"]>;
-  lastName?: Maybe<Scalars["String"]["output"]>;
-  password?: Maybe<Scalars["String"]["output"]>;
-  token?: Maybe<Scalars["String"]["output"]>;
-  userId?: Maybe<Scalars["ID"]["output"]>;
+  age?: Maybe<Scalars['Int']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  password?: Maybe<Scalars['String']['output']>;
+  token?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['ID']['output']>;
 };
 
 export type CreateUserMutationVariables = Exact<{
@@ -160,9 +160,9 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 export type CreateUserMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createUser?: {
-    __typename?: "User";
+    __typename?: 'User';
     age?: number | null;
     email?: string | null;
     firstName?: string | null;
@@ -171,7 +171,7 @@ export type CreateUserMutation = {
     token?: string | null;
     userId?: string | null;
     address?: Array<{
-      __typename?: "Address";
+      __typename?: 'Address';
       addressId?: string | null;
       addressLine1?: string | null;
       addressLine2?: string | null;
@@ -190,9 +190,9 @@ export type EditUserMutationVariables = Exact<{
 }>;
 
 export type EditUserMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   editUser?: {
-    __typename?: "User";
+    __typename?: 'User';
     userId?: string | null;
     firstName?: string | null;
     lastName?: string | null;
@@ -206,19 +206,19 @@ export type DeleteUserMutationVariables = Exact<{
 }>;
 
 export type DeleteUserMutation = {
-  __typename?: "Mutation";
-  deleteUser?: { __typename?: "DeleteAddressResult"; success: boolean } | null;
+  __typename?: 'Mutation';
+  deleteUser?: { __typename?: 'DeleteAddressResult'; success: boolean } | null;
 };
 
 export type CreateAddressMutationVariables = Exact<{
-  userId: Scalars["String"]["input"];
+  userId: Scalars['String']['input'];
   address?: InputMaybe<CreateAddressInput>;
 }>;
 
 export type CreateAddressMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createAddress?: {
-    __typename?: "Address";
+    __typename?: 'Address';
     addressId?: string | null;
     addressLine1?: string | null;
     addressLine2?: string | null;
@@ -231,14 +231,14 @@ export type CreateAddressMutation = {
 };
 
 export type EditAddressMutationVariables = Exact<{
-  userId: Scalars["String"]["input"];
+  userId: Scalars['String']['input'];
   address?: InputMaybe<EditAddressInput>;
 }>;
 
 export type EditAddressMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   editAddress?: {
-    __typename?: "Address";
+    __typename?: 'Address';
     addressId?: string | null;
     addressLine1?: string | null;
     addressLine2?: string | null;
@@ -251,27 +251,27 @@ export type EditAddressMutation = {
 };
 
 export type DeleteAddressMutationVariables = Exact<{
-  userId: Scalars["String"]["input"];
-  addressId: Scalars["String"]["input"];
+  userId: Scalars['String']['input'];
+  addressId: Scalars['String']['input'];
 }>;
 
 export type DeleteAddressMutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   deleteAddress?: {
-    __typename?: "DeleteAddressResult";
+    __typename?: 'DeleteAddressResult';
     success: boolean;
   } | null;
 };
 
 export type SignInQueryVariables = Exact<{
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["String"]["input"]>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type SignInQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   signIn?: {
-    __typename?: "User";
+    __typename?: 'User';
     userId?: string | null;
     token?: string | null;
     firstName?: string | null;
@@ -280,7 +280,7 @@ export type SignInQuery = {
     password?: string | null;
     age?: number | null;
     address?: Array<{
-      __typename?: "Address";
+      __typename?: 'Address';
       addressId?: string | null;
       addressLine1?: string | null;
       addressLine2?: string | null;
@@ -296,9 +296,9 @@ export type SignInQuery = {
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAllUsersQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   getAllUsers?: Array<{
-    __typename?: "User";
+    __typename?: 'User';
     age?: number | null;
     email?: string | null;
     firstName?: string | null;
@@ -307,7 +307,7 @@ export type GetAllUsersQuery = {
     token?: string | null;
     userId?: string | null;
     address?: Array<{
-      __typename?: "Address";
+      __typename?: 'Address';
       addressId?: string | null;
       addressLine1?: string | null;
       addressLine2?: string | null;
@@ -322,13 +322,13 @@ export type GetAllUsersQuery = {
 };
 
 export type GetAddressQueryVariables = Exact<{
-  userId: Scalars["String"]["input"];
+  userId: Scalars['String']['input'];
 }>;
 
 export type GetAddressQuery = {
-  __typename?: "Query";
+  __typename?: 'Query';
   getUserAddress?: Array<{
-    __typename?: "Address";
+    __typename?: 'Address';
     addressId?: string | null;
     addressLine1?: string | null;
     addressLine2?: string | null;
@@ -390,12 +390,12 @@ export function useCreateUserMutation(
   baseOptions?: Apollo.MutationHookOptions<
     CreateUserMutation,
     CreateUserMutationVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
     CreateUserDocument,
-    options,
+    options
   );
 }
 export type CreateUserMutationHookResult = ReturnType<
@@ -444,12 +444,12 @@ export function useEditUserMutation(
   baseOptions?: Apollo.MutationHookOptions<
     EditUserMutation,
     EditUserMutationVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(
     EditUserDocument,
-    options,
+    options
   );
 }
 export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
@@ -491,12 +491,12 @@ export function useDeleteUserMutation(
   baseOptions?: Apollo.MutationHookOptions<
     DeleteUserMutation,
     DeleteUserMutationVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
     DeleteUserDocument,
-    options,
+    options
   );
 }
 export type DeleteUserMutationHookResult = ReturnType<
@@ -549,7 +549,7 @@ export function useCreateAddressMutation(
   baseOptions?: Apollo.MutationHookOptions<
     CreateAddressMutation,
     CreateAddressMutationVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<
@@ -607,12 +607,12 @@ export function useEditAddressMutation(
   baseOptions?: Apollo.MutationHookOptions<
     EditAddressMutation,
     EditAddressMutationVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<EditAddressMutation, EditAddressMutationVariables>(
     EditAddressDocument,
-    options,
+    options
   );
 }
 export type EditAddressMutationHookResult = ReturnType<
@@ -658,7 +658,7 @@ export function useDeleteAddressMutation(
   baseOptions?: Apollo.MutationHookOptions<
     DeleteAddressMutation,
     DeleteAddressMutationVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<
@@ -717,33 +717,33 @@ export const SignInDocument = gql`
  * });
  */
 export function useSignInQuery(
-  baseOptions?: Apollo.QueryHookOptions<SignInQuery, SignInQueryVariables>,
+  baseOptions?: Apollo.QueryHookOptions<SignInQuery, SignInQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<SignInQuery, SignInQueryVariables>(
     SignInDocument,
-    options,
+    options
   );
 }
 export function useSignInLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<SignInQuery, SignInQueryVariables>,
+  baseOptions?: Apollo.LazyQueryHookOptions<SignInQuery, SignInQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<SignInQuery, SignInQueryVariables>(
     SignInDocument,
-    options,
+    options
   );
 }
 export function useSignInSuspenseQuery(
   baseOptions?: Apollo.SuspenseQueryHookOptions<
     SignInQuery,
     SignInQueryVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<SignInQuery, SignInQueryVariables>(
     SignInDocument,
-    options,
+    options
   );
 }
 export type SignInQueryHookResult = ReturnType<typeof useSignInQuery>;
@@ -799,36 +799,36 @@ export function useGetAllUsersQuery(
   baseOptions?: Apollo.QueryHookOptions<
     GetAllUsersQuery,
     GetAllUsersQueryVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
     GetAllUsersDocument,
-    options,
+    options
   );
 }
 export function useGetAllUsersLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetAllUsersQuery,
     GetAllUsersQueryVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
     GetAllUsersDocument,
-    options,
+    options
   );
 }
 export function useGetAllUsersSuspenseQuery(
   baseOptions?: Apollo.SuspenseQueryHookOptions<
     GetAllUsersQuery,
     GetAllUsersQueryVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
     GetAllUsersDocument,
-    options,
+    options
   );
 }
 export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
@@ -881,36 +881,36 @@ export function useGetAddressQuery(
     (
       | { variables: GetAddressQueryVariables; skip?: boolean }
       | { skip: boolean }
-    ),
+    )
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<GetAddressQuery, GetAddressQueryVariables>(
     GetAddressDocument,
-    options,
+    options
   );
 }
 export function useGetAddressLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetAddressQuery,
     GetAddressQueryVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<GetAddressQuery, GetAddressQueryVariables>(
     GetAddressDocument,
-    options,
+    options
   );
 }
 export function useGetAddressSuspenseQuery(
   baseOptions?: Apollo.SuspenseQueryHookOptions<
     GetAddressQuery,
     GetAddressQueryVariables
-  >,
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<GetAddressQuery, GetAddressQueryVariables>(
     GetAddressDocument,
-    options,
+    options
   );
 }
 export type GetAddressQueryHookResult = ReturnType<typeof useGetAddressQuery>;
