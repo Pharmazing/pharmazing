@@ -1,12 +1,8 @@
+import { core } from './core';
+
 export const lightTheme = {
   colors: {
-    black: '#000000',
-    white: '#ffffff',
-    Red700: '#B00000',
-    Green500: '#72AE68',
-    Gray100: '#EFEFEF',
-    Gray200: '#DFDFDF',
-    Gray600: '#484848',
+    ...core.colors,
     loadingPrimary: '#345ABB',
     loadingBackground: '#B9B9B9',
     tabsContentBg: '#FAFAFA',
@@ -19,6 +15,9 @@ export const lightTheme = {
     icon: {
       default: '#5F6368',
     },
+    text: {
+      fg: core.colors.Blue900,
+    },
   },
   size: {
     icon: {
@@ -28,24 +27,26 @@ export const lightTheme = {
       lg: 32,
       xl: 48,
     },
-    xs: 2,
-    sm: 4,
-    md: 8,
-    lg: 16,
-    xl: 24,
-    xxl: 32,
+    text: {
+      sm: 12,
+      md: 16,
+      lg: 20,
+      xl: 24,
+    },
+    layout: {
+      xs: 2,
+      sm: 4,
+      md: 8,
+      lg: 16,
+      xl: 24,
+      xxl: 32,
+    },
   },
 } as const;
 
 export const darkTheme = {
   colors: {
-    black: '#000000',
-    white: '#ffffff',
-    Red700: '#B00000',
-    Green500: '#72AE68',
-    Gray100: '#EFEFEF',
-    Gray200: '#DFDFDF',
-    Gray600: '#484848',
+    ...core.colors,
     loadingPrimary: '#345ABB',
     loadingBackground: '#B9B9B9',
     tabsContentBg: '#FAFAFA',
@@ -58,6 +59,9 @@ export const darkTheme = {
     icon: {
       default: '#5F6368',
     },
+    text: {
+      fg: core.colors.Blue900,
+    },
   },
   size: {
     icon: {
@@ -67,13 +71,20 @@ export const darkTheme = {
       lg: 32,
       xl: 48,
     },
-
-    xs: 2,
-    sm: 4,
-    md: 8,
-    lg: 16,
-    xl: 24,
-    xxl: 32,
+    text: {
+      sm: 12,
+      md: 16,
+      lg: 18,
+      xl: 20,
+    },
+    layout: {
+      xs: 2,
+      sm: 4,
+      md: 8,
+      lg: 16,
+      xl: 24,
+      xxl: 32,
+    },
   },
 } as const;
 

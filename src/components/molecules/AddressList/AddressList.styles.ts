@@ -11,12 +11,12 @@ export const addressListStyles = createStyleSheet((theme) => ({
     color: theme.colors.white,
   },
   rowFrontContent: {
-    gap: theme.size.lg,
+    gap: theme.size.layout.lg,
     // borderWidth: 1,
     // borderColor: 'blue',
     height: '100%',
     width: '100%',
-    padding: theme.size.lg,
+    padding: theme.size.layout.lg,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -31,7 +31,7 @@ export const addressListStyles = createStyleSheet((theme) => ({
     height: ITEM_HEIGHT,
     width: '100%',
     display: 'flex',
-    marginBottom: !!isLast ? theme.size.xl : 0,
+    marginBottom: !!isLast ? theme.size.layout.xl : 0,
   }),
   rowBack: ({ isLast }: { isLast?: boolean }) => ({
     alignItems: 'center',
@@ -42,7 +42,7 @@ export const addressListStyles = createStyleSheet((theme) => ({
     // height: ITEM_HEIGHT,
     justifyContent: 'space-between',
     paddingLeft: 15,
-    marginBottom: !!isLast ? theme.size.xl : 0,
+    marginBottom: !!isLast ? theme.size.layout.xl : 0,
     // backgroundColor: leftActionActivated
     //   ? theme.colors.Green500
     //   : "transparent",
