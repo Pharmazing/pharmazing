@@ -20,9 +20,8 @@ export const addressListStyles = createStyleSheet((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  rowFront: (/*{ leftActionState }: { leftActionState?: boolean }*/) => ({
+  rowFront: ({ isLast }: { isLast?: boolean }) => ({
     alignItems: 'center',
-
     backgroundColor: 'white',
     // borderWidth: 1,
     // borderColor: 'red',
@@ -32,15 +31,18 @@ export const addressListStyles = createStyleSheet((theme) => ({
     height: ITEM_HEIGHT,
     width: '100%',
     display: 'flex',
+    marginBottom: !!isLast ? theme.size.xl : 0,
   }),
-  rowBack: (/*{ leftActionActivated }*/) => ({
+  rowBack: ({ isLast }: { isLast?: boolean }) => ({
     alignItems: 'center',
     // backgroundColor: ",
     flex: 1,
+    // height: ITEM_HEIGHT,
     flexDirection: 'row',
     // height: ITEM_HEIGHT,
     justifyContent: 'space-between',
     paddingLeft: 15,
+    marginBottom: !!isLast ? theme.size.xl : 0,
     // backgroundColor: leftActionActivated
     //   ? theme.colors.Green500
     //   : "transparent",

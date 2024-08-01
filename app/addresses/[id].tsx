@@ -2,16 +2,14 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { Box } from '../../src/components/atoms';
 import { Addresses } from '../../src/components/organisms';
 import { isAndroid, isIOS } from '../../src/utils';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Page() {
   const { id } = useLocalSearchParams();
   return (
     (isIOS || isAndroid) && (
-      // <SafeAreaProvider>
       <GestureHandlerRootView>
-        <Box style={{ flex: 1 }}>
+        <Box style={{ flex: 1, borderWidth: 2, borderColor: 'red' }}>
           <Stack.Screen
             options={{
               headerTitle: `addresses for ${id}`,

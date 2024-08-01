@@ -23,7 +23,7 @@ export function Addresses() {
   };
 
   return (
-    <Box style={{ flex: 1, borderWidth: 2, borderColor: 'red' }}>
+    <Box style={{ flex: 1 }}>
       <AddressList
         editModalOpen={editModalOpen !== -1}
         openEditModal={openEditModal}
@@ -35,7 +35,7 @@ export function Addresses() {
         onChange={handleSheetChanges}
         snapPoints={snapPoints}
       >
-        <BottomSheetView style={{ flex: 1 }}>
+        <BottomSheetView style={{ flex: 1, padding: 16 }}>
           <Text>{JSON.stringify(defaultData)}</Text>
         </BottomSheetView>
       </BottomSheet>
