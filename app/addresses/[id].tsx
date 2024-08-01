@@ -9,7 +9,7 @@ export default function Page() {
   return (
     (isIOS || isAndroid) && (
       <GestureHandlerRootView>
-        <Box style={{ flex: 1, borderWidth: 2, borderColor: 'red' }}>
+        <Box style={{ flex: 1 }}>
           <Stack.Screen
             options={{
               headerTitle: `addresses for ${id}`,
