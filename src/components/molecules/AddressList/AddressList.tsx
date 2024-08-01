@@ -7,28 +7,13 @@ import { useStyles } from 'react-native-unistyles';
 import { ITEM_HEIGHT, addressListStyles } from './AddressList.styles';
 import { AddressListProps, ListDataType } from './AddressList.types';
 import AlertAsync from 'react-native-alert-async';
-
-const windowDimensions = Dimensions.get('window');
-const screenDimensions = Dimensions.get('screen');
+import { useDimensions } from '../../../utils';
 
 export function AddressList({
   openEditModal,
   editModalOpen,
 }: AddressListProps) {
-  const [dimensions, setDimensions] = useState({
-    window: windowDimensions,
-    screen: screenDimensions,
-  });
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener(
-      'change',
-      ({ window, screen }) => {
-        setDimensions({ window, screen });
-      }
-    );
-    return () => subscription?.remove();
-  }, []);
+  const { dimensions } = useDimensions();
 
   const { styles, theme } = useStyles(addressListStyles);
   const [listData, setListData] = useState<ListDataType>(
@@ -114,7 +99,10 @@ export function AddressList({
 
     return (
       <Animated.View
-        style={[styles.rowFront(), { height: rowHeightAnimatedValue }]}
+        style={[
+          styles.rowFront({ isLast: data?.index === listData.length - 1 }),
+          { height: rowHeightAnimatedValue },
+        ]}
       >
         <Box style={styles.rowFrontContent}>
           <Icon
@@ -177,7 +165,10 @@ export function AddressList({
 
     return (
       <Animated.View
-        style={[styles.rowBack(), { height: rowHeightAnimatedValue }]}
+        style={[
+          styles.rowBack({ isLast: data?.index === listData.length - 1 }),
+          { height: rowHeightAnimatedValue },
+        ]}
       >
         {/* {!rightActionActivated && (
           <Text style={{ width: 75 }}>Make Primary</Text>
@@ -267,30 +258,35 @@ export function AddressList({
   };
 
   return (
-    <SwipeListView
-      style={{
-        pointerEvents: editModalOpen ? 'none' : 'auto',
-        opacity: editModalOpen ? 0.5 : 1,
-      }}
-      disableRightSwipe
-      data={listData}
-      renderItem={renderItem}
-      renderHiddenItem={renderHiddenItem}
-      onRowDidOpen={onRowDidOpen}
-      rightOpenValue={-75}
-      rightActivationValue={-250}
-      rightActionValue={-400}
-      onRightAction={onRightAction}
-      onRightActionStatusChange={onRightActionStatusChange}
-      // closeOnRowPress
-      // closeOnRowBeginSwipe
-      // stickyHeaderHiddenOnScroll
-      // stopRightSwipe={-175}
-      // leftOpenValue={75}
-      // leftActivationValue={200}
-      // leftActionValue={0}
-      // onLeftAction={onLeftAction}
-      // onLeftActionStatusChange={onLeftActionStatusChange}
-    />
+    <Box style={{ flex: 1 }}>
+      <SwipeListView
+        style={{
+          pointerEvents: editModalOpen ? 'none' : 'auto',
+          opacity: editModalOpen ? 0.5 : 1,
+          // flex: 1,
+          // height: dimensions.window.height - Constants.statusBarHeight - headerHeight
+        }}
+        // contentContainerStyle={{paddingBottom: 16}}
+        disableRightSwipe
+        data={listData}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+        onRowDidOpen={onRowDidOpen}
+        rightOpenValue={-75}
+        rightActivationValue={-250}
+        rightActionValue={-400}
+        onRightAction={onRightAction}
+        onRightActionStatusChange={onRightActionStatusChange}
+        // closeOnRowPress
+        // closeOnRowBeginSwipe
+        // stickyHeaderHiddenOnScroll
+        // stopRightSwipe={-175}
+        // leftOpenValue={75}
+        // leftActivationValue={200}
+        // leftActionValue={0}
+        // onLeftAction={onLeftAction}
+        // onLeftActionStatusChange={onLeftActionStatusChange}
+      />
+    </Box>
   );
 }
