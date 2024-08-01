@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Text, Animated, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { Animated, TouchableOpacity } from 'react-native';
 
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { Box, Icon } from '../../atoms';
+import { Box, Icon, Typography } from '../../atoms';
 import { useStyles } from 'react-native-unistyles';
 import { ITEM_HEIGHT, addressListStyles } from './AddressList.styles';
 import { AddressListProps, ListDataType } from './AddressList.types';
@@ -23,7 +23,7 @@ export function AddressList({
         key: `${i}`,
         addressId: `${i}`,
         addressLine1: '123 Jump Lane',
-        addressLine2: '456',
+        addressLine2: i % 2 === 0 ? '456' : undefined,
         parish: 'Kingston',
         primary: i === 2,
         // initialLeftActionState: i % 2 !== 0,
@@ -109,11 +109,13 @@ export function AddressList({
             name="LocationIcon"
             color={data.item.primary ? theme.colors.Red700 : ''}
           />
-          <Box style={{ flex: 1 }}>
-            <Text style={{ fontSize: 16, fontWeight: '700' }}>
-              {data.item.addressLine1}, {data.item.addressLine2}
-            </Text>
-            <Text>KGN10, Kingston, Jamaica</Text>
+          <Box style={{ flex: 1, gap: theme.size.layout.sm }}>
+            <Typography size="md" weight="500">
+              {`${data.item.addressLine1}${data.item.addressLine2 ? `, ${data.item.addressLine2}` : ''}`}
+            </Typography>
+            <Typography size="sm" style={{ opacity: 0.8 }}>
+              KGN10, Kingston, Jamaica
+            </Typography>
           </Box>
           <TouchableOpacity
             onPress={() => {
@@ -263,10 +265,7 @@ export function AddressList({
         style={{
           pointerEvents: editModalOpen ? 'none' : 'auto',
           opacity: editModalOpen ? 0.5 : 1,
-          // flex: 1,
-          // height: dimensions.window.height - Constants.statusBarHeight - headerHeight
         }}
-        // contentContainerStyle={{paddingBottom: 16}}
         disableRightSwipe
         data={listData}
         renderItem={renderItem}

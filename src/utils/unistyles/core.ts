@@ -1,0 +1,20 @@
+export const core = {
+  colors: {
+    black: '#000000',
+    white: '#ffffff',
+    Red700: '#B00000',
+    Green500: '#72AE68',
+    Gray100: '#EFEFEF',
+    Gray200: '#DFDFDF',
+    Gray600: '#484848',
+    Blue100: '#e7f5fb',
+    Blue200: '#b6e0f3',
+    Blue300: '#86cbea',
+    Blue400: '#56b7e2',
+    Blue500: '#25a2da',
+    Blue600: '#1d7ea9',
+    Blue700: '#155a79',
+    Blue800: '#0c3649',
+    Blue900: '#041218',
+  },
+};

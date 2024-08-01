@@ -4,7 +4,7 @@ import { styles } from '../../../utils/appStyles/styles';
 import { useGetAllUsersLazyQuery } from '../../../generated/graphql';
 import { useSession } from '../../../utils/context';
 import { router } from 'expo-router';
-import { ScrollBox } from '../../atoms';
+import { ScrollBox, Typography } from '../../atoms';
 
 export function HomeMobile() {
   const [getAllUsersTrigger, { loading, error, data }] =
@@ -15,7 +15,7 @@ export function HomeMobile() {
   const { session } = useSession();
   return (
     <ScrollBox style={styles.container}>
-      <Text>Open up Mobile.tsx to start working on your app!</Text>
+      <Typography>Open up Mobile.tsx to start working on your app!</Typography>
       <Text>{process.env.EXPO_PUBLIC_API_URL}</Text>
       <Button
         title="Getallusers"
