@@ -1,6 +1,6 @@
 import { TextProps } from 'react-native';
 
 export type TypographyProps = TextProps & {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   weight?: '100' | '300' | '400' | '500' | '700' | '900';
 };

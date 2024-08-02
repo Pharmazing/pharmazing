@@ -1,6 +1,7 @@
 import { createStyleSheet } from 'react-native-unistyles';
+import { isAndroid } from '../../../utils';
 
-export const ITEM_HEIGHT = 70;
+export const ITEM_HEIGHT = 75;
 
 export const addressListStyles = createStyleSheet((theme) => ({
   container: {
@@ -10,6 +11,10 @@ export const addressListStyles = createStyleSheet((theme) => ({
   backTextWhite: {
     color: theme.colors.white,
   },
+  addressRow: ({ isLast }) => ({
+    marginBottom: !!isLast ? theme.size.layout.xl : 0,
+    height: ITEM_HEIGHT,
+  }),
   rowFrontContent: {
     gap: theme.size.layout.lg,
     // borderWidth: 1,
@@ -20,32 +25,27 @@ export const addressListStyles = createStyleSheet((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  rowFront: ({ isLast }: { isLast?: boolean }) => ({
+  rowFront: () => ({
     alignItems: 'center',
     backgroundColor: 'white',
     // borderWidth: 1,
     // borderColor: 'red',
     // borderBottomColor: theme.colors.Gray200,
     // borderBottomWidth: 1,
-    justifyContent: 'center',
     height: ITEM_HEIGHT,
+    justifyContent: 'center',
     width: '100%',
     display: 'flex',
-    marginBottom: !!isLast ? theme.size.layout.xl : 0,
+    // marginBottom: !!isLast && isAndroid ? theme.size.layout.xl : 0,
   }),
-  rowBack: ({ isLast }: { isLast?: boolean }) => ({
+  rowBack: () => ({
     alignItems: 'center',
     // backgroundColor: ",
     flex: 1,
-    // height: ITEM_HEIGHT,
+    height: ITEM_HEIGHT,
     flexDirection: 'row',
-    // height: ITEM_HEIGHT,
     justifyContent: 'space-between',
     paddingLeft: 15,
-    marginBottom: !!isLast ? theme.size.layout.xl : 0,
-    // backgroundColor: leftActionActivated
-    //   ? theme.colors.Green500
-    //   : "transparent",
   }),
   backRightBtn: {
     alignItems: 'flex-end',

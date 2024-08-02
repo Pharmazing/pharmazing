@@ -27,7 +27,7 @@ export const typographyStyles = createStyleSheet((theme) => ({
     size: TypographyProps['size'];
   }) => ({
     color: theme.colors.text.fg,
-    fontSize: { xs: theme.size.text[size || 'md'] },
+    fontSize: theme.size.text[size || 'md'],
     fontFamily: weightToFontFamily(weight),
   }),
 }));
