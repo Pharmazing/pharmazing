@@ -4,8 +4,9 @@ export type ListDataType = {
   addressLine2?: string;
   parish: string;
   key: string;
+  primary: boolean;
   //   initialLeftActionState: boolean;
-}[];
+};
 
 export type AddressListProps = {
   openEditModal: (data?: any) => void;

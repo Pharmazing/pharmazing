@@ -1,33 +1,61 @@
 import React, { useState } from 'react';
-import { Animated, TouchableOpacity } from 'react-native';
+import {
+  Animated,
+  ListRenderItemInfo,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { Box, Icon, Typography } from '../../atoms';
 import { useStyles } from 'react-native-unistyles';
 import { ITEM_HEIGHT, addressListStyles } from './AddressList.styles';
 import { AddressListProps, ListDataType } from './AddressList.types';
 import AlertAsync from 'react-native-alert-async';
 import { useDimensions } from '../../../utils';
+import { useSession } from '../../../utils/context';
+
+const LEFT_SWIPE_THRESHOLD = -75;
+const RIGHT_ACTION_ACTIVATION_THRESHOLD = -250;
+const RIGHT_ACTION_FULL_WIDTH = -700;
 
 export function AddressList({
   openEditModal,
   editModalOpen,
 }: AddressListProps) {
   const { dimensions } = useDimensions();
-
+  const { session, setSession } = useSession();
+  const parsedSession = JSON.parse(session || '{}');
+  console.log('parsedSession', parsedSession);
+  const userAddresses = parsedSession?.user?.address;
   const { styles, theme } = useStyles(addressListStyles);
-  const [listData, setListData] = useState<ListDataType>(
+  const [listData, setListData] = useState<ListDataType[]>(
     Array(12)
       .fill('')
-      .map((_, i) => ({
-        key: `${i}`,
-        addressId: `${i}`,
-        addressLine1: '123 Jump Lane',
-        addressLine2: i % 2 === 0 ? '456' : undefined,
-        parish: 'Kingston',
-        primary: i === 2,
-        // initialLeftActionState: i % 2 !== 0,
-      }))
+      .map(
+        (
+          {
+            addressLine1,
+            addressLine2,
+            addressId,
+            city,
+            country,
+            zip,
+            parish,
+          }: any,
+          i: number
+        ) => ({
+          key: `${i}`,
+          addressId,
+          addressLine1,
+          addressLine2,
+          parish,
+          primary: i === 1,
+          city,
+          country,
+          zip,
+        })
+      )
   );
 
   const closeRow = (rowMap: any, rowKey: any) => {
@@ -42,18 +70,22 @@ export function AddressList({
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
-  };
-
-  const onRowDidOpen = (rowKey: any) => {
-    // console.log("This row opened", rowKey);
+    // const newSession = {
+    //   ...parsedSession,
+    //   user: {
+    //     ...parsedSession.user,
+    //     address: newData,
+    //   },
+    // };
+    // setSession(JSON.stringify(newSession));
   };
 
   const onRightActionStatusChange = (rowKey: any) => {
-    // console.log("onRightActionStatusChange", rowKey);
+    console.log('onRightActionStatusChange', rowKey);
   };
 
   const onRightAction = (rowKey: any) => {
-    // console.log("onRightAction", rowKey);
+    console.log('onRightAction', rowKey);
   };
 
   const VisibleItem = (props: any) => {
@@ -99,10 +131,7 @@ export function AddressList({
 
     return (
       <Animated.View
-        style={[
-          styles.rowFront({ isLast: data?.index === listData.length - 1 }),
-          { height: rowHeightAnimatedValue },
-        ]}
+        style={[styles.rowFront(), { height: rowHeightAnimatedValue }]}
       >
         <Box style={styles.rowFrontContent}>
           <Icon
@@ -114,7 +143,7 @@ export function AddressList({
               {`${data.item.addressLine1}${data.item.addressLine2 ? `, ${data.item.addressLine2}` : ''}`}
             </Typography>
             <Typography size="sm" style={{ opacity: 0.8 }}>
-              KGN10, Kingston, Jamaica
+              {`${data.item.zip && `${data.item.zip}, `}${data.item.city}, ${data.item.country}`}
             </Typography>
           </Box>
           <TouchableOpacity
@@ -129,8 +158,11 @@ export function AddressList({
     );
   };
 
-  const renderItem = (data: any, rowMap: any) => {
-    const rowHeightAnimatedValue = new Animated.Value(ITEM_HEIGHT);
+  const renderItem = (
+    data: ListRenderItemInfo<ListDataType>,
+    rowMap: RowMap<ListDataType>,
+    rowHeightAnimatedValue: Animated.Value
+  ) => {
     return (
       <VisibleItem
         rowHeightAnimatedValue={rowHeightAnimatedValue}
@@ -143,7 +175,6 @@ export function AddressList({
 
   const HiddenItemWithActions = (props: any) => {
     const {
-      // leftActionActivated,
       rightActionActivated,
       swipeAnimatedValue,
       rowActionAnimatedValue,
@@ -167,22 +198,8 @@ export function AddressList({
 
     return (
       <Animated.View
-        style={[
-          styles.rowBack({ isLast: data?.index === listData.length - 1 }),
-          { height: rowHeightAnimatedValue },
-        ]}
+        style={[styles.rowBack(), { height: rowHeightAnimatedValue }]}
       >
-        {/* {!rightActionActivated && (
-          <Text style={{ width: 75 }}>Make Primary</Text>
-        )} */}
-        {/* {!leftActionActivated && (
-                    <TouchableOpacity
-                        style={[styles.backRightBtn, styles.backRightBtnLeft]}
-                        onPress={onClose}
-                    >
-                        <Text style={styles.backTextWhite}>Closed</Text>
-                    </TouchableOpacity>
-                )} */}
         {
           <Animated.View
             style={[
@@ -195,7 +212,7 @@ export function AddressList({
               style={[styles.backRightBtn, styles.backRightBtnRight]}
               onPress={async () => {
                 const choice = await AlertAsync(
-                  `Delete Address ${data.item.addressId}`,
+                  'Delete Address',
                   `Are you sure you want to delete ${data.item.addressLine1}?`,
                   [
                     {
@@ -213,7 +230,13 @@ export function AddressList({
                   }
                 );
                 if (choice === 'yes') {
-                  onDelete();
+                  Animated.timing(rowHeightAnimatedValue, {
+                    toValue: 0,
+                    duration: 200,
+                    useNativeDriver: false,
+                  }).start(() => {
+                    onDelete();
+                  });
                 } else if (choice === 'no') {
                   onClose();
                 }
@@ -244,9 +267,43 @@ export function AddressList({
     );
   };
 
-  const renderHiddenItem = (data: any, rowMap: any) => {
+  const renderSwipeRow = (
+    data: ListRenderItemInfo<ListDataType>,
+    rowMap: RowMap<ListDataType>
+  ) => {
     const rowActionAnimatedValue = new Animated.Value(75);
     const rowHeightAnimatedValue = new Animated.Value(ITEM_HEIGHT);
+    return (
+      <SwipeRow
+        preview={data?.index === 0}
+        style={[
+          styles.addressRow({ isLast: data?.index === listData.length - 1 }),
+        ]}
+        disableRightSwipe
+        disableLeftSwipe={data.item.primary && listData.length > 1}
+        rightOpenValue={LEFT_SWIPE_THRESHOLD}
+        rightActivationValue={RIGHT_ACTION_ACTIVATION_THRESHOLD}
+        rightActionValue={RIGHT_ACTION_FULL_WIDTH}
+        onRightAction={onRightAction}
+        onRightActionStatusChange={onRightActionStatusChange}
+      >
+        {renderHiddenItem(
+          data,
+          rowMap,
+          rowActionAnimatedValue,
+          rowHeightAnimatedValue
+        )}
+        {renderItem(data, rowMap, rowHeightAnimatedValue)}
+      </SwipeRow>
+    );
+  };
+
+  const renderHiddenItem = (
+    data: ListRenderItemInfo<ListDataType>,
+    rowMap: RowMap<ListDataType>,
+    rowActionAnimatedValue: Animated.Value,
+    rowHeightAnimatedValue: Animated.Value
+  ) => {
     return (
       <HiddenItemWithActions
         data={data}
@@ -266,25 +323,9 @@ export function AddressList({
           pointerEvents: editModalOpen ? 'none' : 'auto',
           opacity: editModalOpen ? 0.5 : 1,
         }}
-        disableRightSwipe
         data={listData}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        onRowDidOpen={onRowDidOpen}
-        rightOpenValue={-75}
-        rightActivationValue={-250}
-        rightActionValue={-400}
-        onRightAction={onRightAction}
-        onRightActionStatusChange={onRightActionStatusChange}
-        // closeOnRowPress
-        // closeOnRowBeginSwipe
-        // stickyHeaderHiddenOnScroll
-        // stopRightSwipe={-175}
-        // leftOpenValue={75}
-        // leftActivationValue={200}
-        // leftActionValue={0}
-        // onLeftAction={onLeftAction}
-        // onLeftActionStatusChange={onLeftActionStatusChange}
+        renderItem={renderSwipeRow}
+        closeOnScroll={false}
       />
     </Box>
   );

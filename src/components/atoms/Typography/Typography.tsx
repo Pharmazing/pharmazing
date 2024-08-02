@@ -11,10 +11,9 @@ export const Typography = ({
   ...rest
 }: TypographyProps) => {
   const { styles } = useStyles(typographyStyles);
-
-  //   if (typeof children !== 'string') {
-  //     return null;
-  //   }
+  if (typeof children !== 'string') {
+    return null;
+  }
   return (
     <Text {...rest} style={[styles.typography({ size, weight }), style]}>
       {children}
