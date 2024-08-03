@@ -30,32 +30,30 @@ export function AddressList({
   const userAddresses = parsedSession?.user?.address;
   const { styles, theme } = useStyles(addressListStyles);
   const [listData, setListData] = useState<ListDataType[]>(
-    Array(12)
-      .fill('')
-      .map(
-        (
-          {
-            addressLine1,
-            addressLine2,
-            addressId,
-            city,
-            country,
-            zip,
-            parish,
-          }: any,
-          i: number
-        ) => ({
-          key: `${i}`,
-          addressId,
+    userAddresses?.map(
+      (
+        {
           addressLine1,
           addressLine2,
-          parish,
-          primary: i === 1,
+          addressId,
           city,
           country,
           zip,
-        })
-      )
+          parish,
+        }: any,
+        i: number
+      ) => ({
+        key: `${i}`,
+        addressId,
+        addressLine1,
+        addressLine2,
+        parish,
+        primary: i === 1,
+        city,
+        country,
+        zip,
+      })
+    )
   );
 
   const closeRow = (rowMap: any, rowKey: any) => {
@@ -276,9 +274,9 @@ export function AddressList({
     return (
       <SwipeRow
         preview={data?.index === 0}
-        style={[
-          styles.addressRow({ isLast: data?.index === listData.length - 1 }),
-        ]}
+        style={styles.addressRow({
+          isLast: data?.index === listData.length - 1,
+        })}
         disableRightSwipe
         disableLeftSwipe={data.item.primary && listData.length > 1}
         rightOpenValue={LEFT_SWIPE_THRESHOLD}
@@ -317,16 +315,15 @@ export function AddressList({
   };
 
   return (
-    <Box style={{ flex: 1 }}>
-      <SwipeListView
-        style={{
-          pointerEvents: editModalOpen ? 'none' : 'auto',
-          opacity: editModalOpen ? 0.5 : 1,
-        }}
-        data={listData}
-        renderItem={renderSwipeRow}
-        closeOnScroll={false}
-      />
-    </Box>
+    <SwipeListView
+      style={{
+        marginTop: 50,
+        pointerEvents: editModalOpen ? 'none' : 'auto',
+        opacity: editModalOpen ? 0.5 : 1,
+      }}
+      data={listData}
+      renderItem={renderSwipeRow}
+      closeOnScroll={false}
+    />
   );
 }

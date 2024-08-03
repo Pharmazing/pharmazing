@@ -17,6 +17,8 @@ const initialRegion = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
+// 18.007784382364594
+// -76.77899130247651
 
 export const SetLocation = () => {
   const [region, setRegion] = useState<Location>(initialRegion);

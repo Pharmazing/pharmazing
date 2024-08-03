@@ -13,6 +13,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to provide you with the best experience.",
+        "NSLocationAlwaysUsageDescription": "This app uses your location to provide you with the best experience."
+      },
       "supportsTablet": true,
       "config": {
         "googleMapsApiKey": "AIzaSyCJoGXhdn24pj2-aOOSpG2ahQGBeddmYJ0"
