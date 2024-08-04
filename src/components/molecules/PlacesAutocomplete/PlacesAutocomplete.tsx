@@ -12,6 +12,7 @@ import OutsidePressHandler from 'react-native-outside-press';
 export const PlacesAutocomplete = ({
   onSelect,
   placeholder = 'Add new address',
+  disabled = false,
 }: PlacesAutocompleteProps) => {
   const { styles } = useStyles(placesAutocompleteStyles);
   const ref = useRef<GooglePlacesAutocompleteRef>(null);
@@ -21,8 +22,9 @@ export const PlacesAutocomplete = ({
         <GooglePlacesAutocomplete
           ref={ref}
           fetchDetails
+          textInputProps={{pointerEvents: disabled ? 'none' : 'auto'}}
           styles={{
-            textInput: styles.textInput,
+            textInput: styles.textInput({disabled}),
             listView: styles.listView,
           }}
           enablePoweredByContainer={false}

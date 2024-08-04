@@ -3,7 +3,6 @@ import {
   Animated,
   ListRenderItemInfo,
   TouchableOpacity,
-  View,
 } from 'react-native';
 
 import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
@@ -317,7 +316,6 @@ export function AddressList({
   return (
     <SwipeListView
       style={{
-        marginTop: 50,
         pointerEvents: editModalOpen ? 'none' : 'auto',
         opacity: editModalOpen ? 0.5 : 1,
       }}

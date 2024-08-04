@@ -75,7 +75,7 @@ export function PersonalInfo() {
   };
 
   return (
-    <ScrollBox contentContainerStyle={{ flex: 1 }}>
+    <ScrollBox contentContainerStyle={{ flex: 1, backgroundColor: 'white' }}>
       <Text style={{ alignSelf: 'center' }}>Personal Info</Text>
 
       <AnimatedInputField
