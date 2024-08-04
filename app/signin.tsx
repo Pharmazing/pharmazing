@@ -21,7 +21,7 @@ export default function Page() {
   const showContinueAsGuest =
     segments?.[0] === 'signin' || segments?.[0] === 'signin2';
   const isSecondarySignin = segments?.[0] === 'signin2';
-  console.log('isSecondarySignin', isSecondarySignin);
+  // console.log('isSecondarySignin', isSecondarySignin);
   const [
     triggerSignIn,
     { data: signInData, error: signInError, loading: signInLoading },
