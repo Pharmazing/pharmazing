@@ -3,12 +3,12 @@ import { core } from './core';
 export const lightTheme = {
   colors: {
     ...core.colors,
-    loadingPrimary: '#345ABB',
-    loadingBackground: '#B9B9B9',
-    tabsContentBg: '#FAFAFA',
+    loadingPrimary: core.colors.Blue500,
+    loadingBackground: core.colors.Gray400,
+    tabsContentBg: core.colors.Gray100,
     tabBarIcon: {
       default: '#505050',
-      focused: '#345ABB',
+      focused: core.colors.Green500,
     },
     addressBtnBg: '#AAAAAA',
     addressBtnFg: '#CCCCCC',

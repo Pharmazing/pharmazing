@@ -22,8 +22,8 @@ export const PlacesAutocomplete = ({
           ref={ref}
           fetchDetails
           styles={{
-            textInputContainer: styles.textInputContainer,
-            container: { backgroundColor: 'white' },
+            textInput: styles.textInput,
+            listView: styles.listView,
           }}
           enablePoweredByContainer={false}
           placeholder={placeholder}

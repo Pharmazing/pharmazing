@@ -30,8 +30,8 @@ export const SettingsBox = ({
               <View
                 style={{
                   height: 2,
-                  backgroundColor: theme.colors.Gray200,
-                  borderRadius: 20,
+                  backgroundColor: theme.colors.Green200,
+                  borderRadius: 24,
                 }}
               />
             )}
