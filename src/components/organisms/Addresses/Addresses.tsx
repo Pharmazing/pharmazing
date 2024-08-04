@@ -25,20 +25,23 @@ export function Addresses() {
 
   return (
     <EventProvider>
-      <Box style={{ flex: 1 }}>
+      <Box style={{ flex: 1, backgroundColor: 'white' }}>
         <Box
           style={{
             width: '100%',
             zIndex: 1,
-            position: 'absolute',
+            position: 'relative',
           }}
         >
-          <PlacesAutocomplete />
+          <PlacesAutocomplete disabled={editModalOpen !== -1} />
         </Box>
+        <Box style={{marginTop: 44, flex: 1}}>
         <AddressList
           editModalOpen={editModalOpen !== -1}
           openEditModal={openEditModal}
         />
+
+        </Box>
         <BottomSheet
           index={editModalOpen}
           enablePanDownToClose
@@ -50,9 +53,6 @@ export function Addresses() {
             <Text>{JSON.stringify(defaultData)}</Text>
           </BottomSheetView>
         </BottomSheet>
-        {/* <Box> */}
-
-        {/* </Box> */}
       </Box>
     </EventProvider>
   );
