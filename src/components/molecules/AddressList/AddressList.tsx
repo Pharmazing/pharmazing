@@ -68,14 +68,14 @@ export function AddressList({
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
-    // const newSession = {
-    //   ...parsedSession,
-    //   user: {
-    //     ...parsedSession.user,
-    //     address: newData,
-    //   },
-    // };
-    // setSession(JSON.stringify(newSession));
+    const newSession = {
+      ...parsedSession,
+      user: {
+        ...parsedSession.user,
+        address: newData,
+      },
+    };
+    setSession(JSON.stringify(newSession));
   };
 
   const onRightActionStatusChange = (rowKey: any) => {
