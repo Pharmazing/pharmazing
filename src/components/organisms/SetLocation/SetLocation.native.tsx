@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { Box } from '../../atoms';
 import { Button } from 'react-native';
@@ -42,8 +42,7 @@ export const SetLocation = () => {
         <MapView
           ref={mapRef}
           initialRegion={initialRegion}
-          // region={region}
-          onRegionChangeComplete={(region) =>
+          onRegionChangeComplete={() =>
             markerLocation && moveToLocation(markerLocation)
           }
           style={{ flex: 1 }}
@@ -63,7 +62,7 @@ export const SetLocation = () => {
           )}
         </MapView>
 
-        <Box style={{ position: 'absolute', width: '100%' }}>
+        <Box style={{ position: 'absolute', width: '100%', borderRadius: 8 }}>
           <PlacesAutocomplete
             placeholder="Find address"
             onSelect={(point) => {
