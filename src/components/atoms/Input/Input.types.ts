@@ -6,4 +6,5 @@ export interface TextInputProps extends TextInputComponentProps {
   name: string;
   watch: UseFormWatch<any>;
   rules?: ControllerProps['rules'];
+  type?: 'text' | 'toggle';
 }

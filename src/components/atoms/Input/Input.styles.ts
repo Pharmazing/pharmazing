@@ -2,20 +2,22 @@ import { createStyleSheet } from 'react-native-unistyles';
 
 export const textInputStyles = createStyleSheet((theme) => ({
   container: {
-    marginBottom: 16,
+    marginBottom: 24,
     marginHorizontal: 10,
   },
   input: {
-    borderBottomWidth: 1,
-    borderColor: theme.colors.black,
+    borderWidth: 2,
+    borderColor: theme.colors.Green500,
     padding: 10,
+    borderRadius: theme.size.layout.md,
     fontSize: 16,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontFamily: 'Roboto_400Regular',
   },
   label: {
     paddingLeft: 10,
     position: 'absolute',
-    fontFamily: 'Roboto_700Bold',
+    fontFamily: 'Roboto_500Medium',
+    color: theme.colors.Gray800,
   },
 }));

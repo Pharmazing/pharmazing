@@ -22,9 +22,9 @@ export const PlacesAutocomplete = ({
         <GooglePlacesAutocomplete
           ref={ref}
           fetchDetails
-          textInputProps={{pointerEvents: disabled ? 'none' : 'auto'}}
+          textInputProps={{ pointerEvents: disabled ? 'none' : 'auto' }}
           styles={{
-            textInput: styles.textInput({disabled}),
+            textInput: styles.textInput({ disabled }),
             listView: styles.listView,
           }}
           enablePoweredByContainer={false}

@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Animated,
-  ListRenderItemInfo,
-  TouchableOpacity,
-} from 'react-native';
+import { Animated, ListRenderItemInfo, TouchableOpacity } from 'react-native';
 
 import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { Box, Icon, Typography } from '../../atoms';
