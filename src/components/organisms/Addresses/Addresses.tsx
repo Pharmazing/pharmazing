@@ -1,6 +1,10 @@
 import { useSession } from '../../../utils/context';
 import { Box } from '../../atoms';
-import { AddressList, PlacesAutocomplete } from '../../molecules';
+import {
+  AddressList,
+  EditAddressForm,
+  PlacesAutocomplete,
+} from '../../molecules';
 import { Text } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { useCallback, useMemo, useRef, useState } from 'react';
@@ -23,6 +27,15 @@ export function Addresses() {
     bottomSheetRef.current?.snapToIndex(0);
   };
 
+  const BottomSheetEditForm = useCallback(() => {
+    return (
+      <BottomSheetView style={{ flex: 1, padding: 16 }}>
+        {/* <Text>{JSON.stringify(defaultData)}</Text> */}
+        <EditAddressForm defaultValues={defaultData} />
+      </BottomSheetView>
+    );
+  }, [defaultData]);
+
   return (
     <EventProvider>
       <Box style={{ flex: 1, backgroundColor: 'white' }}>
@@ -35,12 +48,11 @@ export function Addresses() {
         >
           <PlacesAutocomplete disabled={editModalOpen !== -1} />
         </Box>
-        <Box style={{marginTop: 44, flex: 1}}>
-        <AddressList
-          editModalOpen={editModalOpen !== -1}
-          openEditModal={openEditModal}
-        />
-
+        <Box style={{ marginTop: 44, flex: 1 }}>
+          <AddressList
+            editModalOpen={editModalOpen !== -1}
+            openEditModal={openEditModal}
+          />
         </Box>
         <BottomSheet
           index={editModalOpen}
@@ -49,9 +61,7 @@ export function Addresses() {
           onChange={handleSheetChanges}
           snapPoints={snapPoints}
         >
-          <BottomSheetView style={{ flex: 1, padding: 16 }}>
-            <Text>{JSON.stringify(defaultData)}</Text>
-          </BottomSheetView>
+          <BottomSheetEditForm />
         </BottomSheet>
       </Box>
     </EventProvider>

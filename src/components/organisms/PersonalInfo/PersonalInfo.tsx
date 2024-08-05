@@ -5,6 +5,7 @@ import {
   ButtonVariantEnum,
   LoadingIndicator,
   ScrollBox,
+  Typography,
 } from '../../atoms';
 import { useForm } from 'react-hook-form';
 import { useSession } from '../../../utils/context';
@@ -76,7 +77,13 @@ export function PersonalInfo() {
 
   return (
     <ScrollBox contentContainerStyle={{ flex: 1, backgroundColor: 'white' }}>
-      <Text style={{ alignSelf: 'center' }}>Personal Info</Text>
+      <Typography
+        size="xxl"
+        weight={'500'}
+        style={{ alignSelf: 'center', margin: 12, alignItems: 'flex-end' }}
+      >
+        Personal Info
+      </Typography>
 
       <AnimatedInputField
         watch={watch}

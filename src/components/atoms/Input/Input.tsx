@@ -1,10 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Animated, Keyboard, TextInput, View, Text } from 'react-native';
 import { TextInputProps } from './Input.types';
 import OutsidePressHandler from 'react-native-outside-press';
 import { useStyles } from 'react-native-unistyles';
 import { textInputStyles } from './Input.styles';
 import { Controller } from 'react-hook-form';
+import { Typography } from '../Typography';
+import { Toggle } from '../Toggle';
+import { Box } from '../Box';
 
 export const AnimatedInputField = ({
   label,
@@ -12,6 +15,7 @@ export const AnimatedInputField = ({
   control,
   watch,
   rules,
+  type = 'text',
   ...rest
 }: TextInputProps) => {
   const value = watch(name);
@@ -45,48 +49,81 @@ export const AnimatedInputField = ({
   const floatingLabelStyle = {
     top: floatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, -5], // top value
+      outputRange: [10, -18], // top value
     }),
     fontSize: floatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [16, 12], // font size
+      outputRange: [16, 14], // font size
     }),
   };
 
-  return (
-    <View style={styles.container}>
-      <Controller
-        control={control}
-        render={({
-          field: { onChange, onBlur, value },
-          fieldState: { error },
-        }) => {
-          return (
-            <OutsidePressHandler onOutsidePress={() => Keyboard.dismiss()}>
-              {label && (
-                <Animated.Text style={[styles.label, floatingLabelStyle]}>
-                  {label}
-                </Animated.Text>
-              )}
-              <TextInput
-                autoCapitalize="none"
-                style={styles.input}
-                value={value}
-                onChangeText={onChange}
-                onFocus={handleFocus}
-                onBlur={() => {
-                  onBlur();
-                  handleBlurDefault();
-                }}
-                {...rest}
-              />
-              {<Text style={{ color: 'red' }}>{error?.message}</Text>}
-            </OutsidePressHandler>
-          );
-        }}
-        name={name}
-        rules={rules}
-      />
-    </View>
-  );
+  const renderComponent = () => {
+    switch (type) {
+      case 'text':
+        return (
+          <Controller
+            control={control}
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => {
+              return (
+                <OutsidePressHandler onOutsidePress={() => Keyboard.dismiss()}>
+                  {label && (
+                    <Animated.Text style={[styles.label, floatingLabelStyle]}>
+                      {label}
+                    </Animated.Text>
+                  )}
+                  <TextInput
+                    autoCapitalize="none"
+                    style={styles.input}
+                    value={value}
+                    onChangeText={onChange}
+                    onFocus={handleFocus}
+                    onBlur={() => {
+                      onBlur();
+                      handleBlurDefault();
+                    }}
+                    {...rest}
+                  />
+                  {
+                    <Typography size="sm" style={{ color: 'red' }}>
+                      {error?.message}
+                    </Typography>
+                  }
+                </OutsidePressHandler>
+              );
+            }}
+            name={name}
+            rules={rules}
+          />
+        );
+      case 'toggle':
+        return (
+          <Controller
+            name={name}
+            rules={rules}
+            control={control}
+            render={({ field: { value, onChange } }) => {
+              return (
+                <Box
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Typography size="lg" weight="500">
+                    {label}
+                  </Typography>
+                  <Toggle value={value} onChange={onChange} />
+                </Box>
+              );
+            }}
+          />
+        );
+    }
+  };
+
+  return <View style={styles.container}>{renderComponent()}</View>;
 };
