@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, Text } from 'react-native';
 import { styles } from '../../../utils/appStyles/styles';
 import { useGetAllUsersLazyQuery } from '../../../generated/graphql';
-import { useSession } from '../../../utils/context';
+// import { useSession } from '../../../utils/context';
 import { router } from 'expo-router';
 import { ScrollBox, Typography } from '../../atoms';
 
@@ -12,7 +12,7 @@ export function HomeMobile() {
       variables: {},
     });
 
-  const { session } = useSession();
+  // const { session } = useSession();
   return (
     <ScrollBox style={styles.container}>
       <Typography>Open up Mobile.tsx to start working on your app!</Typography>

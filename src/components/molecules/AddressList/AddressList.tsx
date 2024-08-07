@@ -21,7 +21,6 @@ export function AddressList({
   const { dimensions } = useDimensions();
   const { session, setSession } = useSession();
   const parsedSession = JSON.parse(session || '{}');
-  console.log('parsedSession', parsedSession);
   const userAddresses = parsedSession?.user?.address;
   const { styles, theme } = useStyles(addressListStyles);
   const [listData, setListData] = useState<ListDataType[]>(
@@ -136,7 +135,7 @@ export function AddressList({
               {`${data.item.addressLine1}${data.item.addressLine2 ? `, ${data.item.addressLine2}` : ''}`}
             </Typography>
             <Typography size="sm" style={{ opacity: 0.8 }}>
-              {`${data.item.zip && `${data.item.zip}, `}${data.item.city}, ${data.item.country}`}
+              {`${data.item.city ? `${data.item.city}` : ''}${data.item.parish ? `, ${data.item.parish}` : ''}${data.item.zip ? `, ${data.item.zip}` : ''}${data.item.country ? `, ${data.item.country}` : ''}`}
             </Typography>
           </Box>
           <TouchableOpacity
