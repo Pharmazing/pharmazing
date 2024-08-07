@@ -17,6 +17,7 @@ const RIGHT_ACTION_FULL_WIDTH = -700;
 export function AddressList({
   openEditModal,
   editModalOpen,
+  onDeleteAddress,
 }: AddressListProps) {
   const { dimensions } = useDimensions();
   const { session, setSession } = useSession();
@@ -56,7 +57,11 @@ export function AddressList({
     }
   };
 
-  const deleteRow = (rowMap: any, rowKey: string) => {
+  const deleteRow = (rowMap: any, rowKey: any, id: string) => {
+    // id && console.log('deleteRow', id);
+    const result = onDeleteAddress(id);
+    console.log('result', result);
+    // delete address from local state only once the mutation is successful
     closeRow(rowMap, rowKey);
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
@@ -160,7 +165,7 @@ export function AddressList({
         rowHeightAnimatedValue={rowHeightAnimatedValue}
         data={data}
         onClose={() => closeRow(rowMap, data.item.key)}
-        onDelete={() => deleteRow(rowMap, data.item.key)}
+        onDelete={() => deleteRow(rowMap, data.item.key, data?.item.addressId)}
       />
     );
   };
@@ -263,6 +268,7 @@ export function AddressList({
     data: ListRenderItemInfo<ListDataType>,
     rowMap: RowMap<ListDataType>
   ) => {
+    // console.log('data', data);
     const rowActionAnimatedValue = new Animated.Value(75);
     const rowHeightAnimatedValue = new Animated.Value(ITEM_HEIGHT);
     return (
@@ -296,6 +302,7 @@ export function AddressList({
     rowActionAnimatedValue: Animated.Value,
     rowHeightAnimatedValue: Animated.Value
   ) => {
+    console.log('data', data);
     return (
       <HiddenItemWithActions
         data={data}
@@ -303,7 +310,7 @@ export function AddressList({
         rowActionAnimatedValue={rowActionAnimatedValue}
         rowHeightAnimatedValue={rowHeightAnimatedValue}
         onClose={() => closeRow(rowMap, data.item.key)}
-        onDelete={() => deleteRow(rowMap, data.item.key)}
+        onDelete={() => deleteRow(rowMap, data.item.key, data?.item.addressId)}
       />
     );
   };

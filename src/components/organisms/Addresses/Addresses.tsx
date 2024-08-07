@@ -1,26 +1,41 @@
-import { router } from 'expo-router';
-import { useSession } from '../../../utils/context';
-import { Box } from '../../atoms';
+import { router, useLocalSearchParams } from 'expo-router';
+import { Box, LoadingIndicator } from '../../atoms';
 import { AddressList, PlacesAutocomplete } from '../../molecules';
 
-import { useState } from 'react';
 import { EventProvider } from 'react-native-outside-press';
+import { useDeleteAddressMutation } from '../../../generated/graphql';
+import { useToast } from '../../../utils/hooks/useToast';
 
 export function Addresses() {
-  const { session } = useSession();
-  // const { id: userId } = useLocalSearchParams();
-  // this can be moved to the openEditModal function
-  const [defaultData, setDefaultData] = useState({});
+  const { showToast } = useToast({
+    type: 'success',
+    text1: 'Success',
+    text2: 'Address deleted successfully',
+  });
+  const { showToast: showErrorToast } = useToast({
+    type: 'error',
+    text1: 'Error',
+    text2: 'Address delete failed',
+  });
+  const [triggerDeleteAddress, { data, loading }] = useDeleteAddressMutation({
+    onCompleted: () => showToast(),
+    onError: () => showErrorToast(),
+  });
 
-  const parsedSession = JSON.parse(session || '{}');
-  parsedSession?.user?.address?.forEach((addy: any) => console.log(addy));
+  const { id: userId } = useLocalSearchParams();
 
   const openEditModal = (data: any) => {
-    setDefaultData(data);
     router.push({
       pathname: 'addresses/editAddress',
-      params: { defaultData: JSON.stringify(defaultData) },
+      params: { defaultData: JSON.stringify(data), userId },
     });
+  };
+
+  const onDeleteAddress = async (addressId: string) => {
+    await triggerDeleteAddress({
+      variables: { userId: userId as string, addressId },
+    });
+    return data;
   };
 
   return (
@@ -37,8 +52,12 @@ export function Addresses() {
           <PlacesAutocomplete onSelect={(data) => console.log(data)} />
         </Box>
         <Box style={{ marginTop: 60, flex: 1 }}>
-          <AddressList openEditModal={openEditModal} />
+          <AddressList
+            openEditModal={openEditModal}
+            onDeleteAddress={onDeleteAddress}
+          />
         </Box>
+        <LoadingIndicator loading={loading} />
       </Box>
     </EventProvider>
   );

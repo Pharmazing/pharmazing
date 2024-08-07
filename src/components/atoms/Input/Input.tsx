@@ -1,5 +1,5 @@
-import React, { useCallback, useRef } from 'react';
-import { Animated, Keyboard, TextInput, View, Text } from 'react-native';
+import React, { useRef } from 'react';
+import { Animated, Keyboard, TextInput, View } from 'react-native';
 import { InputProps } from './Input.types';
 import OutsidePressHandler from 'react-native-outside-press';
 import { useStyles } from 'react-native-unistyles';

@@ -1,17 +1,18 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack } from 'expo-router';
 
 export default function Layout() {
-  const { id } = useLocalSearchParams();
   return (
-    <Stack screenOptions={{ headerShown: false, headerBackTitle: 'Settings' }}>
+    <Stack>
       <Stack.Screen
         name="[id]"
         options={{
-          headerTitle: `addresses for ${id}`,
-          headerBackTitle: 'Settings',
+          headerShown: false,
         }}
       />
-      <Stack.Screen name="editAddress" options={{ presentation: 'modal' }} />
+      <Stack.Screen
+        name="editAddress"
+        options={{ presentation: 'modal', headerTitle: 'Edit Address' }}
+      />
     </Stack>
   );
 }

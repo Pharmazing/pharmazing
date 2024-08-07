@@ -11,4 +11,5 @@ export type ListDataType = {
 export type AddressListProps = {
   openEditModal: (data?: any) => void;
   editModalOpen?: boolean;
+  onDeleteAddress: (addressId: string) => void;
 };
