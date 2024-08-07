@@ -5,6 +5,7 @@ export const loadingStyles = createStyleSheet((theme) => ({
     position: 'absolute',
     zIndex: 999,
     flex: 1,
+    height: '100%',
     left: 0,
     right: 0,
     top: 0,

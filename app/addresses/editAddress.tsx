@@ -1,10 +1,6 @@
-import { Box } from '../../src/components/atoms';
-import { Text } from 'react-native';
+import { EditAddressLayout } from '../../src/pages/EditAddress';
+import { isAndroid, isIOS } from '../../src/utils';
 
 export default function Page() {
-  return (
-    <Box style={{ flex: 1 }}>
-      <Text>Page</Text>
-    </Box>
-  );
+  return (isIOS || isAndroid) && <EditAddressLayout />;
 }

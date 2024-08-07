@@ -3,7 +3,7 @@ import { core } from './core';
 export const lightTheme = {
   colors: {
     ...core.colors,
-    loadingPrimary: core.colors.Blue500,
+    loadingPrimary: core.colors.Blue600,
     loadingBackground: core.colors.Gray400,
     tabsContentBg: core.colors.Gray100,
     tabBarIcon: {

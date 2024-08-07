@@ -5,3 +5,4 @@ export * from './Settings';
 export * from './Addresses';
 export * from './PersonalInfo';
 export * from './SetLocation';
+export * from './EditAddress';

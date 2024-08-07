@@ -89,6 +89,13 @@ function RootLayout() {
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="signup" />
               <Stack.Screen name="signin2" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="addresses"
+                options={{
+                  headerBackTitle: 'Settings',
+                  headerTitle: 'Addresses',
+                }}
+              />
             </Stack>
           )}
           {isWeb && (

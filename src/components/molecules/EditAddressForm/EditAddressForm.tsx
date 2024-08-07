@@ -11,6 +11,7 @@ export const EditAddressForm = ({
 }: EditAddressFormProps) => {
   const { styles } = useStyles(editAddressFormStyles);
   // console.log(defaultValues?.item?.addressLine1);
+  // take this out if i want a modular form
   const { watch, control, handleSubmit, formState } = useForm({
     defaultValues: {
       addressLine1: defaultValues?.item?.addressLine1,

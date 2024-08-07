@@ -37,7 +37,7 @@ export const PlacesAutocomplete = ({
           placeholder={placeholder}
           onPress={(data, details) => {
             onSelect?.(details?.geometry?.location);
-            console.log('data', data, details);
+            // console.log('data', data, details);
           }}
           minLength={3}
           query={{
