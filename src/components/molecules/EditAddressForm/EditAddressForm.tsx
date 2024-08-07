@@ -1,16 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { EditAddressFormProps } from './EditAddressForm.types';
-import { Text } from 'react-native';
 import { Button, ButtonVariantEnum, ScrollBox } from '../../atoms';
 import { editAddressFormStyles } from './EditAddressForm.styles';
 import { useStyles } from 'react-native-unistyles';
 import { AnimatedInputField } from '../../atoms/Input';
-import { useEditAddressMutation } from '../../../generated/graphql';
-import { useCallback } from 'react';
-export const EditAddressForm = ({ defaultValues }: EditAddressFormProps) => {
-  const [triggetEditAddress, { data, loading, error }] = useEditAddressMutation(
-    {}
-  );
+
+export const EditAddressForm = ({
+  defaultValues,
+  onSave,
+}: EditAddressFormProps) => {
   const { styles } = useStyles(editAddressFormStyles);
   // console.log(defaultValues?.item?.addressLine1);
   const { watch, control, handleSubmit, formState } = useForm({
@@ -21,12 +19,9 @@ export const EditAddressForm = ({ defaultValues }: EditAddressFormProps) => {
       parish: defaultValues?.item?.parish,
       country: defaultValues?.item?.country,
       zip: defaultValues?.item?.zip,
-      primary: defaultValues?.item?.primary,
+      primary: defaultValues?.item?.primary || false,
     },
   });
-  const onSave = (data: any) => {
-    console.log('formstate', control._formValues);
-  };
 
   return (
     <ScrollBox contentContainerStyle={styles.container}>
@@ -75,7 +70,7 @@ export const EditAddressForm = ({ defaultValues }: EditAddressFormProps) => {
         type="toggle"
         watch={watch}
         control={control}
-        onChange={(val) => !val}
+        // onChange={(val) => !val}
         name="primary"
         label="Primary address"
       />
@@ -84,9 +79,13 @@ export const EditAddressForm = ({ defaultValues }: EditAddressFormProps) => {
         style={{ alignSelf: 'center' }}
         btnVariant={ButtonVariantEnum.DANGER}
         title="Save"
-        onPress={handleSubmit(onSave)}
+        onPress={handleSubmit(() =>
+          onSave({
+            ...control._formValues,
+            addressId: defaultValues?.item?.addressId,
+          })
+        )}
       />
-      {/* <Text>{JSON.stringify(defaultValues)}</Text> */}
     </ScrollBox>
   );
 };

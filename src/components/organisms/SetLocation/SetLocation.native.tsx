@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { Box } from '../../atoms';
+import { Box, Icon } from '../../atoms';
 import { Button } from 'react-native';
 import { PlacesAutocomplete } from '../../molecules';
 import { EventProvider } from 'react-native-outside-press';
+import { useStyles } from 'react-native-unistyles';
 
 type Location = {
   latitude: number;
@@ -21,6 +22,7 @@ const initialRegion = {
 };
 
 export const SetLocation = () => {
+  const { theme } = useStyles();
   const [markerLocation, setMarker] = useState<Location | null>(null);
 
   const mapRef = useRef<MapView | null>(null);
@@ -58,11 +60,19 @@ export const SetLocation = () => {
               }}
               title="You are here"
               description="delivery location"
-            />
+              // style={{alignItems: 'center', gap: 8}}
+            >
+              <Icon
+                name="DeliveryBusIcon"
+                color={theme.colors.Green500}
+                height={28}
+                width={28}
+              />
+            </Marker>
           )}
         </MapView>
 
-        <Box style={{ position: 'absolute', width: '100%', borderRadius: 8 }}>
+        <Box style={{ position: 'absolute', width: '100%', padding: 8 }}>
           <PlacesAutocomplete
             placeholder="Find address"
             onSelect={(point) => {

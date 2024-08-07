@@ -9,7 +9,7 @@ import { useStyles } from 'react-native-unistyles';
 export default function Layout() {
   const { theme } = useStyles();
   return (
-    <GestureHandlerRootView>
+    <>
       {isIOS || isAndroid ? (
         <Tabs
           sceneContainerStyle={{
@@ -54,27 +54,29 @@ export default function Layout() {
           {/* <Tabs.Screen name="prescriptions" options={{ tabBarButton: () => null, headerShown: true, headerLeft: () => <Button title="Back" onPress={() => router.replace('/settings')}/> }} /> */}
         </Tabs>
       ) : (
-        <Drawer>
-          <Drawer.Screen name="home" />
-          <Drawer.Screen name="somePage" />
-          <Drawer.Screen
-            name="activity"
-            options={{ drawerItemStyle: { display: 'none' } }}
-          />
-          <Drawer.Screen
-            name="cart"
-            options={{ drawerItemStyle: { display: 'none' } }}
-          />
-          <Drawer.Screen
-            name="settings"
-            options={{ drawerItemStyle: { display: 'none' } }}
-          />
-          {/* <Drawer.Screen
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Drawer>
+            <Drawer.Screen name="home" />
+            <Drawer.Screen name="somePage" />
+            <Drawer.Screen
+              name="activity"
+              options={{ drawerItemStyle: { display: 'none' } }}
+            />
+            <Drawer.Screen
+              name="cart"
+              options={{ drawerItemStyle: { display: 'none' } }}
+            />
+            <Drawer.Screen
+              name="settings"
+              options={{ drawerItemStyle: { display: 'none' } }}
+            />
+            {/* <Drawer.Screen
               name="prescriptions"
               options={{ drawerItemStyle: { display: "none" } }}
             /> */}
-        </Drawer>
+          </Drawer>
+        </GestureHandlerRootView>
       )}
-    </GestureHandlerRootView>
+    </>
   );
 }

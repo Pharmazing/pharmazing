@@ -10,3 +10,4 @@ export * from './PrescriptionIcon';
 export * from './LocalPharmacyIcon';
 export * from './TrashIcon';
 export * from './EditIcon';
+export * from './DeliveryBusIcon';

@@ -3,6 +3,8 @@ import { createStyleSheet } from 'react-native-unistyles';
 export const loadingStyles = createStyleSheet((theme) => ({
   loading: {
     position: 'absolute',
+    zIndex: 999,
+    flex: 1,
     left: 0,
     right: 0,
     top: 0,

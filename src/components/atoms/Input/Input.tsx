@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { Animated, Keyboard, TextInput, View, Text } from 'react-native';
-import { TextInputProps } from './Input.types';
+import { InputProps } from './Input.types';
 import OutsidePressHandler from 'react-native-outside-press';
 import { useStyles } from 'react-native-unistyles';
 import { textInputStyles } from './Input.styles';
@@ -17,9 +17,9 @@ export const AnimatedInputField = ({
   rules,
   type = 'text',
   ...rest
-}: TextInputProps) => {
+}: InputProps) => {
   const value = watch(name);
-  // const value = control._formValues[name];
+
   const { styles } = useStyles(textInputStyles);
   const floatingLabelAnimation = useRef(
     new Animated.Value(value ? 1 : 0)
@@ -116,7 +116,7 @@ export const AnimatedInputField = ({
                   <Typography size="lg" weight="500">
                     {label}
                   </Typography>
-                  <Toggle value={value} onChange={onChange} />
+                  <Toggle value={value} onValueChange={onChange} {...rest} />
                 </Box>
               );
             }}
