@@ -35,6 +35,7 @@ export function AddressList({
           country,
           zip,
           parish,
+          primary,
         }: any,
         i: number
       ) => ({
@@ -43,7 +44,7 @@ export function AddressList({
         addressLine1,
         addressLine2,
         parish,
-        primary: i === 1,
+        primary,
         city,
         country,
         zip,

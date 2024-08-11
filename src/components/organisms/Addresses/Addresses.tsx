@@ -26,7 +26,7 @@ export function Addresses() {
 
   const openEditModal = (data: any) => {
     router.push({
-      pathname: 'addresses/editAddress',
+      pathname: 'signin2/setlocation',
       params: { defaultData: JSON.stringify(data), userId },
     });
   };
