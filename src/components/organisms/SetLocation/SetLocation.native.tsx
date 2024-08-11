@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useRef, useState } from 'react';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { Box, Icon } from '../../atoms';
@@ -23,6 +23,8 @@ const initialRegion = {
 
 export const SetLocation = () => {
   const { theme } = useStyles();
+  const { userId, defaultData } = useLocalSearchParams();
+  // console.log('userId', userId, defaultData);
   const [markerLocation, setMarker] = useState<Location | null>(null);
 
   const mapRef = useRef<MapView | null>(null);

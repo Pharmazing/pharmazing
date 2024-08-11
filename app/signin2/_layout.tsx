@@ -1,5 +1,6 @@
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import * as Constants from 'expo-constants';
+import { Button } from 'react-native';
 
 export default function Layout() {
   return (
@@ -8,9 +9,21 @@ export default function Layout() {
       <Stack.Screen
         name="setlocation"
         options={{
-          headerShown: false,
+          headerShown: router.canGoBack(),
+          headerBackTitleVisible: true,
+          headerBackTitle: 'Back',
+          headerLeft: () => (
+            <Button
+              title="Back"
+              onPress={() => {
+                router.canGoBack() ? router.back() : null;
+              }}
+            />
+          ),
           contentStyle: {
-            paddingTop: Constants.default.statusBarHeight,
+            paddingTop: router.canGoBack()
+              ? 0
+              : Constants.default.statusBarHeight,
           },
         }}
       />
