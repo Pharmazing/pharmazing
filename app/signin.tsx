@@ -3,25 +3,23 @@ import React, { useCallback, useEffect } from 'react';
 import { Text, Button, View, ImageBackground } from 'react-native';
 import { styles } from '../src/utils/appStyles/styles';
 import { isAndroid, isIOS, isWeb } from '../src/utils';
-import { useSession } from '../src/utils/context';
+import { useSession, useUser } from '../src/utils/context';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import {
   useCreateUserMutation,
   useSignInLazyQuery,
 } from '../src/generated/graphql';
 import { LoadingIndicator } from '../src/components/atoms';
-import * as Sentry from '@sentry/react-native';
 
 export default function Page() {
-  const { loginAsGuest, session, loginWithGoogle, error, setSession } =
-    useSession();
+  const { loginAsGuest, session, loginWithGoogle, error } = useSession();
+  const { updateUser, user } = useUser();
   const parsedSession = JSON.parse(session || '{}');
 
   const segments = useSegments();
-  const showContinueAsGuest =
-    segments?.[0] === 'signin' || segments?.[0] === 'signin2';
   const isSecondarySignin = segments?.[0] === 'signin2';
-  // console.log('isSecondarySignin', isSecondarySignin);
+  const showContinueAsGuest = segments?.[0] === 'signin' || isSecondarySignin;
+
   const [
     triggerSignIn,
     { data: signInData, error: signInError, loading: signInLoading },
@@ -33,65 +31,58 @@ export default function Page() {
     { data: signUpData, error: signUpError, loading: signUpLoading },
   ] = useCreateUserMutation();
 
-  if (signInData?.signIn) {
-    const newSession = {
-      ...parsedSession,
-      user: {
-        ...parsedSession.user,
-        userId: signInData?.signIn?.userId,
-        email: signInData?.signIn?.email,
-        address: signInData?.signIn?.address,
-        age: signInData?.signIn?.age,
-        givenName: signInData?.signIn?.firstName,
-        familyName: signInData?.signIn?.lastName,
-      },
-    };
-    setSession(JSON.stringify(newSession));
+  if (signInData?.signIn && !user.userId) {
+    const { userId, firstName, lastName, age, email, address } =
+      signInData?.signIn;
+    updateUser({
+      userId,
+      firstName,
+      lastName,
+      age,
+      email,
+      address: address || [],
+    });
   }
 
   if (signUpData?.createUser) {
-    const newSession = {
-      ...parsedSession,
-      user: {
-        ...parsedSession.user,
-        userId: signUpData?.createUser?.userId,
-        address: signUpData?.createUser?.address,
-        age: signUpData?.createUser?.age,
-        email: signUpData?.createUser?.email,
-        givenName: signUpData?.createUser?.firstName,
-        familyName: signUpData?.createUser?.lastName,
-      },
-    };
-    setSession(JSON.stringify(newSession));
+    const { userId, email, firstName, lastName, age, address } =
+      signUpData?.createUser;
+    updateUser({
+      userId,
+      firstName,
+      lastName,
+      age,
+      email,
+      address: address || [],
+    });
   }
 
   useEffect(() => {
     try {
-      if (parsedSession?.user) {
-        if (!parsedSession?.user?.userId) {
+      if (parsedSession?.idToken) {
+        if (!user?.userId) {
           triggerSignIn();
         } else {
           router.replace(isSecondarySignin ? '/signin2/setlocation' : '/home');
         }
       }
     } catch (e) {}
-  }, [session]);
+  }, [session, user]);
 
   useEffect(() => {
-    if (signInError?.message === 'user not found') {
+    if (signInError?.message === 'user not found' && !user.userId) {
       // create user record using current session data
-      !parsedSession?.user?.userId &&
-        triggerSignUp({
-          variables: {
-            user: {
-              email: parsedSession?.user?.email,
-              firstName: parsedSession?.user?.givenName,
-              lastName: parsedSession?.user?.familyName,
-            },
+      triggerSignUp({
+        variables: {
+          user: {
+            email: user?.email || '',
+            firstName: user?.firstName || '',
+            lastName: user?.lastName || '',
           },
-        });
+        },
+      });
     }
-  }, [signInError]);
+  }, [signInError, user]);
 
   // check here to see if the issue s that this needs to be a memo or callback
   const Mobile = useCallback(() => {

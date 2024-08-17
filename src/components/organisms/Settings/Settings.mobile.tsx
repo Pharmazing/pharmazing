@@ -1,15 +1,12 @@
 import React, { useMemo } from 'react';
-import { useSession } from '../../../utils/context';
+import { useSession, useUser } from '../../../utils/context';
 import { Button, ButtonVariantEnum, ScrollBox } from '../../atoms';
 import { SettingsBox } from '../../molecules';
 
 export function SettingsMobile() {
-  const { signOut, session } = useSession();
-  const parsedSession = JSON.parse(session || '{}');
-  const userId = useMemo(
-    () => parsedSession?.user?.userId || '',
-    [session, parsedSession]
-  );
+  const { signOut } = useSession();
+  const { user } = useUser();
+  const userId = useMemo(() => user?.userId || '', [user]);
   return (
     <ScrollBox
       contentContainerStyle={{

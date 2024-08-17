@@ -37,6 +37,8 @@ export type Address = {
   addressLine2?: Maybe<Scalars['String']['output']>;
   city?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Scalars['String']['output']>;
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
   parish?: Maybe<Scalars['String']['output']>;
   primary?: Maybe<Scalars['Boolean']['output']>;
   userId?: Maybe<Scalars['ID']['output']>;
@@ -48,6 +50,8 @@ export type CreateAddressInput = {
   addressLine2?: InputMaybe<Scalars['String']['input']>;
   city: Scalars['String']['input'];
   country: Scalars['String']['input'];
+  latitude: Scalars['Float']['input'];
+  longitude: Scalars['Float']['input'];
   parish: Scalars['String']['input'];
   primary: Scalars['Boolean']['input'];
   zip: Scalars['String']['input'];
@@ -77,6 +81,8 @@ export type EditAddressInput = {
   addressLine2?: InputMaybe<Scalars['String']['input']>;
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
+  latitude?: InputMaybe<Scalars['Float']['input']>;
+  longitude?: InputMaybe<Scalars['Float']['input']>;
   parish?: InputMaybe<Scalars['String']['input']>;
   primary?: InputMaybe<Scalars['Boolean']['input']>;
   zip?: InputMaybe<Scalars['String']['input']>;
@@ -181,6 +187,8 @@ export type CreateUserMutation = {
       primary?: boolean | null;
       userId?: string | null;
       zip?: string | null;
+      latitude?: number | null;
+      longitude?: number | null;
     }> | null;
   } | null;
 };
@@ -227,6 +235,8 @@ export type CreateAddressMutation = {
     country?: string | null;
     zip?: string | null;
     primary?: boolean | null;
+    longitude?: number | null;
+    latitude?: number | null;
   } | null;
 };
 
@@ -247,6 +257,8 @@ export type EditAddressMutation = {
     country?: string | null;
     zip?: string | null;
     primary?: boolean | null;
+    longitude?: number | null;
+    latitude?: number | null;
   } | null;
 };
 
@@ -289,6 +301,8 @@ export type SignInQuery = {
       country?: string | null;
       zip?: string | null;
       primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
     }> | null;
   } | null;
 };
@@ -360,6 +374,8 @@ export const CreateUserDocument = gql`
         primary
         userId
         zip
+        latitude
+        longitude
       }
     }
   }
@@ -519,6 +535,8 @@ export const CreateAddressDocument = gql`
       country
       zip
       primary
+      longitude
+      latitude
     }
   }
 `;
@@ -577,6 +595,8 @@ export const EditAddressDocument = gql`
       country
       zip
       primary
+      longitude
+      latitude
     }
   }
 `;
@@ -694,6 +714,8 @@ export const SignInDocument = gql`
         country
         zip
         primary
+        longitude
+        latitude
       }
     }
   }
@@ -768,6 +790,8 @@ export const GetAllUsersDocument = gql`
         primary
         userId
         zip
+        longitude
+        latitude
       }
       age
       email
