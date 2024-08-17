@@ -24,7 +24,7 @@ const initialRegion = {
 export const SetLocation = () => {
   const { theme } = useStyles();
   const { userId, defaultData } = useLocalSearchParams();
-  // console.log('userId', userId, defaultData);
+  console.log('userId', userId, defaultData);
   const [markerLocation, setMarker] = useState<Location | null>(null);
 
   const mapRef = useRef<MapView | null>(null);

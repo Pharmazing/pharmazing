@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, Text } from 'react-native';
 import { styles } from '../../../utils/appStyles/styles';
 import { useGetAllUsersLazyQuery } from '../../../generated/graphql';
-// import { useSession } from '../../../utils/context';
 import { router } from 'expo-router';
 import { ScrollBox, Typography } from '../../atoms';
+import { useUser } from '../../../utils/context';
 
 export function HomeMobile() {
   const [getAllUsersTrigger, { loading, error, data }] =
@@ -12,7 +12,7 @@ export function HomeMobile() {
       variables: {},
     });
 
-  // const { session } = useSession();
+  const { user } = useUser();
   return (
     <ScrollBox style={styles.container}>
       <Typography>Open up Mobile.tsx to start working on your app!</Typography>
@@ -27,6 +27,7 @@ export function HomeMobile() {
       {loading && <Text>Loading...</Text>}
       {error && <Text>Error: {JSON.stringify(error)}</Text>}
       <Text>{JSON.stringify(data)}</Text>
+      <Text>{JSON.stringify(user)}</Text>
       <StatusBar style="auto" />
     </ScrollBox>
   );

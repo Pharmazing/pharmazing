@@ -20,6 +20,8 @@ export const createUserMutation = gql`
         primary
         userId
         zip
+        latitude
+        longitude
       }
     }
   }
@@ -56,6 +58,8 @@ export const createAddressMutation = gql`
       country
       zip
       primary
+      longitude
+      latitude
     }
   }
 `;
@@ -71,6 +75,8 @@ export const editAddressMutation = gql`
       country
       zip
       primary
+      longitude
+      latitude
     }
   }
 `;

@@ -19,6 +19,8 @@ export const getUserQuery = gql`
         country
         zip
         primary
+        longitude
+        latitude
       }
     }
   }
@@ -37,6 +39,8 @@ export const getAllUsersQuery = gql`
         primary
         userId
         zip
+        latitude
+        longitude
       }
       age
       email
@@ -60,6 +64,8 @@ export const getAddressesQuery = gql`
       country
       zip
       primary
+      longitude
+      latitude
     }
   }
 `;

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { isAndroid, isIOS, useStorageState } from '../hooks';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { router } from 'expo-router';
+import { useUser } from './useUser';
 
 GoogleSignin.configure({
   webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
@@ -42,19 +43,28 @@ export function useSession() {
 export function SessionProvider({ children }: React.PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
   const [error, setError] = useState<any | null>(null);
-  // const configureGoogleSignIn = () => {
-  //   GoogleSignin.configure({
-  //     webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
-  //     iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
-  //     // androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
-  //   });
-  // };
+
+  const { updateUser, clearUser } = useUser();
 
   const loginWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      setSession(JSON.stringify(userInfo));
+      const {
+        user: gUser,
+        idToken,
+        scopes,
+        ...rest
+      } = await GoogleSignin.signIn();
+
+      setSession(JSON.stringify({ idToken, scopes, ...rest }));
+
+      updateUser({
+        email: gUser.email,
+        // userId: user.id,
+        firstName: gUser.givenName,
+        lastName: gUser.familyName,
+        address: [],
+      });
       setError(null);
     } catch (error) {
       if (error instanceof Error) setError(error);
@@ -72,15 +82,12 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
 
   const signOut = async () => {
     await GoogleSignin.signOut();
-
     setSession(null);
     setError(null);
+    clearUser();
     router.replace(isIOS || isAndroid ? '/signin2' : '/signin');
   };
 
-  // useEffect(() => {
-  //   configureGoogleSignIn();
-  // }, []);
   return (
     <AuthContext.Provider
       value={{

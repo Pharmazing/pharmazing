@@ -8,7 +8,7 @@ import { ITEM_HEIGHT, addressListStyles } from './AddressList.styles';
 import { AddressListProps, ListDataType } from './AddressList.types';
 import AlertAsync from 'react-native-alert-async';
 import { useDimensions } from '../../../utils';
-import { useSession } from '../../../utils/context';
+import { useSession, useUser } from '../../../utils/context';
 
 const LEFT_SWIPE_THRESHOLD = -75;
 const RIGHT_ACTION_ACTIVATION_THRESHOLD = -250;
@@ -20,12 +20,10 @@ export function AddressList({
   onDeleteAddress,
 }: AddressListProps) {
   const { dimensions } = useDimensions();
-  const { session, setSession } = useSession();
-  const parsedSession = JSON.parse(session || '{}');
-  const userAddresses = parsedSession?.user?.address;
+  const { address, deleteAddress } = useUser();
   const { styles, theme } = useStyles(addressListStyles);
   const [listData, setListData] = useState<ListDataType[]>(
-    userAddresses?.map(
+    address?.map(
       (
         {
           addressLine1,
@@ -68,14 +66,7 @@ export function AddressList({
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
-    const newSession = {
-      ...parsedSession,
-      user: {
-        ...parsedSession.user,
-        address: newData,
-      },
-    };
-    setSession(JSON.stringify(newSession));
+    deleteAddress(id);
   };
 
   const onRightActionStatusChange = (rowKey: any) => {
@@ -269,7 +260,6 @@ export function AddressList({
     data: ListRenderItemInfo<ListDataType>,
     rowMap: RowMap<ListDataType>
   ) => {
-    // console.log('data', data);
     const rowActionAnimatedValue = new Animated.Value(75);
     const rowHeightAnimatedValue = new Animated.Value(ITEM_HEIGHT);
     return (
@@ -303,7 +293,6 @@ export function AddressList({
     rowActionAnimatedValue: Animated.Value,
     rowHeightAnimatedValue: Animated.Value
   ) => {
-    console.log('data', data);
     return (
       <HiddenItemWithActions
         data={data}

@@ -1,4 +1,3 @@
-import { Text } from 'react-native';
 import { AnimatedInputField } from '../../atoms/Input';
 import {
   Button,
@@ -8,13 +7,14 @@ import {
   Typography,
 } from '../../atoms';
 import { useForm } from 'react-hook-form';
-import { useSession } from '../../../utils/context';
+import { useUser } from '../../../utils/context';
 import { useEditUserMutation } from '../../../generated/graphql';
 import { useToast } from '../../../utils/hooks/useToast';
 import { router } from 'expo-router';
 
 export function PersonalInfo() {
-  const { session, setSession } = useSession();
+  // const { session, setSession } = useSession();
+  const { updateUser, user } = useUser();
   const { showToast: showSuccessToast } = useToast({
     type: 'success',
     text1: 'Success',
@@ -25,15 +25,13 @@ export function PersonalInfo() {
     text1: 'Error',
     text2: 'User update failed',
   });
-  const parsedSession = JSON.parse(session || '{}');
-
-  const userId = parsedSession?.user?.userId || '';
+  const userId = user?.userId || '';
   const { control, handleSubmit, watch, formState } = useForm({
     defaultValues: {
-      firstName: parsedSession?.user?.givenName || '',
-      lastName: parsedSession?.user?.familyName || '',
-      email: parsedSession?.user?.email || '',
-      age: parsedSession?.user?.age?.toString() || null,
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      email: user?.email || '',
+      age: user?.age?.toString() || null,
     },
   });
 
@@ -48,20 +46,13 @@ export function PersonalInfo() {
       },
     },
     onCompleted: (data) => {
-      setSession(
-        JSON.stringify({
-          ...{
-            ...parsedSession,
-            user: {
-              ...parsedSession.user,
-              email: data?.editUser?.email,
-              givenName: data?.editUser?.firstName,
-              familyName: data?.editUser?.lastName,
-              age: data?.editUser?.age,
-            },
-          },
-        })
-      );
+      updateUser({
+        email: data?.editUser?.email,
+        firstName: data?.editUser?.firstName,
+        lastName: data?.editUser?.lastName,
+        age: data?.editUser?.age,
+        // address: data?.editUser?.address || [],
+      });
       showSuccessToast();
       router.back();
     },
