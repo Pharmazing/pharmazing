@@ -68,7 +68,11 @@ export default function Page() {
           // A simple dropdown in the header should do the trick
           // console.log('user address', address);
           // set the current delivery address to the primary address
-          router.replace(isSecondarySignin && !address.length ? '/signin2/setlocation' : '/home');
+          router.replace(
+            isSecondarySignin && !address.length
+              ? '/signin2/setlocation'
+              : '/home'
+          );
           // router.replace(isSecondarySignin ? '/signin2/setlocation' : '/home');
         }
       }
