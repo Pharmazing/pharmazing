@@ -4,9 +4,9 @@ import { Address, User } from '../../generated/graphql';
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-type AddressType = Omit<Address, '__typename'>;
+export type AddressType = Omit<Address, '__typename'>;
 
-type UserType = Omit<User, '__typename' | 'address'> & {
+export type UserType = Omit<User, '__typename' | 'address'> & {
   address: Array<AddressType>;
 };
 

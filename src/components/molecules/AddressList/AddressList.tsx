@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Animated, ListRenderItemInfo, TouchableOpacity } from 'react-native';
 
 import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
@@ -8,7 +8,7 @@ import { ITEM_HEIGHT, addressListStyles } from './AddressList.styles';
 import { AddressListProps, ListDataType } from './AddressList.types';
 import AlertAsync from 'react-native-alert-async';
 import { useDimensions } from '../../../utils';
-import { useSession, useUser } from '../../../utils/context';
+import { useUser } from '../../../utils/context';
 
 const LEFT_SWIPE_THRESHOLD = -75;
 const RIGHT_ACTION_ACTIVATION_THRESHOLD = -250;
@@ -22,7 +22,7 @@ export function AddressList({
   const { dimensions } = useDimensions();
   const { address, deleteAddress } = useUser();
   const { styles, theme } = useStyles(addressListStyles);
-  const [listData, setListData] = useState<ListDataType[]>(
+  const loadAddresses = () =>
     address?.map(
       (
         {
@@ -34,6 +34,8 @@ export function AddressList({
           zip,
           parish,
           primary,
+          latitude,
+          longitude,
         }: any,
         i: number
       ) => ({
@@ -46,9 +48,11 @@ export function AddressList({
         city,
         country,
         zip,
+        latitude,
+        longitude,
       })
-    )
-  );
+    );
+  const [listData, setListData] = useState<ListDataType[]>(loadAddresses());
 
   const closeRow = (rowMap: any, rowKey: any) => {
     if (rowMap[rowKey]) {
@@ -56,8 +60,11 @@ export function AddressList({
     }
   };
 
+  useEffect(() => {
+    setListData(loadAddresses());
+  }, [address]);
+
   const deleteRow = (rowMap: any, rowKey: any, id: string) => {
-    // id && console.log('deleteRow', id);
     const result = onDeleteAddress(id);
     console.log('result', result);
     // delete address from local state only once the mutation is successful
@@ -66,7 +73,6 @@ export function AddressList({
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
-    deleteAddress(id);
   };
 
   const onRightActionStatusChange = (rowKey: any) => {

@@ -3,10 +3,18 @@ import { Box, LoadingIndicator } from '../../atoms';
 import { AddressList, PlacesAutocomplete } from '../../molecules';
 
 import { EventProvider } from 'react-native-outside-press';
-import { useDeleteAddressMutation } from '../../../generated/graphql';
+import {
+  CreateAddressInput,
+  useCreateAddressMutation,
+  useDeleteAddressMutation,
+} from '../../../generated/graphql';
 import { useToast } from '../../../utils/hooks/useToast';
+import { AddressType, useUser } from '../../../utils/context';
+import { useRef } from 'react';
 
 export function Addresses() {
+  const { addAddress, deleteAddress } = useUser();
+  const deleteAddyIdRef = useRef<string | null>(null);
   const { showToast } = useToast({
     type: 'success',
     text1: 'Success',
@@ -17,9 +25,33 @@ export function Addresses() {
     text1: 'Error',
     text2: 'Address delete failed',
   });
+  const { showToast: showAddToast } = useToast({
+    type: 'success',
+    text1: 'Success',
+    text2: 'Address added successfully',
+  });
+  const { showToast: showAddErrorToast } = useToast({
+    type: 'error',
+    text1: 'Error',
+    text2: 'Address add failed',
+  });
   const [triggerDeleteAddress, { data, loading }] = useDeleteAddressMutation({
-    onCompleted: () => showToast(),
+    onCompleted: () => {
+      deleteAddress(deleteAddyIdRef.current as string);
+      showToast();
+    },
     onError: () => showErrorToast(),
+  });
+
+  const [
+    triggerCreateAddress,
+    { data: addAddyData, loading: addAddyLoading, error: addAddyErr },
+  ] = useCreateAddressMutation({
+    onCompleted: (data) => {
+      addAddress(data.createAddress as AddressType);
+      showAddToast();
+    },
+    onError: () => showAddErrorToast(),
   });
 
   const { id: userId } = useLocalSearchParams();
@@ -32,10 +64,32 @@ export function Addresses() {
   };
 
   const onDeleteAddress = async (addressId: string) => {
+    deleteAddyIdRef.current = addressId;
     await triggerDeleteAddress({
       variables: { userId: userId as string, addressId },
     });
     return data;
+  };
+
+  const handleAddAddress = async (data: AddressType | null | undefined) => {
+    const hasError = (data: AddressType | null | undefined) => {
+      if (!data) return true;
+      if (!data.addressLine1) return true;
+      if (!data.city) return true;
+      if (!data.country) return true;
+      if (!data.zip) return true;
+      if (!data.parish) return true;
+      return false;
+    };
+
+    console.log('data', data);
+    if (!hasError(data))
+      await triggerCreateAddress({
+        variables: {
+          userId: userId as string,
+          address: { ...data, primary: false } as CreateAddressInput,
+        },
+      });
   };
 
   return (
@@ -49,7 +103,7 @@ export function Addresses() {
             position: 'absolute',
           }}
         >
-          <PlacesAutocomplete onSelect={(data) => console.log(data)} />
+          <PlacesAutocomplete onSelect={handleAddAddress} />
         </Box>
         <Box style={{ marginTop: 60, flex: 1 }}>
           <AddressList
@@ -57,7 +111,7 @@ export function Addresses() {
             onDeleteAddress={onDeleteAddress}
           />
         </Box>
-        <LoadingIndicator loading={loading} />
+        <LoadingIndicator loading={loading || addAddyLoading} />
       </Box>
     </EventProvider>
   );

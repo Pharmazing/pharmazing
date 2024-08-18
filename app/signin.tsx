@@ -13,7 +13,7 @@ import { LoadingIndicator } from '../src/components/atoms';
 
 export default function Page() {
   const { loginAsGuest, session, loginWithGoogle, error } = useSession();
-  const { updateUser, user } = useUser();
+  const { updateUser, user, address } = useUser();
   const parsedSession = JSON.parse(session || '{}');
 
   const segments = useSegments();
@@ -63,7 +63,13 @@ export default function Page() {
         if (!user?.userId) {
           triggerSignIn();
         } else {
-          router.replace(isSecondarySignin ? '/signin2/setlocation' : '/home');
+          // if the user has addresses then take them straight to the hompage
+          // need to figure out how i'm gonna do selecting delivery address from list of addresses
+          // A simple dropdown in the header should do the trick
+          // console.log('user address', address);
+          // set the current delivery address to the primary address
+          router.replace(isSecondarySignin && !address.length ? '/signin2/setlocation' : '/home');
+          // router.replace(isSecondarySignin ? '/signin2/setlocation' : '/home');
         }
       }
     } catch (e) {}
