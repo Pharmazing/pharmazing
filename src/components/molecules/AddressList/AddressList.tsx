@@ -20,7 +20,7 @@ export function AddressList({
   onDeleteAddress,
 }: AddressListProps) {
   const { dimensions } = useDimensions();
-  const { address, deleteAddress } = useUser();
+  const { address } = useUser();
   const { styles, theme } = useStyles(addressListStyles);
   const loadAddresses = () =>
     address?.map(
@@ -65,14 +65,13 @@ export function AddressList({
   }, [address]);
 
   const deleteRow = (rowMap: any, rowKey: any, id: string) => {
-    const result = onDeleteAddress(id);
-    console.log('result', result);
     // delete address from local state only once the mutation is successful
     closeRow(rowMap, rowKey);
     const newData = [...listData];
     const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
+    onDeleteAddress(id);
   };
 
   const onRightActionStatusChange = (rowKey: any) => {

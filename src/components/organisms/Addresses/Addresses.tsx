@@ -11,9 +11,11 @@ import {
 import { useToast } from '../../../utils/hooks/useToast';
 import { AddressType, useUser } from '../../../utils/context';
 import { useRef } from 'react';
+import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
 
 export function Addresses() {
   const { addAddress, deleteAddress } = useUser();
+  const autocompleteRef = useRef<GooglePlacesAutocompleteRef>(null);
   const deleteAddyIdRef = useRef<string | null>(null);
   const { showToast } = useToast({
     type: 'success',
@@ -50,6 +52,7 @@ export function Addresses() {
     onCompleted: (data) => {
       addAddress(data.createAddress as AddressType);
       showAddToast();
+      autocompleteRef.current?.clear();
     },
     onError: () => showAddErrorToast(),
   });
@@ -82,7 +85,6 @@ export function Addresses() {
       return false;
     };
 
-    console.log('data', data);
     if (!hasError(data))
       await triggerCreateAddress({
         variables: {
@@ -103,7 +105,10 @@ export function Addresses() {
             position: 'absolute',
           }}
         >
-          <PlacesAutocomplete onSelect={handleAddAddress} />
+          <PlacesAutocomplete
+            onSelect={handleAddAddress}
+            ref={autocompleteRef}
+          />
         </Box>
         <Box style={{ marginTop: 60, flex: 1 }}>
           <AddressList

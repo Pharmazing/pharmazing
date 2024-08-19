@@ -25,7 +25,6 @@ export const EditAddress = () => {
 
   const [triggerEditAddress, { loading }] = useEditAddressMutation({
     onCompleted: (data) => {
-      console.log('data', data);
       showSuccessToast();
     },
     onError: (error) => {
@@ -36,8 +35,7 @@ export const EditAddress = () => {
 
   const parsedDefaultData = JSON.parse(defaultData as string);
   const parsedUserId = userId as string;
-  console.log('stuffy', parsedDefaultData);
-  //   console.log(, parsedUserId);
+
   return (
     <EventProvider>
       <ScrollBox contentContainerStyle={{ flex: 1, paddingTop: 16 }}>
