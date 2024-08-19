@@ -36,26 +36,8 @@ export const SetLocation = () => {
   const { theme } = useStyles();
   const { userId: userIdParam, defaultData } = useLocalSearchParams();
   // console.log('userId', userIdParam);
-  const { showToast: showAddToast } = useToast({
-    type: 'success',
-    text1: 'Success',
-    text2: 'Address added successfully',
-  });
-  const { showToast: showEditToast } = useToast({
-    type: 'success',
-    text1: 'Success',
-    text2: 'Address edited successfully',
-  });
-  const { showToast: showAddErrorToast } = useToast({
-    type: 'error',
-    text1: 'Error',
-    text2: 'Address add failed',
-  });
-  const { showToast: showEditErrorToast } = useToast({
-    type: 'error',
-    text1: 'Error',
-    text2: 'Address edit failed',
-  });
+  const { showToast } = useToast();
+
   const [markerLocation, setMarker] = useState<Location | null>(null);
   const [addressQueryVars, setAddressQueryVars] = useState<
     CreateAddressInput | EditAddressInput | null
@@ -72,12 +54,20 @@ export const SetLocation = () => {
         const { __typename, ...rest } =
           data.createAddress as CreateAddressMutation;
         addAddress(rest as AddressType);
-        showAddToast();
+        showToast({
+          type: 'success',
+          text1: 'Success',
+          text2: 'Address added successfully',
+        });
         router.replace('/home');
       },
       onError: (error) => {
         console.log('error', error.message);
-        showAddErrorToast();
+        showToast({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Address add failed',
+        });
       },
     });
 
@@ -88,12 +78,20 @@ export const SetLocation = () => {
     onCompleted: (data) => {
       const { __typename, ...rest } = data.editAddress as EditAddressMutation;
       updateAddress(rest as AddressType);
-      showEditToast();
+      showToast({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Address edited successfully',
+      });
       router.back();
     },
     onError: (error) => {
       // console.log('error', error.message);
-      showEditErrorToast();
+      showToast({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Address edit failed',
+      });
     },
   });
 

@@ -14,35 +14,25 @@ import { useRef } from 'react';
 import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
 
 export function Addresses() {
+  const { showToast } = useToast();
   const { addAddress, deleteAddress } = useUser();
   const autocompleteRef = useRef<GooglePlacesAutocompleteRef>(null);
   const deleteAddyIdRef = useRef<string | null>(null);
-  const { showToast } = useToast({
-    type: 'success',
-    text1: 'Success',
-    text2: 'Address deleted successfully',
-  });
-  const { showToast: showErrorToast } = useToast({
-    type: 'error',
-    text1: 'Error',
-    text2: 'Address delete failed',
-  });
-  const { showToast: showAddToast } = useToast({
-    type: 'success',
-    text1: 'Success',
-    text2: 'Address added successfully',
-  });
-  const { showToast: showAddErrorToast } = useToast({
-    type: 'error',
-    text1: 'Error',
-    text2: 'Address add failed',
-  });
   const [triggerDeleteAddress, { data, loading }] = useDeleteAddressMutation({
     onCompleted: () => {
       deleteAddress(deleteAddyIdRef.current as string);
-      showToast();
+      showToast({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Address deleted successfully',
+      });
     },
-    onError: () => showErrorToast(),
+    onError: () =>
+      showToast({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Address delete failed',
+      }),
   });
 
   const [
@@ -51,10 +41,19 @@ export function Addresses() {
   ] = useCreateAddressMutation({
     onCompleted: (data) => {
       addAddress(data.createAddress as AddressType);
-      showAddToast();
+      showToast({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Address added successfully',
+      });
       autocompleteRef.current?.clear();
     },
-    onError: () => showAddErrorToast(),
+    onError: () =>
+      showToast({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Address add failed',
+      }),
   });
 
   const { id: userId } = useLocalSearchParams();
