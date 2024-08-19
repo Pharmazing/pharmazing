@@ -15,16 +15,8 @@ import { router } from 'expo-router';
 export function PersonalInfo() {
   // const { session, setSession } = useSession();
   const { updateUser, user } = useUser();
-  const { showToast: showSuccessToast } = useToast({
-    type: 'success',
-    text1: 'Success',
-    text2: 'User updated successfully',
-  });
-  const { showToast: showErrorToast } = useToast({
-    type: 'error',
-    text1: 'Error',
-    text2: 'User update failed',
-  });
+  const { showToast } = useToast();
+
   const userId = user?.userId || '';
   const { control, handleSubmit, watch, formState } = useForm({
     defaultValues: {
@@ -53,11 +45,19 @@ export function PersonalInfo() {
         age: data?.editUser?.age,
         // address: data?.editUser?.address || [],
       });
-      showSuccessToast();
+      showToast({
+        type: 'success',
+        text1: 'Success',
+        text2: 'User updated successfully',
+      });
       router.back();
     },
     onError: (error) => {
-      showErrorToast();
+      showToast({
+        type: 'error',
+        text1: 'Error',
+        text2: 'User update failed',
+      });
     },
   });
 
