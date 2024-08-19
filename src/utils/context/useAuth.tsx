@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { isAndroid, isIOS, useStorageState } from '../hooks';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { router } from 'expo-router';
+import { router, useNavigationContainerRef } from 'expo-router';
 import { useUser } from './useUser';
+import { StackActions } from '@react-navigation/native';
 
 GoogleSignin.configure({
   webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID, // change here in eas.json if results dont go as expected
@@ -45,6 +46,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
   const [error, setError] = useState<any | null>(null);
 
   const { updateUser, clearUser } = useUser();
+  const rootNav = useNavigationContainerRef();
 
   const loginWithGoogle = async () => {
     try {
@@ -73,6 +75,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
 
   const loginAsGuest = async (setLocation?: boolean) => {
     try {
+      router.canGoBack() && rootNav.dispatch(StackActions.popToTop());
       router.replace(setLocation ? '/signin2/setlocation' : '/home');
       setError(null);
     } catch (e) {

@@ -9,9 +9,14 @@ import { useStyles } from 'react-native-unistyles';
 import {
   CreateAddressInput,
   CreateAddressMutation,
+  EditAddressInput,
+  EditAddressMutation,
   useCreateAddressMutation,
+  useEditAddressMutation,
 } from '../../../generated/graphql';
 import { AddressType, useUser } from '../../../utils/context';
+import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
+import { useToast } from '../../../utils/hooks/useToast';
 
 type Location = {
   latitude: number;
@@ -31,27 +36,64 @@ export const SetLocation = () => {
   const { theme } = useStyles();
   const { userId: userIdParam, defaultData } = useLocalSearchParams();
   // console.log('userId', userIdParam);
+  const { showToast: showAddToast } = useToast({
+    type: 'success',
+    text1: 'Success',
+    text2: 'Address added successfully',
+  });
+  const { showToast: showEditToast } = useToast({
+    type: 'success',
+    text1: 'Success',
+    text2: 'Address edited successfully',
+  });
+  const { showToast: showAddErrorToast } = useToast({
+    type: 'error',
+    text1: 'Error',
+    text2: 'Address add failed',
+  });
+  const { showToast: showEditErrorToast } = useToast({
+    type: 'error',
+    text1: 'Error',
+    text2: 'Address edit failed',
+  });
   const [markerLocation, setMarker] = useState<Location | null>(null);
-  const [addressQueryVars, setAddressQueryVars] =
-    useState<CreateAddressInput | null>(null);
+  const [addressQueryVars, setAddressQueryVars] = useState<
+    CreateAddressInput | EditAddressInput | null
+  >(null);
   const parsedDefaultData = JSON.parse((defaultData || '{}') as string);
   const mapRef = useRef<MapView | null>(null);
-  const { user, addAddress } = useUser();
+  const autocompleteRef = useRef<GooglePlacesAutocompleteRef>(null);
+  const { user, addAddress, updateAddress } = useUser();
+
+  const [triggerCreateAddress, { data, loading, error }] =
+    useCreateAddressMutation({
+      onCompleted: (data: CreateAddressMutation) => {
+        // console.log('data', data);
+        const { __typename, ...rest } =
+          data.createAddress as CreateAddressMutation;
+        addAddress(rest as AddressType);
+        showAddToast();
+        router.replace('/home');
+      },
+      onError: (error) => {
+        console.log('error', error.message);
+        showAddErrorToast();
+      },
+    });
 
   const [
-    triggerCreateAddress,
-    { data, loading, error, called: createAddressCalled },
-  ] = useCreateAddressMutation({
-    onCompleted: (data: CreateAddressMutation) => {
-      // console.log('data', data);
-      const { __typename, ...rest } =
-        data.createAddress as CreateAddressMutation;
-      addAddress(rest as AddressType);
-      router.replace('/home');
-      // const { addressId, addressLine1, addressLine2, city, country, zip, parish, primary, latitude, longitude } = res;
+    triggerEditAddress,
+    { data: editAddyData, loading: editAddyLoading, error: editAddyError },
+  ] = useEditAddressMutation({
+    onCompleted: (data) => {
+      const { __typename, ...rest } = data.editAddress as EditAddressMutation;
+      updateAddress(rest as AddressType);
+      showEditToast();
+      router.back();
     },
     onError: (error) => {
-      console.log('error', error.message);
+      // console.log('error', error.message);
+      showEditErrorToast();
     },
   });
 
@@ -64,18 +106,34 @@ export const SetLocation = () => {
   };
 
   const onLocationSubmit = async () => {
-    // console.log('addressQueryVars', addressQueryVars);
     if (addressQueryVars) {
-      if (user.userId)
+      if (user.userId && !userIdParam)
         await triggerCreateAddress({
           variables: {
             userId: user.userId,
-            address: { ...addressQueryVars, primary: true },
+            address: {
+              ...addressQueryVars,
+              primary: defaultData ? parsedDefaultData?.item?.primary : true,
+            } as CreateAddressInput,
           },
         });
       // set current delivery location state and nav home // nav home for now
-      if (!createAddressCalled) {
+      if (userIdParam) {
+        await triggerEditAddress({
+          variables: {
+            userId: userIdParam as string,
+            address: {
+              ...addressQueryVars,
+              addressId: parsedDefaultData?.item.addressId,
+              primary: defaultData ? parsedDefaultData?.item?.primary : true,
+            } as EditAddressInput,
+          },
+        });
         // console.log('triggerCreateAddress.called', triggerCreateAddress);
+
+        // router.canGoBack() ? router.back() : router.replace('/home');
+      }
+      if (!user.userId && !userIdParam) {
         router.replace('/home');
       }
     }
@@ -109,6 +167,10 @@ export const SetLocation = () => {
       setMarker(defaultRegion);
     }
   }, [defaultData]);
+
+  const showContinueBtn = defaultData
+    ? Boolean(autocompleteRef.current?.getAddressText())
+    : !!markerLocation;
 
   return (
     <EventProvider>
@@ -145,15 +207,16 @@ export const SetLocation = () => {
 
         <Box style={{ position: 'absolute', width: '100%', padding: 8 }}>
           <PlacesAutocomplete
+            ref={autocompleteRef}
             placeholder="Find address"
             onSelect={handleAutocompleteSelect}
           />
-          {markerLocation && (
+          {showContinueBtn && (
             <Button title={'Continue'} onPress={onLocationSubmit} />
           )}
         </Box>
       </Box>
-      <LoadingIndicator loading={loading} />
+      <LoadingIndicator loading={loading || editAddyLoading} />
     </EventProvider>
   );
 };
