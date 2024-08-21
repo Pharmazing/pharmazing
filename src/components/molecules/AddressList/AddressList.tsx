@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, ListRenderItemInfo, TouchableOpacity } from 'react-native';
 
 import { RowMap, SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
@@ -21,6 +21,7 @@ export function AddressList({
 }: AddressListProps) {
   const { dimensions } = useDimensions();
   const { address } = useUser();
+  const open = useRef(false);
   const { styles, theme } = useStyles(addressListStyles);
   const loadAddresses = () =>
     address?.map(
@@ -64,22 +65,23 @@ export function AddressList({
     setListData(loadAddresses());
   }, [address]);
 
-  const deleteRow = (rowMap: any, rowKey: any, id: string) => {
+  const deleteRow = async (rowMap: any, rowKey: any, id: string) => {
+    // i want to move the async behavior for deleting to this fn entirely, animations hooked up to the success
     // delete address from local state only once the mutation is successful
+    const { data } = await onDeleteAddress(id);
+    if (!data?.deleteAddress?.success) {
+      return false;
+    }
     closeRow(rowMap, rowKey);
-    const newData = [...listData];
-    const prevIndex = listData.findIndex((item) => item.key === rowKey);
-    newData.splice(prevIndex, 1);
-    setListData(newData);
-    onDeleteAddress(id);
+    return data;
   };
 
   const onRightActionStatusChange = (rowKey: any) => {
     console.log('onRightActionStatusChange', rowKey);
   };
 
-  const onRightAction = (rowKey: any) => {
-    console.log('onRightAction', rowKey);
+  const onRightAction = (rowKey: any, rowMap: any) => {
+    console.log('onRightAction', rowKey, rowMap);
   };
 
   const VisibleItem = (props: any) => {
@@ -91,13 +93,18 @@ export function AddressList({
       onClose,
       onDelete,
     } = props;
+
     (async () => {
-      if (rightActionActivated && rightActionState) {
+      if (rightActionState && rightActionActivated && !open.current) {
+        open.current = true;
         const choice = await AlertAsync(
           'Delete Address',
           `Are you sure you want to delete ${data.item.addressLine1}?`,
           [
-            { text: 'Yes', onPress: () => Promise.resolve('yes') },
+            {
+              text: 'Yes',
+              onPress: () => Promise.resolve('yes'),
+            },
             {
               text: 'No, go back',
               onPress: () => Promise.resolve('no'),
@@ -108,18 +115,21 @@ export function AddressList({
             onDismiss: () => Promise.resolve('no'),
           }
         );
-
         if (choice === 'yes') {
-          Animated.timing(rowHeightAnimatedValue, {
-            toValue: 0,
-            duration: 200,
-            useNativeDriver: false,
-          }).start(() => {
-            onDelete();
-          });
+          const result = await onDelete();
+          if (result) {
+            Animated.timing(rowHeightAnimatedValue, {
+              toValue: 0,
+              duration: 200,
+              useNativeDriver: false,
+            }).start();
+          } else {
+            onClose();
+          }
         } else if (choice === 'no') {
           onClose();
         }
+        open.current = false;
       }
     })();
 
@@ -162,7 +172,9 @@ export function AddressList({
         rowHeightAnimatedValue={rowHeightAnimatedValue}
         data={data}
         onClose={() => closeRow(rowMap, data.item.key)}
-        onDelete={() => deleteRow(rowMap, data.item.key, data?.item.addressId)}
+        onDelete={async () =>
+          await deleteRow(rowMap, data.item.key, data?.item.addressId)
+        }
       />
     );
   };
@@ -224,13 +236,18 @@ export function AddressList({
                   }
                 );
                 if (choice === 'yes') {
-                  Animated.timing(rowHeightAnimatedValue, {
-                    toValue: 0,
-                    duration: 200,
-                    useNativeDriver: false,
-                  }).start(() => {
-                    onDelete();
-                  });
+                  const result = await onDelete();
+                  if (result) {
+                    Animated.timing(rowHeightAnimatedValue, {
+                      toValue: 0,
+                      duration: 200,
+                      useNativeDriver: false,
+                    }).start(() => {
+                      // onDelete();
+                    });
+                  } else {
+                    onClose();
+                  }
                 } else if (choice === 'no') {
                   onClose();
                 }
@@ -305,7 +322,9 @@ export function AddressList({
         rowActionAnimatedValue={rowActionAnimatedValue}
         rowHeightAnimatedValue={rowHeightAnimatedValue}
         onClose={() => closeRow(rowMap, data.item.key)}
-        onDelete={() => deleteRow(rowMap, data.item.key, data?.item.addressId)}
+        onDelete={async () =>
+          await deleteRow(rowMap, data.item.key, data?.item.addressId)
+        }
       />
     );
   };
