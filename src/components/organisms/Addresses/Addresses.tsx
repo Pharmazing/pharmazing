@@ -67,10 +67,11 @@ export function Addresses() {
 
   const onDeleteAddress = async (addressId: string) => {
     deleteAddyIdRef.current = addressId;
-    await triggerDeleteAddress({
+    const result = await triggerDeleteAddress({
       variables: { userId: userId as string, addressId },
     });
-    return data;
+
+    return result;
   };
 
   const handleAddAddress = async (data: AddressType | null | undefined) => {

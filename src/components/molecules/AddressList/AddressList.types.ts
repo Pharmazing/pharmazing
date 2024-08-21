@@ -1,3 +1,6 @@
+import { FetchResult } from '@apollo/client';
+import { DeleteAddressMutation } from '../../../generated/graphql';
+
 export type ListDataType = {
   addressId: string;
   addressLine1: string;
@@ -5,11 +8,12 @@ export type ListDataType = {
   parish: string;
   key: string;
   primary: boolean;
-  //   initialLeftActionState: boolean;
 };
 
 export type AddressListProps = {
   openEditModal: (data?: any) => void;
   editModalOpen?: boolean;
-  onDeleteAddress: (addressId: string) => void;
+  onDeleteAddress: (
+    addressId: string
+  ) => Promise<FetchResult<DeleteAddressMutation>>;
 };
