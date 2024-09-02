@@ -69,3 +69,54 @@ export const getAddressesQuery = gql`
     }
   }
 `;
+
+export const getAllVendorsQuery = gql`
+  query GetAllVendors {
+    getAllVendors {
+      vendorId
+      vendorName
+      contact
+      media {
+        alt
+        type
+        url
+      }
+      hours {
+        day
+        open
+        close
+      }
+      location {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+    }
+  }
+`;
+
+export const getProductsQuery = gql`
+  query GetProducts($vendor: GetAllProductsInput) {
+    getAllProducts(vendor: $vendor) {
+      productId
+      productName
+      productDescription
+      productPrice
+      media {
+        alt
+        type
+        url
+      }
+      vendorId
+      prescriptionRequired
+      productCategory
+    }
+  }
+`;
