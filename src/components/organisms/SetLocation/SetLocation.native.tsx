@@ -14,7 +14,11 @@ import {
   useCreateAddressMutation,
   useEditAddressMutation,
 } from '../../../generated/graphql';
-import { AddressType, useUser } from '../../../utils/context';
+import {
+  AddressType,
+  useDeliveryLocation,
+  useUser,
+} from '../../../utils/context';
 import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
 import { useToast } from '../../../utils/hooks/useToast';
 
@@ -35,6 +39,7 @@ const initialRegion = {
 export const SetLocation = () => {
   const { theme } = useStyles();
   const { userId: userIdParam, defaultData } = useLocalSearchParams();
+  const { updateShippingAddress } = useDeliveryLocation();
   // console.log('userId', userIdParam);
   const { showToast } = useToast();
 
@@ -54,6 +59,7 @@ export const SetLocation = () => {
         const { __typename, ...rest } =
           data.createAddress as CreateAddressMutation;
         addAddress(rest as AddressType);
+        updateShippingAddress(rest as AddressType);
         showToast({
           type: 'success',
           text1: 'Success',
