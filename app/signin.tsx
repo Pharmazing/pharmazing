@@ -1,7 +1,7 @@
 import { router, useSegments } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
 import { Text, Button, View, ImageBackground } from 'react-native';
-import { styles } from '../src/utils/appStyles/styles';
+import { styles as appStyles } from '../src/utils/appStyles/styles';
 import { isAndroid, isIOS, isWeb } from '../src/utils';
 import { useDeliveryLocation, useSession, useUser } from '../src/utils/context';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
@@ -10,13 +10,14 @@ import {
   useSignInLazyQuery,
 } from '../src/generated/graphql';
 import { LoadingIndicator } from '../src/components/atoms';
+import { useStyles } from 'react-native-unistyles';
 
 export default function Page() {
   const { loginAsGuest, session, loginWithGoogle, error } = useSession();
   const { updateUser, user, address } = useUser();
   const parsedSession = JSON.parse(session || '{}');
   const { updateShippingAddress } = useDeliveryLocation();
-
+  const { styles } = useStyles(appStyles);
   const segments = useSegments();
   const isSecondarySignin = segments?.[0] === 'signin2';
   const showContinueAsGuest = segments?.[0] === 'signin' || isSecondarySignin;
@@ -99,7 +100,7 @@ export default function Page() {
   // check here to see if the issue s that this needs to be a memo or callback
   const Mobile = useCallback(() => {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { padding: 0 }]}>
         {/* <Spinner visible={(signInLoading) || (signUpLoading)} textContent={"Loading"} /> */}
         <ImageBackground
           resizeMode="cover"

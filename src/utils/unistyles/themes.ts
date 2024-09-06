@@ -5,7 +5,7 @@ export const lightTheme = {
     ...core.colors,
     loadingPrimary: core.colors.Blue600,
     loadingBackground: core.colors.Gray400,
-    tabsContentBg: core.colors.Gray100,
+    tabsContentBg: '#FFFFFF',
     tabBarIcon: {
       default: '#505050',
       focused: core.colors.Green500,
@@ -51,7 +51,7 @@ export const darkTheme = {
     ...core.colors,
     loadingPrimary: '#345ABB',
     loadingBackground: '#B9B9B9',
-    tabsContentBg: '#FAFAFA',
+    tabsContentBg: '#FFFFFF',
     addressBtnBg: '#AAAAAA',
     addressBtnFg: '#CCCCCC',
     tabBarIcon: {

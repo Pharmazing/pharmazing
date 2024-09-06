@@ -4,3 +4,4 @@ export * from './PlacesAutocomplete';
 export * from './EditAddressForm';
 export * from './LocationPickerHeader';
 export * from './LocationPicker';
+export * from './VendorList';
