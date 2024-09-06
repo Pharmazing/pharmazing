@@ -14,15 +14,14 @@ export const EditAddress = () => {
   }
 
   const [triggerEditAddress, { loading }] = useEditAddressMutation({
-    onCompleted: (data) => {
+    onCompleted: () => {
       showToast({
         type: 'success',
         text1: 'Success',
         text2: 'Address updated successfully',
       });
     },
-    onError: (error) => {
-      console.log('error', error);
+    onError: () => {
       showToast({
         type: 'error',
         text1: 'Error',

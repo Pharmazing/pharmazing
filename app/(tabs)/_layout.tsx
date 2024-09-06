@@ -20,15 +20,12 @@ export default function Layout() {
   const renderLocationActionSheet = () => {
     const { address } = useUser();
     const { updateShippingAddress } = useDeliveryLocation();
-    const handleItemClick = (addy: AddressType) => { 
+    const handleItemClick = (addy: AddressType) => {
       updateShippingAddress(addy);
       onClose();
     };
     return (
-      <Actionsheet
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content borderTopRadius={theme.size.layout.lg}>
           {address?.map((addy, index) => {
             return (

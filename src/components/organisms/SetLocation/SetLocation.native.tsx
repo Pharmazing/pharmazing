@@ -40,7 +40,6 @@ export const SetLocation = () => {
   const { theme } = useStyles();
   const { userId: userIdParam, defaultData } = useLocalSearchParams();
   const { updateShippingAddress } = useDeliveryLocation();
-  // console.log('userId', userIdParam);
   const { showToast } = useToast();
 
   const [markerLocation, setMarker] = useState<Location | null>(null);
@@ -55,7 +54,6 @@ export const SetLocation = () => {
   const [triggerCreateAddress, { data, loading, error }] =
     useCreateAddressMutation({
       onCompleted: (data: CreateAddressMutation) => {
-        // console.log('data', data);
         const { __typename, ...rest } =
           data.createAddress as CreateAddressMutation;
         addAddress(rest as AddressType);
@@ -67,8 +65,7 @@ export const SetLocation = () => {
         });
         router.replace('/home');
       },
-      onError: (error) => {
-        console.log('error', error.message);
+      onError: () => {
         showToast({
           type: 'error',
           text1: 'Error',
@@ -77,29 +74,26 @@ export const SetLocation = () => {
       },
     });
 
-  const [
-    triggerEditAddress,
-    { data: editAddyData, loading: editAddyLoading, error: editAddyError },
-  ] = useEditAddressMutation({
-    onCompleted: (data) => {
-      const { __typename, ...rest } = data.editAddress as EditAddressMutation;
-      updateAddress(rest as AddressType);
-      showToast({
-        type: 'success',
-        text1: 'Success',
-        text2: 'Address edited successfully',
-      });
-      router.back();
-    },
-    onError: (error) => {
-      // console.log('error', error.message);
-      showToast({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Address edit failed',
-      });
-    },
-  });
+  const [triggerEditAddress, { loading: editAddyLoading }] =
+    useEditAddressMutation({
+      onCompleted: (data) => {
+        const { __typename, ...rest } = data.editAddress as EditAddressMutation;
+        updateAddress(rest as AddressType);
+        showToast({
+          type: 'success',
+          text1: 'Success',
+          text2: 'Address edited successfully',
+        });
+        router.back();
+      },
+      onError: (error) => {
+        showToast({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Address edit failed',
+        });
+      },
+    });
 
   const moveToLocation = (location: Location) => {
     location &&
@@ -133,9 +127,6 @@ export const SetLocation = () => {
             } as EditAddressInput,
           },
         });
-        // console.log('triggerCreateAddress.called', triggerCreateAddress);
-
-        // router.canGoBack() ? router.back() : router.replace('/home');
       }
       if (!user.userId && !userIdParam) {
         updateShippingAddress(addressQueryVars as AddressType);
@@ -155,7 +146,6 @@ export const SetLocation = () => {
       setMarker(newLocation);
       moveToLocation(newLocation);
       setAddressQueryVars(point as CreateAddressInput);
-      // console.log('point', point);
     }
   };
 
