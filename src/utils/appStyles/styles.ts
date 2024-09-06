@@ -1,8 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { createStyleSheet } from 'react-native-unistyles';
 
-export const styles = StyleSheet.create({
+export const styles = createStyleSheet((theme) => ({
   container: {
     flex: 1,
+    padding: theme.size.layout.lg,
   },
   backgroundImage: {
     flex: 1,
@@ -11,4 +12,4 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+}));

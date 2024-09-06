@@ -11,6 +11,6 @@ export const settingsBoxStyles = createStyleSheet((theme) => ({
     padding: theme.size.layout.lg,
     borderRadius: theme.size.layout.lg,
     flexDirection: 'column',
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.Gray100,
   },
 }));
