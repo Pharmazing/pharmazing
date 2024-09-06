@@ -138,6 +138,7 @@ export const SetLocation = () => {
         // router.canGoBack() ? router.back() : router.replace('/home');
       }
       if (!user.userId && !userIdParam) {
+        updateShippingAddress(addressQueryVars as AddressType);
         router.replace('/home');
       }
     }
