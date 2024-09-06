@@ -2,19 +2,32 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
 };
 
 export type Address = {
@@ -184,64 +197,52 @@ export type Mutation = {
   editVendor?: Maybe<Vendor>;
 };
 
-
 export type MutationCreateAddressArgs = {
   address?: InputMaybe<CreateAddressInput>;
   userId: Scalars['String']['input'];
 };
 
-
 export type MutationCreateProductArgs = {
   product?: InputMaybe<CreateProductInput>;
 };
-
 
 export type MutationCreateUserArgs = {
   user?: InputMaybe<CreateUserInput>;
 };
 
-
 export type MutationCreateVendorArgs = {
   vendor?: InputMaybe<CreateVendorInput>;
 };
-
 
 export type MutationDeleteAddressArgs = {
   addressId: Scalars['String']['input'];
   userId: Scalars['String']['input'];
 };
 
-
 export type MutationDeleteProductArgs = {
   product?: InputMaybe<DeleteProductInput>;
 };
-
 
 export type MutationDeleteUserArgs = {
   user?: InputMaybe<DeleteUserInput>;
 };
 
-
 export type MutationDeleteVendorArgs = {
   vendor?: InputMaybe<DeleteVendorInput>;
 };
-
 
 export type MutationEditAddressArgs = {
   address?: InputMaybe<EditAddressInput>;
   userId: Scalars['String']['input'];
 };
 
-
 export type MutationEditProductArgs = {
   product?: InputMaybe<EditProductInput>;
 };
 
-
 export type MutationEditUserArgs = {
   user?: InputMaybe<EditUserInput>;
 };
-
 
 export type MutationEditVendorArgs = {
   vendor?: InputMaybe<EditVendorInput>;
@@ -268,16 +269,13 @@ export type Query = {
   signIn?: Maybe<User>;
 };
 
-
 export type QueryGetAllProductsArgs = {
   vendor?: InputMaybe<GetAllProductsInput>;
 };
 
-
 export type QueryGetUserAddressArgs = {
   userId: Scalars['String']['input'];
 };
-
 
 export type QuerySignInArgs = {
   email?: InputMaybe<Scalars['String']['input']>;
@@ -312,107 +310,290 @@ export type CreateUserMutationVariables = Exact<{
   user?: InputMaybe<CreateUserInput>;
 }>;
 
-
-export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'User', age?: number | null, email?: string | null, firstName?: string | null, lastName?: string | null, password?: string | null, token?: string | null, userId?: string | null, address?: Array<{ __typename?: 'Address', addressId?: string | null, addressLine1?: string | null, addressLine2?: string | null, city?: string | null, country?: string | null, parish?: string | null, primary?: boolean | null, userId?: string | null, zip?: string | null, latitude?: number | null, longitude?: number | null }> | null } | null };
+export type CreateUserMutation = {
+  __typename?: 'Mutation';
+  createUser?: {
+    __typename?: 'User';
+    age?: number | null;
+    email?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    password?: string | null;
+    token?: string | null;
+    userId?: string | null;
+    address?: Array<{
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      country?: string | null;
+      parish?: string | null;
+      primary?: boolean | null;
+      userId?: string | null;
+      zip?: string | null;
+      latitude?: number | null;
+      longitude?: number | null;
+    }> | null;
+  } | null;
+};
 
 export type EditUserMutationVariables = Exact<{
   user?: InputMaybe<EditUserInput>;
 }>;
 
-
-export type EditUserMutation = { __typename?: 'Mutation', editUser?: { __typename?: 'User', userId?: string | null, firstName?: string | null, lastName?: string | null, age?: number | null, email?: string | null } | null };
+export type EditUserMutation = {
+  __typename?: 'Mutation';
+  editUser?: {
+    __typename?: 'User';
+    userId?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    age?: number | null;
+    email?: string | null;
+  } | null;
+};
 
 export type DeleteUserMutationVariables = Exact<{
   user?: InputMaybe<DeleteUserInput>;
 }>;
 
-
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'DeleteAddressResult', success: boolean } | null };
+export type DeleteUserMutation = {
+  __typename?: 'Mutation';
+  deleteUser?: { __typename?: 'DeleteAddressResult'; success: boolean } | null;
+};
 
 export type CreateAddressMutationVariables = Exact<{
   userId: Scalars['String']['input'];
   address?: InputMaybe<CreateAddressInput>;
 }>;
 
-
-export type CreateAddressMutation = { __typename?: 'Mutation', createAddress?: { __typename?: 'Address', addressId?: string | null, addressLine1?: string | null, addressLine2?: string | null, city?: string | null, parish?: string | null, country?: string | null, zip?: string | null, primary?: boolean | null, longitude?: number | null, latitude?: number | null } | null };
+export type CreateAddressMutation = {
+  __typename?: 'Mutation';
+  createAddress?: {
+    __typename?: 'Address';
+    addressId?: string | null;
+    addressLine1?: string | null;
+    addressLine2?: string | null;
+    city?: string | null;
+    parish?: string | null;
+    country?: string | null;
+    zip?: string | null;
+    primary?: boolean | null;
+    longitude?: number | null;
+    latitude?: number | null;
+  } | null;
+};
 
 export type EditAddressMutationVariables = Exact<{
   userId: Scalars['String']['input'];
   address?: InputMaybe<EditAddressInput>;
 }>;
 
-
-export type EditAddressMutation = { __typename?: 'Mutation', editAddress?: { __typename?: 'Address', addressId?: string | null, addressLine1?: string | null, addressLine2?: string | null, city?: string | null, parish?: string | null, country?: string | null, zip?: string | null, primary?: boolean | null, longitude?: number | null, latitude?: number | null } | null };
+export type EditAddressMutation = {
+  __typename?: 'Mutation';
+  editAddress?: {
+    __typename?: 'Address';
+    addressId?: string | null;
+    addressLine1?: string | null;
+    addressLine2?: string | null;
+    city?: string | null;
+    parish?: string | null;
+    country?: string | null;
+    zip?: string | null;
+    primary?: boolean | null;
+    longitude?: number | null;
+    latitude?: number | null;
+  } | null;
+};
 
 export type DeleteAddressMutationVariables = Exact<{
   userId: Scalars['String']['input'];
   addressId: Scalars['String']['input'];
 }>;
 
-
-export type DeleteAddressMutation = { __typename?: 'Mutation', deleteAddress?: { __typename?: 'DeleteAddressResult', success: boolean } | null };
+export type DeleteAddressMutation = {
+  __typename?: 'Mutation';
+  deleteAddress?: {
+    __typename?: 'DeleteAddressResult';
+    success: boolean;
+  } | null;
+};
 
 export type SignInQueryVariables = Exact<{
   email?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
 }>;
 
+export type SignInQuery = {
+  __typename?: 'Query';
+  signIn?: {
+    __typename?: 'User';
+    userId?: string | null;
+    token?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    email?: string | null;
+    password?: string | null;
+    age?: number | null;
+    address?: Array<{
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    }> | null;
+  } | null;
+};
 
-export type SignInQuery = { __typename?: 'Query', signIn?: { __typename?: 'User', userId?: string | null, token?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, password?: string | null, age?: number | null, address?: Array<{ __typename?: 'Address', addressId?: string | null, addressLine1?: string | null, addressLine2?: string | null, city?: string | null, parish?: string | null, country?: string | null, zip?: string | null, primary?: boolean | null, longitude?: number | null, latitude?: number | null }> | null } | null };
+export type GetAllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers?: Array<{ __typename?: 'User', age?: number | null, email?: string | null, firstName?: string | null, lastName?: string | null, password?: string | null, token?: string | null, userId?: string | null, address?: Array<{ __typename?: 'Address', addressId?: string | null, addressLine1?: string | null, addressLine2?: string | null, city?: string | null, country?: string | null, parish?: string | null, primary?: boolean | null, userId?: string | null, zip?: string | null, latitude?: number | null, longitude?: number | null }> | null } | null> | null };
+export type GetAllUsersQuery = {
+  __typename?: 'Query';
+  getAllUsers?: Array<{
+    __typename?: 'User';
+    age?: number | null;
+    email?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    password?: string | null;
+    token?: string | null;
+    userId?: string | null;
+    address?: Array<{
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      country?: string | null;
+      parish?: string | null;
+      primary?: boolean | null;
+      userId?: string | null;
+      zip?: string | null;
+      latitude?: number | null;
+      longitude?: number | null;
+    }> | null;
+  } | null> | null;
+};
 
 export type GetAddressQueryVariables = Exact<{
   userId: Scalars['String']['input'];
 }>;
 
+export type GetAddressQuery = {
+  __typename?: 'Query';
+  getUserAddress?: Array<{
+    __typename?: 'Address';
+    addressId?: string | null;
+    addressLine1?: string | null;
+    addressLine2?: string | null;
+    city?: string | null;
+    parish?: string | null;
+    country?: string | null;
+    zip?: string | null;
+    primary?: boolean | null;
+    longitude?: number | null;
+    latitude?: number | null;
+  }> | null;
+};
 
-export type GetAddressQuery = { __typename?: 'Query', getUserAddress?: Array<{ __typename?: 'Address', addressId?: string | null, addressLine1?: string | null, addressLine2?: string | null, city?: string | null, parish?: string | null, country?: string | null, zip?: string | null, primary?: boolean | null, longitude?: number | null, latitude?: number | null }> | null };
+export type GetAllVendorsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetAllVendorsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllVendorsQuery = { __typename?: 'Query', getAllVendors?: Array<{ __typename?: 'Vendor', vendorId?: string | null, vendorName?: string | null, contact?: Array<string | null> | null, media?: Array<{ __typename?: 'Media', alt?: string | null, type?: string | null, url?: string | null } | null> | null, hours?: Array<{ __typename?: 'Hours', day?: string | null, open?: string | null, close?: string | null } | null> | null, location?: { __typename?: 'Address', addressId?: string | null, addressLine1?: string | null, addressLine2?: string | null, city?: string | null, parish?: string | null, country?: string | null, zip?: string | null, primary?: boolean | null, longitude?: number | null, latitude?: number | null } | null } | null> | null };
+export type GetAllVendorsQuery = {
+  __typename?: 'Query';
+  getAllVendors?: Array<{
+    __typename?: 'Vendor';
+    vendorId?: string | null;
+    vendorName?: string | null;
+    contact?: Array<string | null> | null;
+    media?: Array<{
+      __typename?: 'Media';
+      alt?: string | null;
+      type?: string | null;
+      url?: string | null;
+    } | null> | null;
+    hours?: Array<{
+      __typename?: 'Hours';
+      day?: string | null;
+      open?: string | null;
+      close?: string | null;
+    } | null> | null;
+    location?: {
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    } | null;
+  } | null> | null;
+};
 
 export type GetProductsQueryVariables = Exact<{
   vendor?: InputMaybe<GetAllProductsInput>;
 }>;
 
-
-export type GetProductsQuery = { __typename?: 'Query', getAllProducts?: Array<{ __typename?: 'Product', productId?: string | null, productName?: string | null, productDescription?: string | null, productPrice?: number | null, vendorId?: string | null, prescriptionRequired?: boolean | null, productCategory?: string | null, media?: Array<{ __typename?: 'Media', alt?: string | null, type?: string | null, url?: string | null } | null> | null } | null> | null };
-
+export type GetProductsQuery = {
+  __typename?: 'Query';
+  getAllProducts?: Array<{
+    __typename?: 'Product';
+    productId?: string | null;
+    productName?: string | null;
+    productDescription?: string | null;
+    productPrice?: number | null;
+    vendorId?: string | null;
+    prescriptionRequired?: boolean | null;
+    productCategory?: string | null;
+    media?: Array<{
+      __typename?: 'Media';
+      alt?: string | null;
+      type?: string | null;
+      url?: string | null;
+    } | null> | null;
+  } | null> | null;
+};
 
 export const CreateUserDocument = gql`
-    mutation CreateUser($user: CreateUserInput) {
-  createUser(user: $user) {
-    age
-    email
-    firstName
-    lastName
-    password
-    token
-    userId
-    address {
-      addressId
-      addressLine1
-      addressLine2
-      city
-      country
-      parish
-      primary
+  mutation CreateUser($user: CreateUserInput) {
+    createUser(user: $user) {
+      age
+      email
+      firstName
+      lastName
+      password
+      token
       userId
-      zip
-      latitude
-      longitude
+      address {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        country
+        parish
+        primary
+        userId
+        zip
+        latitude
+        longitude
+      }
     }
   }
-}
-    `;
-export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+`;
+export type CreateUserMutationFn = Apollo.MutationFunction<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
 
 /**
  * __useCreateUserMutation__
@@ -431,25 +612,42 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  *   },
  * });
  */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-      }
-export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
-export const EditUserDocument = gql`
-    mutation EditUser($user: EditUserInput) {
-  editUser(user: $user) {
-    userId
-    firstName
-    lastName
-    age
-    email
-  }
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateUserMutation,
+    CreateUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
+    options
+  );
 }
-    `;
-export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
+export type CreateUserMutationHookResult = ReturnType<
+  typeof useCreateUserMutation
+>;
+export type CreateUserMutationResult =
+  Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
+  CreateUserMutation,
+  CreateUserMutationVariables
+>;
+export const EditUserDocument = gql`
+  mutation EditUser($user: EditUserInput) {
+    editUser(user: $user) {
+      userId
+      firstName
+      lastName
+      age
+      email
+    }
+  }
+`;
+export type EditUserMutationFn = Apollo.MutationFunction<
+  EditUserMutation,
+  EditUserMutationVariables
+>;
 
 /**
  * __useEditUserMutation__
@@ -468,21 +666,35 @@ export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditU
  *   },
  * });
  */
-export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, options);
-      }
+export function useEditUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditUserMutation,
+    EditUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(
+    EditUserDocument,
+    options
+  );
+}
 export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
 export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
-export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
+export type EditUserMutationOptions = Apollo.BaseMutationOptions<
+  EditUserMutation,
+  EditUserMutationVariables
+>;
 export const DeleteUserDocument = gql`
-    mutation DeleteUser($user: DeleteUserInput) {
-  deleteUser(user: $user) {
-    success
+  mutation DeleteUser($user: DeleteUserInput) {
+    deleteUser(user: $user) {
+      success
+    }
   }
-}
-    `;
-export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, DeleteUserMutationVariables>;
+`;
+export type DeleteUserMutationFn = Apollo.MutationFunction<
+  DeleteUserMutation,
+  DeleteUserMutationVariables
+>;
 
 /**
  * __useDeleteUserMutation__
@@ -501,30 +713,47 @@ export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, D
  *   },
  * });
  */
-export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserMutation, DeleteUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
-      }
-export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
-export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
-export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
-export const CreateAddressDocument = gql`
-    mutation CreateAddress($userId: String!, $address: CreateAddressInput) {
-  createAddress(userId: $userId, address: $address) {
-    addressId
-    addressLine1
-    addressLine2
-    city
-    parish
-    country
-    zip
-    primary
-    longitude
-    latitude
-  }
+export function useDeleteUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteUserMutation,
+    DeleteUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
+    DeleteUserDocument,
+    options
+  );
 }
-    `;
-export type CreateAddressMutationFn = Apollo.MutationFunction<CreateAddressMutation, CreateAddressMutationVariables>;
+export type DeleteUserMutationHookResult = ReturnType<
+  typeof useDeleteUserMutation
+>;
+export type DeleteUserMutationResult =
+  Apollo.MutationResult<DeleteUserMutation>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
+  DeleteUserMutation,
+  DeleteUserMutationVariables
+>;
+export const CreateAddressDocument = gql`
+  mutation CreateAddress($userId: String!, $address: CreateAddressInput) {
+    createAddress(userId: $userId, address: $address) {
+      addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
+      longitude
+      latitude
+    }
+  }
+`;
+export type CreateAddressMutationFn = Apollo.MutationFunction<
+  CreateAddressMutation,
+  CreateAddressMutationVariables
+>;
 
 /**
  * __useCreateAddressMutation__
@@ -544,30 +773,47 @@ export type CreateAddressMutationFn = Apollo.MutationFunction<CreateAddressMutat
  *   },
  * });
  */
-export function useCreateAddressMutation(baseOptions?: Apollo.MutationHookOptions<CreateAddressMutation, CreateAddressMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateAddressMutation, CreateAddressMutationVariables>(CreateAddressDocument, options);
-      }
-export type CreateAddressMutationHookResult = ReturnType<typeof useCreateAddressMutation>;
-export type CreateAddressMutationResult = Apollo.MutationResult<CreateAddressMutation>;
-export type CreateAddressMutationOptions = Apollo.BaseMutationOptions<CreateAddressMutation, CreateAddressMutationVariables>;
-export const EditAddressDocument = gql`
-    mutation EditAddress($userId: String!, $address: EditAddressInput) {
-  editAddress(userId: $userId, address: $address) {
-    addressId
-    addressLine1
-    addressLine2
-    city
-    parish
-    country
-    zip
-    primary
-    longitude
-    latitude
-  }
+export function useCreateAddressMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAddressMutation,
+    CreateAddressMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateAddressMutation,
+    CreateAddressMutationVariables
+  >(CreateAddressDocument, options);
 }
-    `;
-export type EditAddressMutationFn = Apollo.MutationFunction<EditAddressMutation, EditAddressMutationVariables>;
+export type CreateAddressMutationHookResult = ReturnType<
+  typeof useCreateAddressMutation
+>;
+export type CreateAddressMutationResult =
+  Apollo.MutationResult<CreateAddressMutation>;
+export type CreateAddressMutationOptions = Apollo.BaseMutationOptions<
+  CreateAddressMutation,
+  CreateAddressMutationVariables
+>;
+export const EditAddressDocument = gql`
+  mutation EditAddress($userId: String!, $address: EditAddressInput) {
+    editAddress(userId: $userId, address: $address) {
+      addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
+      longitude
+      latitude
+    }
+  }
+`;
+export type EditAddressMutationFn = Apollo.MutationFunction<
+  EditAddressMutation,
+  EditAddressMutationVariables
+>;
 
 /**
  * __useEditAddressMutation__
@@ -587,21 +833,38 @@ export type EditAddressMutationFn = Apollo.MutationFunction<EditAddressMutation,
  *   },
  * });
  */
-export function useEditAddressMutation(baseOptions?: Apollo.MutationHookOptions<EditAddressMutation, EditAddressMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditAddressMutation, EditAddressMutationVariables>(EditAddressDocument, options);
-      }
-export type EditAddressMutationHookResult = ReturnType<typeof useEditAddressMutation>;
-export type EditAddressMutationResult = Apollo.MutationResult<EditAddressMutation>;
-export type EditAddressMutationOptions = Apollo.BaseMutationOptions<EditAddressMutation, EditAddressMutationVariables>;
-export const DeleteAddressDocument = gql`
-    mutation DeleteAddress($userId: String!, $addressId: String!) {
-  deleteAddress(userId: $userId, addressId: $addressId) {
-    success
-  }
+export function useEditAddressMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditAddressMutation,
+    EditAddressMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditAddressMutation, EditAddressMutationVariables>(
+    EditAddressDocument,
+    options
+  );
 }
-    `;
-export type DeleteAddressMutationFn = Apollo.MutationFunction<DeleteAddressMutation, DeleteAddressMutationVariables>;
+export type EditAddressMutationHookResult = ReturnType<
+  typeof useEditAddressMutation
+>;
+export type EditAddressMutationResult =
+  Apollo.MutationResult<EditAddressMutation>;
+export type EditAddressMutationOptions = Apollo.BaseMutationOptions<
+  EditAddressMutation,
+  EditAddressMutationVariables
+>;
+export const DeleteAddressDocument = gql`
+  mutation DeleteAddress($userId: String!, $addressId: String!) {
+    deleteAddress(userId: $userId, addressId: $addressId) {
+      success
+    }
+  }
+`;
+export type DeleteAddressMutationFn = Apollo.MutationFunction<
+  DeleteAddressMutation,
+  DeleteAddressMutationVariables
+>;
 
 /**
  * __useDeleteAddressMutation__
@@ -621,38 +884,52 @@ export type DeleteAddressMutationFn = Apollo.MutationFunction<DeleteAddressMutat
  *   },
  * });
  */
-export function useDeleteAddressMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAddressMutation, DeleteAddressMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteAddressMutation, DeleteAddressMutationVariables>(DeleteAddressDocument, options);
-      }
-export type DeleteAddressMutationHookResult = ReturnType<typeof useDeleteAddressMutation>;
-export type DeleteAddressMutationResult = Apollo.MutationResult<DeleteAddressMutation>;
-export type DeleteAddressMutationOptions = Apollo.BaseMutationOptions<DeleteAddressMutation, DeleteAddressMutationVariables>;
+export function useDeleteAddressMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAddressMutation,
+    DeleteAddressMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteAddressMutation,
+    DeleteAddressMutationVariables
+  >(DeleteAddressDocument, options);
+}
+export type DeleteAddressMutationHookResult = ReturnType<
+  typeof useDeleteAddressMutation
+>;
+export type DeleteAddressMutationResult =
+  Apollo.MutationResult<DeleteAddressMutation>;
+export type DeleteAddressMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAddressMutation,
+  DeleteAddressMutationVariables
+>;
 export const SignInDocument = gql`
-    query SignIn($email: String, $password: String) {
-  signIn(email: $email, password: $password) {
-    userId
-    token
-    firstName
-    lastName
-    email
-    password
-    age
-    address {
-      addressId
-      addressLine1
-      addressLine2
-      city
-      parish
-      country
-      zip
-      primary
-      longitude
-      latitude
+  query SignIn($email: String, $password: String) {
+    signIn(email: $email, password: $password) {
+      userId
+      token
+      firstName
+      lastName
+      email
+      password
+      age
+      address {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useSignInQuery__
@@ -671,48 +948,71 @@ export const SignInDocument = gql`
  *   },
  * });
  */
-export function useSignInQuery(baseOptions?: Apollo.QueryHookOptions<SignInQuery, SignInQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SignInQuery, SignInQueryVariables>(SignInDocument, options);
-      }
-export function useSignInLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SignInQuery, SignInQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SignInQuery, SignInQueryVariables>(SignInDocument, options);
-        }
-export function useSignInSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<SignInQuery, SignInQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<SignInQuery, SignInQueryVariables>(SignInDocument, options);
-        }
+export function useSignInQuery(
+  baseOptions?: Apollo.QueryHookOptions<SignInQuery, SignInQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SignInQuery, SignInQueryVariables>(
+    SignInDocument,
+    options
+  );
+}
+export function useSignInLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<SignInQuery, SignInQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SignInQuery, SignInQueryVariables>(
+    SignInDocument,
+    options
+  );
+}
+export function useSignInSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    SignInQuery,
+    SignInQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<SignInQuery, SignInQueryVariables>(
+    SignInDocument,
+    options
+  );
+}
 export type SignInQueryHookResult = ReturnType<typeof useSignInQuery>;
 export type SignInLazyQueryHookResult = ReturnType<typeof useSignInLazyQuery>;
-export type SignInSuspenseQueryHookResult = ReturnType<typeof useSignInSuspenseQuery>;
-export type SignInQueryResult = Apollo.QueryResult<SignInQuery, SignInQueryVariables>;
+export type SignInSuspenseQueryHookResult = ReturnType<
+  typeof useSignInSuspenseQuery
+>;
+export type SignInQueryResult = Apollo.QueryResult<
+  SignInQuery,
+  SignInQueryVariables
+>;
 export const GetAllUsersDocument = gql`
-    query GetAllUsers {
-  getAllUsers {
-    address {
-      addressId
-      addressLine1
-      addressLine2
-      city
-      country
-      parish
-      primary
+  query GetAllUsers {
+    getAllUsers {
+      address {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        country
+        parish
+        primary
+        userId
+        zip
+        latitude
+        longitude
+      }
+      age
+      email
+      firstName
+      lastName
+      password
+      token
       userId
-      zip
-      latitude
-      longitude
     }
-    age
-    email
-    firstName
-    lastName
-    password
-    token
-    userId
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllUsersQuery__
@@ -729,38 +1029,69 @@ export const GetAllUsersDocument = gql`
  *   },
  * });
  */
-export function useGetAllUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
-      }
-export function useGetAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
-        }
-export function useGetAllUsersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
-        }
-export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
-export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
-export type GetAllUsersSuspenseQueryHookResult = ReturnType<typeof useGetAllUsersSuspenseQuery>;
-export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
-export const GetAddressDocument = gql`
-    query GetAddress($userId: String!) {
-  getUserAddress(userId: $userId) {
-    addressId
-    addressLine1
-    addressLine2
-    city
-    parish
-    country
-    zip
-    primary
-    longitude
-    latitude
-  }
+export function useGetAllUsersQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllUsersQuery,
+    GetAllUsersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
+    GetAllUsersDocument,
+    options
+  );
 }
-    `;
+export function useGetAllUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllUsersQuery,
+    GetAllUsersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
+    GetAllUsersDocument,
+    options
+  );
+}
+export function useGetAllUsersSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetAllUsersQuery,
+    GetAllUsersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
+    GetAllUsersDocument,
+    options
+  );
+}
+export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
+export type GetAllUsersLazyQueryHookResult = ReturnType<
+  typeof useGetAllUsersLazyQuery
+>;
+export type GetAllUsersSuspenseQueryHookResult = ReturnType<
+  typeof useGetAllUsersSuspenseQuery
+>;
+export type GetAllUsersQueryResult = Apollo.QueryResult<
+  GetAllUsersQuery,
+  GetAllUsersQueryVariables
+>;
+export const GetAddressDocument = gql`
+  query GetAddress($userId: String!) {
+    getUserAddress(userId: $userId) {
+      addressId
+      addressLine1
+      addressLine2
+      city
+      parish
+      country
+      zip
+      primary
+      longitude
+      latitude
+    }
+  }
+`;
 
 /**
  * __useGetAddressQuery__
@@ -778,53 +1109,88 @@ export const GetAddressDocument = gql`
  *   },
  * });
  */
-export function useGetAddressQuery(baseOptions: Apollo.QueryHookOptions<GetAddressQuery, GetAddressQueryVariables> & ({ variables: GetAddressQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAddressQuery, GetAddressQueryVariables>(GetAddressDocument, options);
-      }
-export function useGetAddressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAddressQuery, GetAddressQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAddressQuery, GetAddressQueryVariables>(GetAddressDocument, options);
-        }
-export function useGetAddressSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAddressQuery, GetAddressQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAddressQuery, GetAddressQueryVariables>(GetAddressDocument, options);
-        }
+export function useGetAddressQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAddressQuery,
+    GetAddressQueryVariables
+  > &
+    (
+      | { variables: GetAddressQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAddressQuery, GetAddressQueryVariables>(
+    GetAddressDocument,
+    options
+  );
+}
+export function useGetAddressLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAddressQuery,
+    GetAddressQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAddressQuery, GetAddressQueryVariables>(
+    GetAddressDocument,
+    options
+  );
+}
+export function useGetAddressSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetAddressQuery,
+    GetAddressQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetAddressQuery, GetAddressQueryVariables>(
+    GetAddressDocument,
+    options
+  );
+}
 export type GetAddressQueryHookResult = ReturnType<typeof useGetAddressQuery>;
-export type GetAddressLazyQueryHookResult = ReturnType<typeof useGetAddressLazyQuery>;
-export type GetAddressSuspenseQueryHookResult = ReturnType<typeof useGetAddressSuspenseQuery>;
-export type GetAddressQueryResult = Apollo.QueryResult<GetAddressQuery, GetAddressQueryVariables>;
+export type GetAddressLazyQueryHookResult = ReturnType<
+  typeof useGetAddressLazyQuery
+>;
+export type GetAddressSuspenseQueryHookResult = ReturnType<
+  typeof useGetAddressSuspenseQuery
+>;
+export type GetAddressQueryResult = Apollo.QueryResult<
+  GetAddressQuery,
+  GetAddressQueryVariables
+>;
 export const GetAllVendorsDocument = gql`
-    query GetAllVendors {
-  getAllVendors {
-    vendorId
-    vendorName
-    contact
-    media {
-      alt
-      type
-      url
-    }
-    hours {
-      day
-      open
-      close
-    }
-    location {
-      addressId
-      addressLine1
-      addressLine2
-      city
-      parish
-      country
-      zip
-      primary
-      longitude
-      latitude
+  query GetAllVendors {
+    getAllVendors {
+      vendorId
+      vendorName
+      contact
+      media {
+        alt
+        type
+        url
+      }
+      hours {
+        day
+        open
+        close
+      }
+      location {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllVendorsQuery__
@@ -841,40 +1207,73 @@ export const GetAllVendorsDocument = gql`
  *   },
  * });
  */
-export function useGetAllVendorsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllVendorsQuery, GetAllVendorsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllVendorsQuery, GetAllVendorsQueryVariables>(GetAllVendorsDocument, options);
-      }
-export function useGetAllVendorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllVendorsQuery, GetAllVendorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllVendorsQuery, GetAllVendorsQueryVariables>(GetAllVendorsDocument, options);
-        }
-export function useGetAllVendorsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllVendorsQuery, GetAllVendorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllVendorsQuery, GetAllVendorsQueryVariables>(GetAllVendorsDocument, options);
-        }
-export type GetAllVendorsQueryHookResult = ReturnType<typeof useGetAllVendorsQuery>;
-export type GetAllVendorsLazyQueryHookResult = ReturnType<typeof useGetAllVendorsLazyQuery>;
-export type GetAllVendorsSuspenseQueryHookResult = ReturnType<typeof useGetAllVendorsSuspenseQuery>;
-export type GetAllVendorsQueryResult = Apollo.QueryResult<GetAllVendorsQuery, GetAllVendorsQueryVariables>;
-export const GetProductsDocument = gql`
-    query GetProducts($vendor: GetAllProductsInput) {
-  getAllProducts(vendor: $vendor) {
-    productId
-    productName
-    productDescription
-    productPrice
-    media {
-      alt
-      type
-      url
-    }
-    vendorId
-    prescriptionRequired
-    productCategory
-  }
+export function useGetAllVendorsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllVendorsQuery,
+    GetAllVendorsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllVendorsQuery, GetAllVendorsQueryVariables>(
+    GetAllVendorsDocument,
+    options
+  );
 }
-    `;
+export function useGetAllVendorsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllVendorsQuery,
+    GetAllVendorsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllVendorsQuery, GetAllVendorsQueryVariables>(
+    GetAllVendorsDocument,
+    options
+  );
+}
+export function useGetAllVendorsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetAllVendorsQuery,
+    GetAllVendorsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetAllVendorsQuery,
+    GetAllVendorsQueryVariables
+  >(GetAllVendorsDocument, options);
+}
+export type GetAllVendorsQueryHookResult = ReturnType<
+  typeof useGetAllVendorsQuery
+>;
+export type GetAllVendorsLazyQueryHookResult = ReturnType<
+  typeof useGetAllVendorsLazyQuery
+>;
+export type GetAllVendorsSuspenseQueryHookResult = ReturnType<
+  typeof useGetAllVendorsSuspenseQuery
+>;
+export type GetAllVendorsQueryResult = Apollo.QueryResult<
+  GetAllVendorsQuery,
+  GetAllVendorsQueryVariables
+>;
+export const GetProductsDocument = gql`
+  query GetProducts($vendor: GetAllProductsInput) {
+    getAllProducts(vendor: $vendor) {
+      productId
+      productName
+      productDescription
+      productPrice
+      media {
+        alt
+        type
+        url
+      }
+      vendorId
+      prescriptionRequired
+      productCategory
+    }
+  }
+`;
 
 /**
  * __useGetProductsQuery__
@@ -892,19 +1291,50 @@ export const GetProductsDocument = gql`
  *   },
  * });
  */
-export function useGetProductsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
-      }
-export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
-        }
-export function useGetProductsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
-        }
+export function useGetProductsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetProductsQuery,
+    GetProductsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(
+    GetProductsDocument,
+    options
+  );
+}
+export function useGetProductsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetProductsQuery,
+    GetProductsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetProductsQuery, GetProductsQueryVariables>(
+    GetProductsDocument,
+    options
+  );
+}
+export function useGetProductsSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    GetProductsQuery,
+    GetProductsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetProductsQuery, GetProductsQueryVariables>(
+    GetProductsDocument,
+    options
+  );
+}
 export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
-export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
-export type GetProductsSuspenseQueryHookResult = ReturnType<typeof useGetProductsSuspenseQuery>;
-export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
+export type GetProductsLazyQueryHookResult = ReturnType<
+  typeof useGetProductsLazyQuery
+>;
+export type GetProductsSuspenseQueryHookResult = ReturnType<
+  typeof useGetProductsSuspenseQuery
+>;
+export type GetProductsQueryResult = Apollo.QueryResult<
+  GetProductsQuery,
+  GetProductsQueryVariables
+>;

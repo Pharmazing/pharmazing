@@ -40,6 +40,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.6",
     "graphql": "^16.8.1",
+    "native-base": "^3.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.52.1",
