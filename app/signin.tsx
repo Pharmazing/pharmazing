@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { Text, Button, View, ImageBackground } from 'react-native';
 import { styles } from '../src/utils/appStyles/styles';
 import { isAndroid, isIOS, isWeb } from '../src/utils';
-import { useSession, useUser } from '../src/utils/context';
+import { useDeliveryLocation, useSession, useUser } from '../src/utils/context';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import {
   useCreateUserMutation,
@@ -15,6 +15,7 @@ export default function Page() {
   const { loginAsGuest, session, loginWithGoogle, error } = useSession();
   const { updateUser, user, address } = useUser();
   const parsedSession = JSON.parse(session || '{}');
+  const { updateShippingAddress } = useDeliveryLocation();
 
   const segments = useSegments();
   const isSecondarySignin = segments?.[0] === 'signin2';
@@ -63,11 +64,12 @@ export default function Page() {
         if (!user?.userId) {
           triggerSignIn();
         } else {
-          // if the user has addresses then take them straight to the hompage
-          // need to figure out how i'm gonna do selecting delivery address from list of addresses
-          // A simple dropdown in the header should do the trick
-          // console.log('user address', address);
           // set the current delivery address to the primary address
+          const primaryAddress =
+            address?.find((a) => a.primary) || address?.[0] || null;
+          if (primaryAddress?.addressId) {
+            updateShippingAddress(primaryAddress);
+          }
           router.replace(
             isSecondarySignin && !address.length
               ? '/signin2/setlocation'

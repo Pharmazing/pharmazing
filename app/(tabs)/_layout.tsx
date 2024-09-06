@@ -8,20 +8,24 @@ import { useStyles } from 'react-native-unistyles';
 import { LocationPickerHeader } from '../../src/components/molecules';
 import { useActionSheet } from '../../src/utils/hooks/useActionSheet';
 import { Actionsheet, NativeBaseProvider } from 'native-base';
-import { AddressType, useUser } from '../../src/utils/context';
+import {
+  AddressType,
+  useDeliveryLocation,
+  useUser,
+} from '../../src/utils/context';
 
 export default function Layout() {
   const { theme } = useStyles();
   const { isOpen, onClose, onOpen } = useActionSheet();
   const renderLocationActionSheet = () => {
     const { address } = useUser();
-    const handleItemClick = (addy: AddressType) => {
-      console.log(addy);
+    const { updateShippingAddress } = useDeliveryLocation();
+    const handleItemClick = (addy: AddressType) => { 
+      updateShippingAddress(addy);
       onClose();
     };
     return (
       <Actionsheet
-        // style={{ zIndex: 2, position: 'absolute' }}
         isOpen={isOpen}
         onClose={onClose}
       >
