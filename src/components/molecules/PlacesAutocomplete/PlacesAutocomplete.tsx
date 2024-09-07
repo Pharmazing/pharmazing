@@ -77,6 +77,7 @@ export const PlacesAutocomplete = React.forwardRef<
           placeholder={placeholder || 'Add new address'}
           onPress={handleAutocompleteSelect}
           minLength={3}
+          debounce={300}
           query={{
             key: process.env.EXPO_PUBLIC_GOOGLE_PLACES_API_KEY,
             language: 'en',
