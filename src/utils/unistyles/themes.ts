@@ -28,12 +28,12 @@ export const lightTheme = {
       xl: 48,
     },
     text: {
-      xs: 12,
-      sm: 14,
+      xs: { xs: 12, md: 14 },
+      sm: { xs: 14, md: 16 },
       md: { xs: 16, md: 20 },
       lg: { xs: 18, md: 24 },
       xl: { xs: 20, md: 28 },
-      xxl: 24,
+      xxl: { xs: 24, md: 32 },
     },
     layout: {
       xs: 2,

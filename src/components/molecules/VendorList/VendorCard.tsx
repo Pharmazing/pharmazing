@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
   const { styles, theme } = useStyles(vendorListStyles);
-  const { vendorId, vendorName, media } = vendor;
+  const { vendorId, vendorName, media, location } = vendor;
   return (
     <DropShadow style={styles.shadow}>
       <LinearGradient
@@ -29,9 +29,41 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
                 />
               </DropShadow>
             </Box>
-            <Typography size="lg" weight="500" style={styles.vendorCardTitle}>
-              {vendorName}
-            </Typography>
+            <Box style={styles.writtenContent}>
+              <Typography size="xl" weight="500" style={styles.vendorCardTitle}>
+                {vendorName}
+              </Typography>
+              <Typography
+                size="sm"
+                weight="500"
+                style={styles.vendorCardsubTitle}
+              >
+                {`${location?.addressLine1 || ''}${location?.parish ? `, ${location?.parish}` : ''}${location?.country ? `, ${location?.country}` : ''}`}
+              </Typography>
+              <Box style={{ flex: 1, justifyContent: 'flex-end' }}>
+                <Box
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Typography
+                    size="xs"
+                    weight="500"
+                    style={styles.vendorCardTitle}
+                  >
+                    $600
+                  </Typography>
+                  <Typography
+                    size="xs"
+                    weight="500"
+                    style={styles.vendorCardTitle}
+                  >
+                    1.2km
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
           </>
         </TouchableHighlight>
       </LinearGradient>
