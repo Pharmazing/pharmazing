@@ -7,7 +7,7 @@ import { VendorList, VendorType } from '../../molecules';
 
 export function HomeMobile() {
   const { styles, theme } = useStyles(homeStyles);
-  const { loading, error, data } = useGetAllVendorsQuery({
+  const { loading, data } = useGetAllVendorsQuery({
     variables: {},
   });
 
@@ -17,16 +17,13 @@ export function HomeMobile() {
         <Box style={styles.container}>
           <Typography
             weight="500"
-            size="lg"
+            size="xl"
             style={{ marginBottom: theme.size.layout.lg }}
           >
             Stores
           </Typography>
 
           <VendorList vendors={data?.getAllVendors as VendorType[]} />
-          {/* {error && <Text>Error: {JSON.stringify(error)}</Text>} */}
-          {/* <Text style={{ color: 'red' }}>{JSON.stringify(data)}</Text> */}
-          {/* <Text>{JSON.stringify(data)}</Text> */}
           <StatusBar style="auto" />
         </Box>
       </ScrollBox>

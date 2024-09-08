@@ -1,24 +1,37 @@
-import { Box, Typography } from '../../atoms';
+import { Box, Icon, Typography } from '../../atoms';
 import { LocationPickerProps } from './LocationPicker.types';
 import { locationPickerStyles } from './LocationPicker.styles';
 import { useStyles } from 'react-native-unistyles';
-import { useState } from 'react';
 import { useDeliveryLocation } from '../../../utils/context';
+import { TouchableHighlight } from 'react-native';
 
 export const LocationPicker = ({ onOpen }: LocationPickerProps) => {
-  const { styles } = useStyles(locationPickerStyles);
+  const { styles, theme } = useStyles(locationPickerStyles);
 
-  const [selectedLocation, setSelectedLocation] = useState({
-    value: {},
-    label: 'address 1',
-  });
   const { shippingAddress } = useDeliveryLocation();
   return (
     <Box style={styles.container}>
-      {/* <Button title={selectedLocation.label} btnVariant={ButtonVariantEnum.DANGER} onPress={onOpen}/> */}
-      <Typography disabled={!shippingAddress.addressLine1} onPress={onOpen}>
-        {shippingAddress.addressLine1 || 'No address provided'}
-      </Typography>
+      <TouchableHighlight
+        onPress={onOpen}
+        disabled={!shippingAddress.addressLine1}
+      >
+        <Box
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: theme.size.layout.lg,
+          }}
+        >
+          <Typography weight="500" size="lg" style={styles.label}>
+            {shippingAddress.addressLine1 || 'No address provided'}
+          </Typography>
+          <Icon
+            style={{ margin: 0, padding: 0 }}
+            name="ChevronRightIcon"
+            color={theme.colors.white}
+          />
+        </Box>
+      </TouchableHighlight>
     </Box>
   );
 };

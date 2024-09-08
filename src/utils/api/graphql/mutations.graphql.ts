@@ -35,6 +35,7 @@ export const editUserMutation = gql`
       lastName
       age
       email
+      cartId
     }
   }
 `;

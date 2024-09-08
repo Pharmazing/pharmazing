@@ -53,7 +53,6 @@ export default function Layout() {
           >
             <Tabs.Screen
               name="home"
-              // initialParams={{isOpen, onClose, onOpen}}
               options={{
                 // headerTransparent: true,
                 header: () => (

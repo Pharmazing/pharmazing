@@ -3,10 +3,8 @@ import { createStyleSheet } from 'react-native-unistyles';
 export const locationPickerStyles = createStyleSheet((theme) => ({
   container: {
     display: 'flex',
-    // width: '50%',
     flexDirection: 'row',
     alignItems: 'center',
-    // borderWidth: 1,
     fontSize: {
       xs: 12,
       sm: 14,
@@ -14,5 +12,8 @@ export const locationPickerStyles = createStyleSheet((theme) => ({
       lg: 18,
       xl: 20,
     },
+  },
+  label: {
+    color: theme.colors.white,
   },
 }));
