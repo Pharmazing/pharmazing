@@ -16,11 +16,11 @@ export const vendorListStyles = createStyleSheet((theme) => ({
   vendorCardButton: {
     flex: 1,
     flexDirection: 'row',
-    gap: theme.size.layout.md,
     backgroundColor: theme.colors.white,
     borderRadius: theme.size.layout.xl - 2,
     padding: theme.size.layout.md,
-    height: { xs: 128, lg: 256 },
+    height: { xs: 128, lg: 248 },
+    gap: theme.size.layout.md,
   },
   vendorCardContainer: {
     padding: 3,
@@ -38,4 +38,8 @@ export const vendorListStyles = createStyleSheet((theme) => ({
   vendorCardTitle: {
     color: theme.colors.Blue900,
   },
+  vendorCardsubTitle: {
+    color: theme.colors.Gray500,
+  },
+  writtenContent: { flex: 1, gap: theme.size.layout.md },
 }));

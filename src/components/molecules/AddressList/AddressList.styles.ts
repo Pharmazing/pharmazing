@@ -17,8 +17,6 @@ export const addressListStyles = createStyleSheet((theme) => ({
   }),
   rowFrontContent: {
     gap: theme.size.layout.lg,
-    // borderWidth: 1,
-    // borderColor: 'blue',
     height: '100%',
     width: '100%',
     padding: theme.size.layout.lg,
@@ -28,15 +26,10 @@ export const addressListStyles = createStyleSheet((theme) => ({
   rowFront: () => ({
     alignItems: 'center',
     backgroundColor: 'white',
-    // borderWidth: 1,
-    // borderColor: 'red',
-    // borderBottomColor: theme.colors.Gray200,
-    // borderBottomWidth: 1,
     height: ITEM_HEIGHT,
     justifyContent: 'center',
     width: '100%',
     display: 'flex',
-    // marginBottom: !!isLast && isAndroid ? theme.size.layout.xl : 0,
   }),
   rowBack: () => ({
     alignItems: 'center',
