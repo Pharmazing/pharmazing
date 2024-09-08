@@ -30,9 +30,9 @@ export const lightTheme = {
     text: {
       xs: 12,
       sm: 14,
-      md: 16,
-      lg: 18,
-      xl: 20,
+      md: { xs: 16, md: 20 },
+      lg: { xs: 18, md: 24 },
+      xl: { xs: 20, md: 28 },
       xxl: 24,
     },
     layout: {

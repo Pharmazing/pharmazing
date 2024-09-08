@@ -351,6 +351,7 @@ export type EditUserMutation = {
     lastName?: string | null;
     age?: number | null;
     email?: string | null;
+    cartId?: string | null;
   } | null;
 };
 
@@ -641,6 +642,7 @@ export const EditUserDocument = gql`
       lastName
       age
       email
+      cartId
     }
   }
 `;

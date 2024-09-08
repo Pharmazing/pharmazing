@@ -10,8 +10,7 @@ export const textInputStyles = createStyleSheet((theme) => ({
     borderColor: theme.colors.Green500,
     padding: 10,
     borderRadius: theme.size.layout.md,
-    fontSize: 16,
-    // fontWeight: 'bold',
+    fontSize: theme.size.text.md,
     fontFamily: 'Roboto_400Regular',
   },
   label: {
