@@ -5,18 +5,24 @@ import { Box, Typography } from '../../atoms';
 import { router } from 'expo-router';
 // import { TouchableHighlight } from 'react-native';
 import { VendorCard } from './VendorCard';
-export const VendorList = ({ vendors }: VendorListProps) => {
+import { VendorListSkeleton } from './VendorListSkeleton';
+
+export const VendorList = ({ vendors, loading }: VendorListProps) => {
   const { styles } = useStyles(vendorListStyles);
 
   const renderVendorList = () => {
     const handleVendorClick = (vendorId: string) => {
       router.push(`/pharmacy/${vendorId}`);
     };
+    if (loading) {
+      return <VendorListSkeleton />;
+    }
     return (
       vendors?.map((vendor) => {
+        const { vendorId } = vendor;
         return (
           <VendorCard
-            key={vendor.vendorId}
+            key={vendorId}
             vendor={vendor}
             onPress={handleVendorClick}
           />

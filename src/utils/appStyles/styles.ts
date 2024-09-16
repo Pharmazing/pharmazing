@@ -3,6 +3,7 @@ import { createStyleSheet } from 'react-native-unistyles';
 export const styles = createStyleSheet((theme) => ({
   container: {
     flex: 1,
+    gap: theme.size.layout.md,
     padding: theme.size.layout.lg,
   },
   backgroundImage: {
