@@ -5,10 +5,37 @@ import { useStyles } from 'react-native-unistyles';
 import { vendorListStyles } from './VendorList.styles';
 import DropShadow from 'react-native-drop-shadow';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useDeliveryLocation } from '../../../utils/context';
+import {
+  GeolibLatitudeInputValue,
+  GeolibLongitudeInputValue,
+} from 'geolib/es/types';
+import { getPreciseDistance } from 'geolib';
+
+const isNumber = (value: any) => typeof value === 'number';
 
 export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
   const { styles, theme } = useStyles(vendorListStyles);
   const { vendorId, vendorName, media, location } = vendor;
+  const { shippingAddress } = useDeliveryLocation();
+  const distance =
+    isNumber(location?.latitude) &&
+    isNumber(location?.longitude) &&
+    isNumber(shippingAddress?.latitude) &&
+    isNumber(shippingAddress?.longitude) &&
+    getPreciseDistance(
+      {
+        latitude: location?.latitude as unknown as GeolibLatitudeInputValue,
+        longitude: location?.longitude as unknown as GeolibLongitudeInputValue,
+      },
+      {
+        latitude:
+          shippingAddress?.latitude as unknown as GeolibLatitudeInputValue,
+        longitude:
+          shippingAddress?.longitude as unknown as GeolibLongitudeInputValue,
+      }
+    );
+
   return (
     <DropShadow style={styles.shadow}>
       <LinearGradient
@@ -30,12 +57,12 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
               </DropShadow>
             </Box>
             <Box style={styles.writtenContent}>
-              <Typography size="xl" weight="500" style={styles.vendorCardTitle}>
+              <Typography size="lg" weight="500" style={styles.vendorCardTitle}>
                 {vendorName}
               </Typography>
               <Typography
                 size="sm"
-                weight="500"
+                weight="400"
                 style={styles.vendorCardsubTitle}
               >
                 {`${location?.addressLine1 || ''}${location?.parish ? `, ${location?.parish}` : ''}${location?.country ? `, ${location?.country}` : ''}`}
@@ -43,6 +70,8 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
               <Box style={{ flex: 1, justifyContent: 'flex-end' }}>
                 <Box
                   style={{
+                    flex: 1,
+                    alignItems: 'flex-end',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}
@@ -54,13 +83,15 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
                   >
                     $600
                   </Typography>
-                  <Typography
-                    size="xs"
-                    weight="500"
-                    style={styles.vendorCardTitle}
-                  >
-                    1.2km
-                  </Typography>
+                  {location && shippingAddress && (
+                    <Typography
+                      size="xs"
+                      weight="500"
+                      style={styles.vendorCardTitle}
+                    >
+                      {distance && `${(distance / 1000000).toFixed(2)}km`}
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             </Box>

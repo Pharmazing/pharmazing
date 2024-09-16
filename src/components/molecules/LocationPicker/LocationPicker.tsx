@@ -19,11 +19,12 @@ export const LocationPicker = ({ onOpen }: LocationPickerProps) => {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            gap: theme.size.layout.lg,
+            gap: theme.size.layout.md,
           }}
         >
-          <Typography weight="500" size="lg" style={styles.label}>
-            {shippingAddress.addressLine1 || 'No address provided'}
+          <Typography weight="500" size="md" style={styles.label}>
+            {`${shippingAddress.addressLine1}, ${shippingAddress.parish}` ||
+              'No address provided'}
           </Typography>
           <Icon
             style={{ margin: 0, padding: 0 }}

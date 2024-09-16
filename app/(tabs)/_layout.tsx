@@ -47,6 +47,7 @@ export default function Layout() {
       {isIOS || isAndroid ? (
         <NativeBaseProvider>
           <Tabs
+            screenOptions={{ tabBarActiveTintColor: theme.colors.Green550 }}
             sceneContainerStyle={{
               backgroundColor: theme.colors.tabsContentBg,
             }}
