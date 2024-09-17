@@ -6246,6 +6246,11 @@ expo-asset@~10.0.10:
     invariant "^2.2.4"
     md5-file "^3.2.3"
 
+expo-blur@~13.0.2:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-13.0.2.tgz#c2d179b19b13830db1d8b90c51373235f462e958"
+  integrity sha512-t2p7BChO3Reykued++QJRMZ/og6J3aXtSQ+bU31YcBeXhZLkHwjWEhiPKPnJka7J2/yTs4+jOCNDY0kCZmcE3w==
+
 expo-constants@~16.0.0, expo-constants@~16.0.1:
   version "16.0.2"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-16.0.2.tgz#eb5a1bddb7308fd8cadac8fc44decaf4784cac5e"
@@ -9523,6 +9528,11 @@ react-native-alert-async@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/react-native-alert-async/-/react-native-alert-async-1.0.5.tgz#f67e3d1f6c877cce8e8cd74cef3d596713f0fdb4"
   integrity sha512-HeG0zdjtlANl8KkF9AhqgkaEooXip44Fb01dmCnYSYMm6PoRdcV4aIy6l/yAOQmArrl8LTP58APSiuZXBMCbwQ==
+
+react-native-animated-searchbar@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-animated-searchbar/-/react-native-animated-searchbar-1.0.0.tgz#844e5ce2e2404016fd717374a7f3af9e9d911188"
+  integrity sha512-dI9j+N+yeNbvfkwNcDDb8MKzws4QbOOP0Leeo1vd9sA8dBF3Aqje8P//OWHObgSy4y4E4MdPwujXCHiHM7ZB4Q==
 
 react-native-drop-shadow@^1.0.0:
   version "1.0.0"

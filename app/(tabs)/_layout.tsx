@@ -8,6 +8,7 @@ import { useStyles } from 'react-native-unistyles';
 import { LocationPickerHeader } from '../../src/components/molecules';
 import { useActionSheet } from '../../src/utils/hooks/useActionSheet';
 import { Actionsheet, NativeBaseProvider } from 'native-base';
+import AnimatedSearchbar from 'react-native-animated-searchbar';
 import {
   AddressType,
   useDeliveryLocation,

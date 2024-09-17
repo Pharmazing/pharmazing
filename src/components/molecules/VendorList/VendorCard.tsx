@@ -52,7 +52,7 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
                 <Image
                   resizeMode="cover"
                   style={styles.vendorCardImage}
-                  src={media?.[0]?.url || ''}
+                  src={'https://picsum.photos/800/800' || ''}
                 />
               </DropShadow>
             </Box>

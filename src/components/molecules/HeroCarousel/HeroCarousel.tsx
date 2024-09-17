@@ -11,6 +11,7 @@ import Carousel, {
 import { mockPromoCards } from './HeroCarousel.mock';
 import { useSharedValue } from 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { HeroPromoCard } from './HeroPromoCard';
 
 export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
   (props, forwardedRef) => {
@@ -26,9 +27,7 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
 
     const renderItem = ({ item }: { item: CarouselItem }) => {
       return (
-        <Box style={[styles.itemContainer(isLgScreen)]}>
-          <Typography>{item.title}</Typography>
-        </Box>
+        <HeroPromoCard title={item.title} description={item.description}/>
       );
     };
 
@@ -46,7 +45,7 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
       <GestureHandlerRootView>
         <Box
           style={{
-            height: 200,
+            height: 238,
             // width: dimensions.window.width,
             gap: theme.size.layout.md,
           }}
@@ -69,9 +68,9 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
           <Pagination.Basic
             progress={progress}
             data={mockPromoCards}
-            activeDotStyle={{ backgroundColor: theme.colors.Green400 }}
+            activeDotStyle={{ backgroundColor: theme.colors.Blue400 }}
             dotStyle={{
-              backgroundColor: theme.colors.Green100,
+              backgroundColor: theme.colors.Blue100,
               borderRadius: 5,
             }}
             containerStyle={{ gap: theme.size.layout.sm }}

@@ -5,3 +5,9 @@ declare module 'react-native-swipe-list-view' {
     children: [unknown, unknown];
   }
 }
+
+declare module 'react-native-animated-searchbar' {
+  interface IPropsSearchBar {
+    children: [unknown, unknown];
+  }
+}
