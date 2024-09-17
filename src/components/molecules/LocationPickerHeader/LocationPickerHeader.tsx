@@ -4,6 +4,8 @@ import { locationPickerHeaderStyles } from './LocationPickerHeader.styles';
 import { LocationPicker } from '../LocationPicker';
 import { LocationPickerHeaderProps } from './LocationPickerHeader.types';
 import { LinearGradient } from 'expo-linear-gradient';
+import AnimatedSearchbar from 'react-native-animated-searchbar';
+
 export const LocationPickerHeader = ({
   isOpen,
   onOpen,
