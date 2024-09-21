@@ -1,1 +1,1 @@
-export type HeroPromoCardProps = { title?: string, description?: string };
+export type HeroPromoCardProps = { title?: string; description?: string };
