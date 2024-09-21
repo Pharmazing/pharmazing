@@ -50,7 +50,6 @@
     "react-hook-form": "^7.52.1",
     "react-native": "0.74.1",
     "react-native-alert-async": "^1.0.5",
-    "react-native-animated-searchbar": "^1.0.0",
     "react-native-drop-shadow": "^1.0.0",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-google-places-autocomplete": "^2.5.6",

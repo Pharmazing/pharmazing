@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { CarouselItem, HeroCarouselProps } from './HeroCarousel.types';
 import { useStyles } from 'react-native-unistyles';
 import { heroCarouselStyles } from './HeroCarousel.styles';
-import { Box, Typography } from '../../atoms';
+import { Box } from '../../atoms';
 import { useDimensions } from '../../../utils';
 import Carousel, {
   ICarouselInstance,
@@ -15,8 +15,8 @@ import { HeroPromoCard } from './HeroPromoCard';
 
 export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
   (props, forwardedRef) => {
-    const ref = useRef<ICarouselInstance>(null);
-
+    const ref = useRef<ICarouselInstance | null>(null);
+    HeroCarousel.displayName = 'HeroCarousel';
     useImperativeHandle(forwardedRef, () => ref.current as ICarouselInstance);
 
     const { styles, theme } = useStyles(heroCarouselStyles);
@@ -27,7 +27,7 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
 
     const renderItem = ({ item }: { item: CarouselItem }) => {
       return (
-        <HeroPromoCard title={item.title} description={item.description}/>
+        <HeroPromoCard title={item.title} description={item.description} />
       );
     };
 
@@ -45,7 +45,7 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
       <GestureHandlerRootView>
         <Box
           style={{
-            height: 238,
+            height: 196,
             // width: dimensions.window.width,
             gap: theme.size.layout.md,
           }}
@@ -55,8 +55,9 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
               parallaxScrollingScale: 0.95,
               parallaxScrollingOffset: isLgScreen ? 512 : -theme.size.layout.lg,
             }}
-            loop={false}
-            ref={ref}
+            loop
+            autoPlay
+            autoPlayInterval={5000}
             style={styles.carousel}
             vertical={false}
             width={dimensions.screen.width * (isLgScreen ? 1 : 0.92)}
@@ -64,6 +65,7 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
             data={mockPromoCards}
             renderItem={renderItem}
             onProgressChange={progress}
+            ref={ref}
           />
           <Pagination.Basic
             progress={progress}

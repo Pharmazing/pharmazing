@@ -1,14 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { styles as homeStyles } from '../../../utils/appStyles/styles';
 import { useGetAllVendorsQuery } from '../../../generated/graphql';
-import { Box, ScrollBox, Typography } from '../../atoms';
+import { Box, ScrollBox, SearchBar, Typography } from '../../atoms';
 import { useStyles } from 'react-native-unistyles';
 import { HeroCarousel, VendorList, VendorType } from '../../molecules';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, TextInput } from 'react-native';
+import { useState } from 'react';
 
 export function HomeMobile() {
   const { styles, theme } = useStyles(homeStyles);
   const { loading, data, refetch } = useGetAllVendorsQuery();
+  const [search, setSearch] = useState<string>('');
+
+  const filteredVendors = data?.getAllVendors?.filter((vendor) =>
+    vendor?.vendorName?.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
@@ -22,6 +28,14 @@ export function HomeMobile() {
         }
       >
         <Box style={styles.container}>
+          <SearchBar
+            autoComplete="off"
+            placeholder="What are you looking for today?"
+            value={search}
+            onChangeText={setSearch}
+            clearButtonMode="always"
+            caretHidden
+          />
           <HeroCarousel />
           <Typography
             weight="500"
@@ -32,7 +46,7 @@ export function HomeMobile() {
           </Typography>
 
           <VendorList
-            vendors={data?.getAllVendors as VendorType[]}
+            vendors={filteredVendors as VendorType[]}
             loading={loading}
           />
           <StatusBar style="auto" />

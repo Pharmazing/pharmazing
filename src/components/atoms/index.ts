@@ -5,3 +5,4 @@ export * from './ScrollBox';
 export * from './LoadingIndicator';
 export * from './Typography';
 export * from './Toggle';
+export * from './SearchBar';
