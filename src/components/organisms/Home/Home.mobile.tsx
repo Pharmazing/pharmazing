@@ -4,7 +4,7 @@ import { useGetAllVendorsQuery } from '../../../generated/graphql';
 import { Box, ScrollBox, SearchBar, Typography } from '../../atoms';
 import { useStyles } from 'react-native-unistyles';
 import { HeroCarousel, VendorList, VendorType } from '../../molecules';
-import { RefreshControl, TextInput } from 'react-native';
+import { RefreshControl } from 'react-native';
 import { useState } from 'react';
 
 export function HomeMobile() {
