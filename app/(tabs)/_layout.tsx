@@ -8,7 +8,6 @@ import { useStyles } from 'react-native-unistyles';
 import { LocationPickerHeader } from '../../src/components/molecules';
 import { useActionSheet } from '../../src/utils/hooks/useActionSheet';
 import { Actionsheet, NativeBaseProvider } from 'native-base';
-import AnimatedSearchbar from 'react-native-animated-searchbar';
 import {
   AddressType,
   useDeliveryLocation,
@@ -18,9 +17,9 @@ import {
 export default function Layout() {
   const { theme } = useStyles();
   const { isOpen, onClose, onOpen } = useActionSheet();
+  const { address } = useUser();
+  const { updateShippingAddress } = useDeliveryLocation();
   const renderLocationActionSheet = () => {
-    const { address } = useUser();
-    const { updateShippingAddress } = useDeliveryLocation();
     const handleItemClick = (addy: AddressType) => {
       updateShippingAddress(addy);
       onClose();
