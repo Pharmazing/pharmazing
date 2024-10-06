@@ -16,6 +16,7 @@
         "buildType": "apk"
       },
       "env": {
+        "EXPO_PUBLIC_ENV": "production",
         "EXPO_PUBLIC_API_URL": "https://pharmazing-server.onrender.com/graphql",
         "EXPO_PUBLIC_API_MEDIA_URL": "https://pharmazing-server.onrender.com/media",
         "EXPO_PUBLIC_GOOGLE_CLIENT_ID": "739739212160-7f7iemtsa6m8n1tm0ute0cike6blmha7.apps.googleusercontent.com",
