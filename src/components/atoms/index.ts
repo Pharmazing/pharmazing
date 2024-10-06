@@ -6,3 +6,4 @@ export * from './LoadingIndicator';
 export * from './Typography';
 export * from './Toggle';
 export * from './SearchBar';
+export * from './LoadingImage';

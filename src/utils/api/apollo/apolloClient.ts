@@ -3,10 +3,12 @@ import {
   appAuthMiddleware,
   webAuthMiddleware,
 } from './middleware/authMiddleware';
-import { isWeb } from '../../hooks';
+import { isWeb, isAndroid } from '../../hooks';
 
 const httpLink = new HttpLink({
-  uri: process.env.EXPO_PUBLIC_API_URL,
+  uri: isAndroid
+    ? 'http://10.0.0.123:4000/graphql'
+    : process.env.EXPO_PUBLIC_API_URL,
   credentials: 'same-origin',
 });
 

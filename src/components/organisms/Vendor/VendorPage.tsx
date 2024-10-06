@@ -3,13 +3,15 @@ import { Box, Icon, ScrollBox, SearchBar, Typography } from '../../atoms';
 import { vendorPageStyles } from './VendorPages.styles';
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { Image, TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import { useDimensions } from '../../../utils';
+import { Tabs } from '../../molecules';
 
 export const VendorPage = ({ vendorId }: { vendorId: string }) => {
   const { styles } = useStyles(vendorPageStyles);
   const [search, setSearch] = useState<string>('');
   const { dimensions } = useDimensions();
+
   // get the vendor from gql
   return (
     <ScrollBox contentContainerStyle={styles.container}>
@@ -21,26 +23,30 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
         clearButtonMode="always"
         caretHidden
       />
-      <Box>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={{ flexDirection: 'row', alignItems: 'center' }}
-        >
-          <Icon height={36} width={36} name="ChevronRightIcon" />
-          <Typography>Back</Typography>
-        </TouchableOpacity>
-        <Box>
+
+      <TouchableOpacity
+        onPress={() => router.back()}
+        style={{ flexDirection: 'row', alignItems: 'center' }}
+      >
+        <Icon height={36} width={36} name="ChevronRightIcon" />
+        <Typography>Back</Typography>
+      </TouchableOpacity>
+      <Box style={styles.imageContainer}>
         <Image
-          source={{ uri: 'https://picsum.photos/1920/1080' }}
+          source={{ uri: 'https://picsum.photos/800/800' }}
           style={{
             width: dimensions.screen.width,
-            height: 256,
+            // height: 196,
+            height: '100%',
+            // display: 'none',
             position: 'relative',
             left: -8,
+            zIndex: 3,
           }}
         />
-
-        </Box>
+      </Box>
+      <Box style={{ flex: 1 }}>
+        <Tabs />
       </Box>
     </ScrollBox>
   );
