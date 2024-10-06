@@ -6,3 +6,4 @@ export * from './LocationPickerHeader';
 export * from './LocationPicker';
 export * from './VendorList';
 export * from './HeroCarousel';
+export * from './Tabs';

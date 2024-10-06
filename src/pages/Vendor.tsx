@@ -1,12 +1,10 @@
-import { VendorPage } from "../components/organisms/Vendor/VendorPage";
-import { isAndroid, isIOS } from "../utils";
+import { VendorPage } from '../components/organisms/Vendor/VendorPage';
+import { isAndroid, isIOS } from '../utils';
 
 type VendorLayoutProps = {
-    vendorId: string;
+  vendorId: string;
 };
 
-export const VendorLayout = ({vendorId}: VendorLayoutProps) => {
-    return (
-        (isIOS || isAndroid) && (<VendorPage vendorId={vendorId} />)
-    );
+export const VendorLayout = ({ vendorId }: VendorLayoutProps) => {
+  return (isIOS || isAndroid) && <VendorPage vendorId={vendorId} />;
 };

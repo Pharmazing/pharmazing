@@ -5,7 +5,11 @@ import { VendorLayout } from '../../src/pages/Vendor';
 import { LocationPickerHeader } from '../../src/components/molecules';
 import { useActionSheet } from '../../src/utils/hooks/useActionSheet';
 import { Actionsheet, NativeBaseProvider } from 'native-base';
-import { useUser, useDeliveryLocation, AddressType } from '../../src/utils/context';
+import {
+  useUser,
+  useDeliveryLocation,
+  AddressType,
+} from '../../src/utils/context';
 import { useStyles } from 'react-native-unistyles';
 
 export default function Page() {
@@ -39,24 +43,29 @@ export default function Page() {
   };
   return (
     <NativeBaseProvider>
-    <View>
-      <Stack.Screen
-        options={{
-          headerTitle: `Details for ${vendorId}`,
-          headerBackTitle: 'Home',
-          contentStyle: { backgroundColor: '#FAFAFA', gap: 40, display: 'flex', flexDirection: 'column' },
-          header: () => (
-            <LocationPickerHeader
-              isOpen={isOpen}
-              onClose={onClose}
-              onOpen={onOpen}
-            />
-          )
-        }}
-      />
-      <VendorLayout vendorId={vendorId as string} />
+      <View>
+        <Stack.Screen
+          options={{
+            headerTitle: `Details for ${vendorId}`,
+            headerBackTitle: 'Home',
+            contentStyle: {
+              backgroundColor: '#FAFAFA',
+              gap: 40,
+              display: 'flex',
+              flexDirection: 'column',
+            },
+            header: () => (
+              <LocationPickerHeader
+                isOpen={isOpen}
+                onClose={onClose}
+                onOpen={onOpen}
+              />
+            ),
+          }}
+        />
+        <VendorLayout vendorId={vendorId as string} />
         {renderLocationActionSheet()}
-    </View>
+      </View>
     </NativeBaseProvider>
   );
 }
