@@ -7,3 +7,4 @@ export * from './LocationPicker';
 export * from './VendorList';
 export * from './HeroCarousel';
 export * from './Tabs';
+export * from './ProductList';

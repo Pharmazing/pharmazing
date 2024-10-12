@@ -16,7 +16,7 @@ export default function Layout() {
             <Button
               title="Back"
               onPress={() => {
-                router.canGoBack() ? router.back() : null;
+                if (router.canGoBack()) router.back();
               }}
             />
           ),
