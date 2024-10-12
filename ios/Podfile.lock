@@ -1283,7 +1283,7 @@ PODS:
     - React-Core
   - react-native-maps (1.18.0):
     - React-Core
-  - react-native-pager-view (6.3.0):
+  - react-native-pager-view (6.3.3):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1992,7 +1992,7 @@ SPEC CHECKSUMS:
   react-native-geolocation: 67d909c955daedea3f8c30d912f004f806edff64
   react-native-google-maps: ee48410bb3f1390abfa20592a44db5d6ada83e4d
   react-native-maps: 2e6e9896195781327ee15b33e3e84bf73c08207a
-  react-native-pager-view: c1e29e1a6105a02807392ba822ad322447a72f55
+  react-native-pager-view: f848f89049a8e888d38f10ff31588eb63292a95f
   react-native-safe-area-context: dcab599c527c2d7de2d76507a523d20a0b83823d
   react-native-unistyles: 29c3d5bea36be141b645dd759b4540caa0e70dbf
   React-nativeconfig: b0073a590774e8b35192fead188a36d1dca23dec

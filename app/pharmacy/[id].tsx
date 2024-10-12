@@ -1,6 +1,5 @@
 import React from 'react';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { View } from 'react-native';
 import { VendorLayout } from '../../src/pages/Vendor';
 import { LocationPickerHeader } from '../../src/components/molecules';
 import { useActionSheet } from '../../src/utils/hooks/useActionSheet';
@@ -11,6 +10,7 @@ import {
   AddressType,
 } from '../../src/utils/context';
 import { useStyles } from 'react-native-unistyles';
+import { Box } from '../../src/components/atoms';
 
 export default function Page() {
   const { theme } = useStyles();
@@ -43,7 +43,7 @@ export default function Page() {
   };
   return (
     <NativeBaseProvider>
-      <View>
+      <Box style={{ flex: 1 }}>
         <Stack.Screen
           options={{
             headerTitle: `Details for ${vendorId}`,
@@ -65,7 +65,7 @@ export default function Page() {
         />
         <VendorLayout vendorId={vendorId as string} />
         {renderLocationActionSheet()}
-      </View>
+      </Box>
     </NativeBaseProvider>
   );
 }

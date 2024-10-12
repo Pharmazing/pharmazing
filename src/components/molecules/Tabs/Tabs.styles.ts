@@ -16,7 +16,7 @@ export const tabsStyles = createStyleSheet((theme) => ({
     // overflow: 'visible',
     // alignItems: 'center',
     // justifyContent: 'space-around',
-    marginBottom: theme.size.layout.lg,
+    marginVertical: theme.size.layout.lg,
     backgroundColor: theme.colors.Gray200,
   },
   tabItem: {
@@ -40,7 +40,7 @@ export const tabsStyles = createStyleSheet((theme) => ({
     position: 'absolute',
     top: 0,
     height: '100%',
-    borderRadius: 24,
+    borderRadius: theme.size.layout.xl,
     backgroundColor: theme.colors.Green500,
     zIndex: 0,
     width, // Adjust based on tab width

@@ -1,43 +1,50 @@
 import {
-  NavigationState,
-  SceneRendererProps,
-  TabView,
-} from 'react-native-tab-view';
+  Tabs as TabView,
+  CollapsibleProps,
+  TabBarProps,
+  CollapsibleRef,
+} from 'react-native-collapsible-tab-view';
 import { Box, Typography } from '../../atoms';
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useRef } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useStyles } from 'react-native-unistyles';
 import { tabsStyles } from './Tabs.styles';
 import { useDimensions } from '../../../utils';
+import { ProductList } from '../../molecules';
+import { ProductCardProps } from '../ProductCard';
 
 //refactor this so its modular
 
-export const Tabs = () => {
+export const Tabs = ({ renderHeader }: Partial<CollapsibleProps>) => {
   const { styles } = useStyles(tabsStyles);
   const { dimensions } = useDimensions();
   const [index, setIndex] = useState(0);
   const routes = [
-    { key: 'catalog', title: 'Catalog' },
-    { key: 'reviews', title: 'Reviews' },
-    { key: 'info', title: 'Info' },
+    {
+      key: 'catalog',
+      title: 'Catalog',
+      component: () => <ProductList cards={cards} />,
+    },
+    {
+      key: 'reviews',
+      title: 'Reviews',
+      component: () => <Typography>Reviews</Typography>,
+    },
+    {
+      key: 'info',
+      title: 'Info',
+      component: () => <Typography>Info</Typography>,
+    },
   ];
-
+  const ref = useRef<CollapsibleRef>(null);
   const indicatorPosition = useSharedValue(0);
   // const tabWidth = 120;
   const newWidth = (dimensions.screen.width * 0.7) / routes.length;
-  const renderTabBar = ({
-    navigationState,
-    jumpTo,
-  }: SceneRendererProps & {
-    navigationState: NavigationState<{
-      key: string;
-      title: string;
-    }>;
-  }) => {
+  const renderTabBar = (_props: TabBarProps) => {
     return (
       <Box style={styles.tabBar}>
-        {navigationState.routes.map((route: any, i: number) => {
+        {routes.map((route: any, i: number) => {
           if (index === i) {
             indicatorPosition.value = withSpring(index * newWidth, {
               duration: 1000,
@@ -53,7 +60,9 @@ export const Tabs = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  onPress={() => jumpTo(route.key)}
+                  onPress={() => {
+                    ref.current?.setIndex(i);
+                  }}
                 >
                   <Typography
                     weight="500"
@@ -78,24 +87,32 @@ export const Tabs = () => {
     );
   };
 
+  const cards: ProductCardProps[] = Array.from({ length: 20 }).map((_, i) => ({
+    vendorId: '1',
+    productId: i.toString(),
+    productName: 'Product Name',
+    productCategory: 'Category',
+    productPrice: 100,
+    productDescription: 'Product Description',
+    media: [],
+    prescriptionRequired: false,
+  }));
+
   return (
-    <TabView
-      navigationState={{ index, routes }}
-      renderScene={({ route }) => {
-        switch (route.key) {
-          case 'catalog':
-            return <Typography>Catalog</Typography>;
-          case 'reviews':
-            return <Typography>Reviews</Typography>;
-          case 'info':
-            return <Typography>Info</Typography>;
-          default:
-            return null;
-        }
-      }}
+    <TabView.Container
+      ref={ref}
+      renderHeader={renderHeader}
+      headerContainerStyle={{ backgroundColor: 'none' }}
+      onTabChange={({ index }) => setIndex(index)}
       renderTabBar={renderTabBar}
-      onIndexChange={setIndex}
-      initialLayout={{ width: dimensions.screen.width }}
-    />
+    >
+      {routes.map((route, i) => {
+        return (
+          <TabView.Tab name={route.title}>
+            <TabView.ScrollView>{route.component()}</TabView.ScrollView>
+          </TabView.Tab>
+        );
+      })}
+    </TabView.Container>
   );
 };
