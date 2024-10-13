@@ -40,7 +40,8 @@ export const Tabs = ({ renderHeader }: Partial<CollapsibleProps>) => {
   const ref = useRef<CollapsibleRef>(null);
   const indicatorPosition = useSharedValue(0);
   // const tabWidth = 120;
-  const newWidth = (dimensions.screen.width * 0.7) / routes.length;
+  // factor has to match width
+  const newWidth = (dimensions.screen.width * 0.8) / routes.length;
   const renderTabBar = (_props: TabBarProps) => {
     return (
       <Box style={styles.tabBar}>

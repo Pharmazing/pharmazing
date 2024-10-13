@@ -31,9 +31,18 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
 
             <TouchableOpacity
               onPress={() => router.back()}
-              style={{ flexDirection: 'row', alignItems: 'center' }}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingHorizontal: theme.size.layout.md,
+              }}
             >
-              <Icon height={36} width={36} name="ChevronRightIcon" />
+              <Icon
+                height={36}
+                width={36}
+                name="ChevronRightIcon"
+                transform={'rotate(180 12 12)'}
+              />
               <Typography>{`[Vendor Name]`}</Typography>
             </TouchableOpacity>
             <Box style={styles.imageContainer}>
