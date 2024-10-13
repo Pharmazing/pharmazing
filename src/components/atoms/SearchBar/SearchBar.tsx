@@ -14,8 +14,8 @@ export const SearchBar = ({ style, ...rest }: SearchBarProps) => {
       <Icon
         name="SearchIcon"
         color={theme.colors.Blue900}
-        height={32}
-        width={32}
+        height={30}
+        width={30}
         style={styles.icon}
       />
       <TextInput ref={ref} style={[styles.textInput, style]} {...rest} />

@@ -44,7 +44,7 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
       >
         <TouchableHighlight
           style={styles.vendorCardButton}
-          onPress={() => vendorId && onPress(vendorId)}
+          onPress={() => vendorId && onPress(vendor)}
         >
           <>
             <Box style={styles.vendorCardMediaContainer}>

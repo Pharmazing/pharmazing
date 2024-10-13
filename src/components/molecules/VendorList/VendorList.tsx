@@ -1,4 +1,4 @@
-import { VendorListProps } from './VendorList.types';
+import { VendorListProps, VendorType } from './VendorList.types';
 import { vendorListStyles } from './VendorList.styles';
 import { useStyles } from 'react-native-unistyles';
 import { Box, Typography } from '../../atoms';
@@ -11,8 +11,8 @@ export const VendorList = ({ vendors, loading }: VendorListProps) => {
   const { styles } = useStyles(vendorListStyles);
 
   const renderVendorList = () => {
-    const handleVendorClick = (vendorId: string) => {
-      router.push(`/pharmacy/${vendorId}`);
+    const handleVendorClick = ({ vendorId, vendorName }: VendorType) => {
+      router.push(`/pharmacy/${vendorId}?vendorName=${vendorName}`);
     };
     if (loading) {
       return <VendorListSkeleton />;
