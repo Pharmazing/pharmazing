@@ -8,4 +8,6 @@ export enum ButtonVariantEnum {
 export interface ButtonProps extends TouchableOpacityProps {
   btnVariant: ButtonVariantEnum;
   title: string;
+  textColor?: string;
+  renderIcon?: boolean;
 }

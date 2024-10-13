@@ -14,17 +14,18 @@ export const buttonStyles = createStyleSheet((theme) => ({
     margin: 16,
     width: { xs: 200, sm: 220, md: 240, lg: 260, xl: 280 },
     display: 'flex',
+    flexDirection: 'row',
     borderWidth: 1,
     borderColor: theme.colors.Red700,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textStyle: {
+  textStyle: ({ color }) => ({
     fontFamily: 'Roboto_700Bold',
-    color: theme.colors.white,
+    color: color || theme.colors.white,
     fontSize: { xs: 16, sm: 18, md: 20, lg: 22, xl: 24 },
     opacity: 1,
-  },
+  }),
   shadow: {
     shadowColor: theme.colors.black,
     shadowOffset: {
