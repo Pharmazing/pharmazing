@@ -1,11 +1,17 @@
 import { useStyles } from 'react-native-unistyles';
 import { Image } from 'react-native';
-import { Typography, Box } from '../../atoms';
+import { Typography, Box, Button, ButtonVariantEnum } from '../../atoms';
 import { productCardStyles } from './ProductCard.styles';
 import { ProductCardProps } from './ProductCard.types';
 import { LinearGradient } from 'expo-linear-gradient';
+// import { Button } from 'native-base';
 
-export const ProductCard = ({ productName, media }: ProductCardProps) => {
+export const ProductCard = ({
+  productName,
+  media,
+  productDescription,
+  ...rest
+}: ProductCardProps) => {
   const { styles, theme } = useStyles(productCardStyles);
   return (
     <Box style={styles.container}>
@@ -27,9 +33,50 @@ export const ProductCard = ({ productName, media }: ProductCardProps) => {
         </LinearGradient>
       </Box>
       <Box style={styles.contentContainer}>
-        <Typography weight="500" size="lg">
-          {productName}
-        </Typography>
+        <Box style={{ width: '100%' }}>
+          <Typography weight="500" size="lg">
+            {productName}
+          </Typography>
+          <Typography style={{ opacity: 0.5 }} size="md">
+            {'24 capsules'}
+          </Typography>
+        </Box>
+        <Box style={{ width: '100%', gap: theme.size.layout.md }}>
+          <Typography
+            style={{ opacity: 0.5, flexWrap: 'wrap', flex: 1, width: '90%' }}
+            numberOfLines={2}
+          >
+            {
+              'The quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog'
+            }
+          </Typography>
+          <Box
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Typography weight="500" size="lg">
+              {'$240.99'}
+            </Typography>
+            <Button
+              renderIcon
+              style={{
+                margin: 0,
+                width: 128,
+                height: 40,
+                backgroundColor: theme.colors.Gray200,
+                borderColor: 'white',
+                gap: theme.size.layout.sm,
+              }}
+              btnVariant={ButtonVariantEnum.DANGER}
+              title="Add to Cart"
+              textColor={theme.colors.Blue900}
+              onPress={() => {}}
+            />
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
