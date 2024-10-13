@@ -2,7 +2,7 @@ import { useStyles } from 'react-native-unistyles';
 import { Box, Icon, ScrollBox, SearchBar, Typography } from '../../atoms';
 import { vendorPageStyles } from './VendorPages.styles';
 import { useState } from 'react';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { TouchableOpacity, Image } from 'react-native';
 import { useDimensions } from '../../../utils';
 import { Tabs } from '../../molecules';
@@ -11,6 +11,7 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
   const { styles, theme } = useStyles(vendorPageStyles);
   const [search, setSearch] = useState<string>('');
   const { dimensions } = useDimensions();
+  const { vendorName } = useLocalSearchParams();
 
   // get the vendor from gql
   return (
@@ -38,12 +39,14 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
               }}
             >
               <Icon
-                height={36}
-                width={36}
+                height={32}
+                width={32}
                 name="ChevronRightIcon"
-                transform={'rotate(180 12 12)'}
+                transform={'rotate(180)'}
               />
-              <Typography>{`[Vendor Name]`}</Typography>
+              <Typography size="xl">
+                {vendorName || '{{Vendor Name}}'}
+              </Typography>
             </TouchableOpacity>
             <Box style={styles.imageContainer}>
               <Image

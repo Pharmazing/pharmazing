@@ -46,8 +46,6 @@ export default function Page() {
       <Box style={{ flex: 1 }}>
         <Stack.Screen
           options={{
-            headerTitle: `Details for ${vendorId}`,
-            headerBackTitle: 'Home',
             contentStyle: {
               backgroundColor: '#FAFAFA',
               gap: 40,

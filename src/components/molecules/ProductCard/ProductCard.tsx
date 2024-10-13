@@ -22,7 +22,7 @@ export const ProductCard = ({ productName, media }: ProductCardProps) => {
         >
           <Image
             style={styles.image}
-            source={{ uri: media?.[0]?.url || 'https://picsum.photos/500/500' }}
+            source={{ uri: media?.[0]?.url || 'https://picsum.photos/800/800' }}
           />
         </LinearGradient>
       </Box>

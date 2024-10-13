@@ -9,5 +9,5 @@ export type VendorListProps = {
 
 export type VendorCardProps = {
   vendor: VendorType;
-  onPress: (vendorId: string) => void;
+  onPress: (vendor: VendorType) => void;
 };
