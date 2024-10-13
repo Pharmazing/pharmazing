@@ -9,7 +9,7 @@ export const tabsStyles = createStyleSheet((theme) => ({
     borderRadius: theme.size.layout.xl,
     // flex: 1,
     height: 36,
-    width: '70%',
+    width: '80%',
     alignSelf: 'center',
     // opacity:0.5,
     // borderWidth: 1,
