@@ -110,7 +110,12 @@ export const Tabs = ({ renderHeader }: Partial<CollapsibleProps>) => {
       {routes.map((route, i) => {
         return (
           <TabView.Tab name={route.title}>
-            <TabView.ScrollView>{route.component()}</TabView.ScrollView>
+            <TabView.ScrollView
+              showsVerticalScrollIndicator={false}
+              persistentScrollbar={false}
+            >
+              {route.component()}
+            </TabView.ScrollView>
           </TabView.Tab>
         );
       })}
