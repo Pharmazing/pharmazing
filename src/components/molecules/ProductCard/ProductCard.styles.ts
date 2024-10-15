@@ -2,7 +2,7 @@ import { createStyleSheet } from 'react-native-unistyles';
 
 export const productCardStyles = createStyleSheet((theme) => ({
   container: {
-    minHeight: 128,
+    minHeight: 156,
     width: '100%',
     flexGrow: 1,
     // borderWidth: 1,
@@ -20,9 +20,8 @@ export const productCardStyles = createStyleSheet((theme) => ({
   },
   imageContainer: {
     display: 'flex',
-
-    width: '40%',
-    height: 128,
+    width: { xs: 128 },
+    height: { xs: 128, sm: 256 },
     borderRadius: theme.size.layout.lg,
     backgroundColor: theme.colors.Gray200,
     alignSelf: 'center',

@@ -6,14 +6,15 @@ import { ButtonProps } from './Button.types';
 import { buttonStyles } from './Button.styles';
 
 import { TouchableOpacity } from 'react-native';
-import { Icon } from '../Icon';
 
 export const Button = ({
   btnVariant,
   title,
   style,
+  icon,
   textColor = 'white',
-  renderIcon = false,
+  shadowRadius,
+  renderShadow = true,
   ...rest
 }: ButtonProps) => {
   const { styles } = useStyles(buttonStyles);
@@ -24,12 +25,10 @@ export const Button = ({
       return <TouchableOpacity {...rest}>{title}</TouchableOpacity>;
     case 'danger':
       return (
-        <DropShadow style={styles.shadow}>
+        <DropShadow style={styles.shadow({ shadowRadius, renderShadow })}>
           <TouchableOpacity style={[styles.danger, style]} {...rest}>
             <Text style={styles.textStyle({ color: textColor })}>{title}</Text>
-            {renderIcon && (
-              <Icon name="CartIcon" color={textColor} height={20} width={20} />
-            )}
+            {icon}
           </TouchableOpacity>
         </DropShadow>
       );
