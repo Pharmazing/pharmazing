@@ -1,4 +1,7 @@
 import { TouchableOpacityProps } from 'react-native';
+import { IconProps } from '../Icon/Icons.types';
+// import { Icon } from '../Icon';
+import { ReactElement } from 'react';
 export enum ButtonVariantEnum {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
@@ -10,4 +13,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   title: string;
   textColor?: string;
   renderIcon?: boolean;
+  icon?: ReactElement<IconProps>;
+  shadowRadius?: number;
+  renderShadow?: boolean;
 }

@@ -1,6 +1,6 @@
 import { useStyles } from 'react-native-unistyles';
 import { Image } from 'react-native';
-import { Typography, Box, Button, ButtonVariantEnum } from '../../atoms';
+import { Typography, Box, Button, ButtonVariantEnum, Icon } from '../../atoms';
 import { productCardStyles } from './ProductCard.styles';
 import { ProductCardProps } from './ProductCard.types';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -61,18 +61,29 @@ export const ProductCard = ({
               {'$240.99'}
             </Typography>
             <Button
-              renderIcon
+              icon={
+                <Icon
+                  name="PlusIcon"
+                  color={theme.colors.Green100}
+                  height={16}
+                  width={16}
+                />
+              }
               style={{
                 margin: 0,
                 width: 128,
-                height: 40,
-                backgroundColor: theme.colors.Gray200,
+                height: 36,
+                backgroundColor: theme.colors.Green500,
                 borderColor: 'white',
                 gap: theme.size.layout.sm,
+                borderWidth: 0,
+                opacity: 1,
               }}
+              shadowRadius={0}
+              renderShadow={false}
               btnVariant={ButtonVariantEnum.DANGER}
               title="Add to Cart"
-              textColor={theme.colors.Blue900}
+              textColor={theme.colors.Green100}
               onPress={() => {}}
             />
           </Box>

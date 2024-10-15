@@ -19,21 +19,32 @@ export const buttonStyles = createStyleSheet((theme) => ({
     borderColor: theme.colors.Red700,
     justifyContent: 'center',
     alignItems: 'center',
+    // padding: 0,
   },
   textStyle: ({ color }) => ({
     fontFamily: 'Roboto_700Bold',
     color: color || theme.colors.white,
     fontSize: { xs: 16, sm: 18, md: 20, lg: 22, xl: 24 },
     opacity: 1,
+    // borderWidth: 1
   }),
-  shadow: {
-    shadowColor: theme.colors.black,
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.35,
-    shadowRadius: 8,
-    // elevation: 5,
-  },
+  shadow: ({
+    shadowRadius,
+    renderShadow,
+  }: {
+    shadowRadius?: number;
+    renderShadow?: boolean;
+  }) =>
+    !renderShadow
+      ? {}
+      : {
+          shadowColor: theme.colors.black,
+          shadowOffset: {
+            width: 2,
+            height: 2,
+          },
+          shadowOpacity: 0.35,
+          shadowRadius: shadowRadius ?? 8,
+          // elevation: 5,
+        },
 }));

@@ -10,7 +10,7 @@ const isProd = process.env.EXPO_PUBLIC_ENV === 'production';
 const httpLink = new HttpLink({
   uri:
     isAndroid && !isProd
-      ? 'http://10.0.0.123:4000/graphql'
+      ? 'http://10.0.0.44:4000/graphql'
       : process.env.EXPO_PUBLIC_API_URL,
   credentials: 'same-origin',
 });
