@@ -9,7 +9,14 @@ export default function Layout() {
         contentStyle: { backgroundColor: theme.colors.tabsContentBg },
       }}
     >
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="index"
+        options={{
+          headerTitle: 'Settings',
+          headerStyle: { backgroundColor: theme.colors.Green400 },
+          headerLargeTitle: true,
+        }}
+      />
       <Stack.Screen
         name="prescriptions"
         options={{ headerBackTitle: 'Settings' }}

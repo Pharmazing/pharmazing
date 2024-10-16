@@ -76,6 +76,7 @@ export default function Layout() {
                 tabBarIcon: ({ color }) => (
                   <Icon name="ActivityIcon" color={color} />
                 ),
+                headerStyle: { backgroundColor: theme.colors.Blue400 },
               }}
             />
             <Tabs.Screen
@@ -85,6 +86,7 @@ export default function Layout() {
                 tabBarIcon: ({ color }) => (
                   <Icon name="CartIcon" color={color} height={30} width={30} />
                 ),
+                headerStyle: { backgroundColor: theme.colors.Green400 },
               }}
             />
             <Tabs.Screen
@@ -94,6 +96,7 @@ export default function Layout() {
                 tabBarIcon: ({ color }) => (
                   <Icon name="SettingsIcon" color={color} />
                 ),
+                headerShown: false,
               }}
             />
             <Tabs.Screen

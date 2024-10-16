@@ -1,33 +1,60 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { useStyles } from 'react-native-unistyles';
 import DropShadow from 'react-native-drop-shadow';
 import { ButtonProps } from './Button.types';
 import { buttonStyles } from './Button.styles';
-
 import { TouchableOpacity } from 'react-native';
+import { Typography } from '../Typography';
 
 export const Button = ({
   btnVariant,
   title,
   style,
   icon,
-  textColor = 'white',
+  textStyle,
   shadowRadius,
   renderShadow = true,
   ...rest
 }: ButtonProps) => {
-  const { styles } = useStyles(buttonStyles);
+  const { styles, theme } = useStyles(buttonStyles);
+
   switch (btnVariant) {
     case 'primary':
-      return <TouchableOpacity {...rest}>{title}</TouchableOpacity>;
+      return (
+        <DropShadow style={styles.shadow({ shadowRadius, renderShadow })}>
+          <TouchableOpacity style={[styles.primary, style]} {...rest}>
+            <Typography size="md" style={[styles.textStyle, textStyle]}>
+              {title}
+            </Typography>
+            {icon}
+          </TouchableOpacity>
+        </DropShadow>
+      );
     case 'secondary':
-      return <TouchableOpacity {...rest}>{title}</TouchableOpacity>;
+      return (
+        <DropShadow style={styles.shadow({ shadowRadius, renderShadow })}>
+          <TouchableOpacity style={[styles.secondary, style]} {...rest}>
+            <Typography
+              size="md"
+              style={[
+                styles.textStyle,
+                { color: theme.colors.Green700 },
+                textStyle,
+              ]}
+            >
+              {title}
+            </Typography>
+            {icon}
+          </TouchableOpacity>
+        </DropShadow>
+      );
     case 'danger':
       return (
         <DropShadow style={styles.shadow({ shadowRadius, renderShadow })}>
           <TouchableOpacity style={[styles.danger, style]} {...rest}>
-            <Text style={styles.textStyle({ color: textColor })}>{title}</Text>
+            <Typography size="md" style={[styles.textStyle, textStyle]}>
+              {title}
+            </Typography>
             {icon}
           </TouchableOpacity>
         </DropShadow>
