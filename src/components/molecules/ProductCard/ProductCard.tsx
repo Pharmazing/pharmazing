@@ -9,6 +9,7 @@ export const ProductCard = ({
   productName,
   media,
   productDescription,
+  productPrice,
   ...rest
 }: ProductCardProps) => {
   const { styles, theme } = useStyles(productCardStyles);
@@ -57,7 +58,7 @@ export const ProductCard = ({
             }}
           >
             <Typography weight="500" size="lg">
-              {'$240.99'}
+              {`$${productPrice?.toFixed(2)}`}
             </Typography>
             <Button
               icon={
