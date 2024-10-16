@@ -4,7 +4,6 @@ import { Typography, Box, Button, ButtonVariantEnum, Icon } from '../../atoms';
 import { productCardStyles } from './ProductCard.styles';
 import { ProductCardProps } from './ProductCard.types';
 import { LinearGradient } from 'expo-linear-gradient';
-// import { Button } from 'native-base';
 
 export const ProductCard = ({
   productName,
@@ -64,7 +63,7 @@ export const ProductCard = ({
               icon={
                 <Icon
                   name="PlusIcon"
-                  color={theme.colors.Green100}
+                  color={theme.colors.white}
                   height={16}
                   width={16}
                 />
@@ -72,18 +71,13 @@ export const ProductCard = ({
               style={{
                 margin: 0,
                 width: 128,
-                height: 36,
-                backgroundColor: theme.colors.Green500,
-                borderColor: 'white',
+                height: 32,
                 gap: theme.size.layout.sm,
-                borderWidth: 0,
-                opacity: 1,
               }}
               shadowRadius={0}
               renderShadow={false}
-              btnVariant={ButtonVariantEnum.DANGER}
+              btnVariant={ButtonVariantEnum.PRIMARY}
               title="Add to Cart"
-              textColor={theme.colors.Green100}
               onPress={() => {}}
             />
           </Box>

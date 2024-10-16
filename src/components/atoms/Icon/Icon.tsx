@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactElement } from 'react';
-import { IconProps } from './Icons.types';
+import { IconNamesType, IconProps } from './Icons.types';
 import * as Icons from '../icons';
 import { useStyles } from 'react-native-unistyles';
 
@@ -11,7 +11,7 @@ export const Icon: FunctionComponent<IconProps> = ({
   width,
   ...rest
 }: IconProps): ReactElement<IconProps> => {
-  const Component = Icons[name];
+  const Component = Icons[name as unknown as IconNamesType];
   const { theme } = useStyles();
   color = color || theme.colors.icon.default;
   height = height || theme.size.icon.md;

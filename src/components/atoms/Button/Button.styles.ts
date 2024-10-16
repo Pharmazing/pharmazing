@@ -2,32 +2,42 @@ import { createStyleSheet } from 'react-native-unistyles';
 
 export const buttonStyles = createStyleSheet((theme) => ({
   primary: {
-    borderColor: 'green',
-    borderWidth: 1,
-  },
-  secondary: { borderColor: 'blue', borderWidth: 1 },
-  danger: {
     borderRadius: 24,
-    backgroundColor: theme.colors.Red700,
-    opacity: 0.64,
+    backgroundColor: theme.colors.Green500,
     height: 48,
     margin: 16,
     width: { xs: 200, sm: 220, md: 240, lg: 260, xl: 280 },
     display: 'flex',
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: theme.colors.Red700,
     justifyContent: 'center',
     alignItems: 'center',
-    // padding: 0,
   },
-  textStyle: ({ color }) => ({
+  secondary: {
+    borderRadius: 24,
+    backgroundColor: `${theme.colors.Green500}70`,
+    height: 48,
+    margin: 16,
+    width: { xs: 200, sm: 220, md: 240, lg: 260, xl: 280 },
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  danger: {
+    borderRadius: 24,
+    backgroundColor: theme.colors.Red700,
+    height: 48,
+    margin: 16,
+    width: { xs: 200, sm: 220, md: 240, lg: 260, xl: 280 },
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textStyle: {
     fontFamily: 'Roboto_700Bold',
-    color: color || theme.colors.white,
-    fontSize: { xs: 16, sm: 18, md: 20, lg: 22, xl: 24 },
-    opacity: 1,
-    // borderWidth: 1
-  }),
+    color: theme.colors.white,
+  },
   shadow: ({
     shadowRadius,
     renderShadow,

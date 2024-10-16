@@ -2,11 +2,15 @@ import React, { useMemo } from 'react';
 import { useSession, useUser } from '../../../utils/context';
 import { Button, ButtonVariantEnum, ScrollBox } from '../../atoms';
 import { SettingsBox } from '../../molecules';
+import * as Constants from 'expo-constants';
+import { useHeaderHeight } from '@react-navigation/elements';
+import { isAndroid } from '../../../utils';
 
 export function SettingsMobile() {
   const { signOut } = useSession();
   const { user } = useUser();
   const userId = useMemo(() => user?.userId || '', [user]);
+  const height = useHeaderHeight();
   return (
     <ScrollBox
       contentContainerStyle={{
@@ -14,6 +18,8 @@ export function SettingsMobile() {
         alignItems: 'center',
         padding: 16,
         flexGrow: 1,
+        // borderWidth: 1,
+        marginTop: isAndroid ? 0 : height + Constants.default.statusBarHeight,
       }}
     >
       {

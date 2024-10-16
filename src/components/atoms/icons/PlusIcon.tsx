@@ -12,10 +12,10 @@ export const PlusIcon = ({ color, width, height, ...rest }: SvgProps) => {
       <Path
         d="M5 9L5 1"
         stroke={color}
-        stroke-width="6"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
-      <Path d="M1 5H9" stroke={color} stroke-width="6" stroke-linecap="round" />
+      <Path d="M1 5H9" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
     </Svg>
   );
 };
