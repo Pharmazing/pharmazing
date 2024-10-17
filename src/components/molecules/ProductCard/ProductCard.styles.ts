@@ -16,8 +16,8 @@ export const productCardStyles = createStyleSheet((theme) => ({
   },
   imageContainer: {
     display: 'flex',
-    width: { xs: 128 },
-    height: { xs: 128, sm: 256 },
+    width: { xs: 128, md: 256 },
+    height: { xs: 128, md: 256 },
     borderRadius: theme.size.layout.lg + 4,
     backgroundColor: theme.colors.Gray200,
     alignSelf: 'center',
@@ -27,7 +27,7 @@ export const productCardStyles = createStyleSheet((theme) => ({
 
     gap: theme.size.layout.xs,
     justifyContent: 'space-between',
-    width: '60%',
+    width: { xs: '60%', md: '70%' },
   },
   shadow: {
     shadowColor: theme.colors.black,

@@ -24,7 +24,7 @@ export function SettingsMobile() {
     >
       {
         <SettingsBox
-          title="Profile"
+          // title="Profile"
           settingLinks={[
             {
               content: 'Personal Info',
@@ -51,6 +51,7 @@ export function SettingsMobile() {
         btnVariant={ButtonVariantEnum.DANGER}
         title={'Logout'}
         onPress={signOut}
+        activeOpacity={0.6}
       />
     </ScrollBox>
   );
