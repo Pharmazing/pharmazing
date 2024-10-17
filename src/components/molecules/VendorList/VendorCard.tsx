@@ -1,4 +1,4 @@
-import { TouchableHighlight, Image } from 'react-native';
+import { TouchableHighlight, Image, TouchableOpacity } from 'react-native';
 import { Box, Typography } from '../../atoms';
 import { VendorCardProps } from './VendorList.types';
 import { useStyles } from 'react-native-unistyles';
@@ -42,7 +42,8 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
         colors={[theme.colors.Blue500, theme.colors.Green500]}
         style={styles.vendorCardContainer}
       >
-        <TouchableHighlight
+        <TouchableOpacity
+          activeOpacity={0.8}
           style={styles.vendorCardButton}
           onPress={() => vendorId && onPress(vendor)}
         >
@@ -96,7 +97,7 @@ export const VendorCard = ({ vendor, onPress }: VendorCardProps) => {
               </Box>
             </Box>
           </>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </LinearGradient>
     </DropShadow>
   );

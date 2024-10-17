@@ -6,3 +6,4 @@ export * from './Addresses';
 export * from './PersonalInfo';
 export * from './SetLocation';
 export * from './EditAddress';
+export * from './ProductDetailPage';
