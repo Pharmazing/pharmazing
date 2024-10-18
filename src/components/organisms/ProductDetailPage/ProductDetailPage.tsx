@@ -26,7 +26,7 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
           name="ChevronRightIcon"
           height={48}
           width={48}
-          transform={'rotate(180)'}
+          transform={'rotate(180 12 12)'}
         />
       </Box>
       <Image
