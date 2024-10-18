@@ -14,13 +14,15 @@ export const productDetailPageStyles = createStyleSheet((theme) => ({
   bottomSheet: {
     display: 'flex',
     width: '100%',
-    height: '40%',
+    maxHeight: '65%',
+    gap: theme.size.layout.lg,
+    justifyContent: 'space-between',
     bottom: 0,
     borderTopLeftRadius: theme.size.layout.lg + 4,
     borderTopRightRadius: theme.size.layout.lg + 4,
     position: 'absolute',
     zIndex: 3,
-    backgroundColor: theme.colors.Gray200,
+    backgroundColor: theme.colors.Gray100,
     padding: theme.size.layout.lg,
   },
   imageContainer: {
