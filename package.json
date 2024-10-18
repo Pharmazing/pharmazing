@@ -50,6 +50,7 @@
     "react-hook-form": "^7.52.1",
     "react-native": "0.74.1",
     "react-native-alert-async": "^1.0.5",
+    "react-native-animated-numbers": "^0.6.2",
     "react-native-collapsible-tab-view": "^8.0.0",
     "react-native-drop-shadow": "^1.0.0",
     "react-native-gesture-handler": "~2.16.1",

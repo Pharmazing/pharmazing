@@ -9680,6 +9680,11 @@ react-native-alert-async@^1.0.5:
   resolved "https://registry.yarnpkg.com/react-native-alert-async/-/react-native-alert-async-1.0.5.tgz#f67e3d1f6c877cce8e8cd74cef3d596713f0fdb4"
   integrity sha512-HeG0zdjtlANl8KkF9AhqgkaEooXip44Fb01dmCnYSYMm6PoRdcV4aIy6l/yAOQmArrl8LTP58APSiuZXBMCbwQ==
 
+react-native-animated-numbers@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-animated-numbers/-/react-native-animated-numbers-0.6.2.tgz#a9620b9b40e215288c938745533e7a0a0b5bce6c"
+  integrity sha512-Rf00f9MUVZBLd5tUWAlF9GTTEdOTZfdxNFZgom4OInf5HpSWY2Vg+vZli+Vf7ubMkbhKfSSL98kYKKKAcfbiSQ==
+
 react-native-collapsible-tab-view@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/react-native-collapsible-tab-view/-/react-native-collapsible-tab-view-8.0.0.tgz#b308e5cf6b94ae57099196b50a87f2d63c894a13"

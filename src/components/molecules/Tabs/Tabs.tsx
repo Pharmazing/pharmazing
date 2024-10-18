@@ -29,12 +29,24 @@ export const Tabs = ({ renderHeader }: Partial<CollapsibleProps>) => {
     {
       key: 'reviews',
       title: 'Reviews',
-      component: () => <Typography>Reviews</Typography>,
+      component: () => (
+        <Box style={{ flex: 1, alignItems: 'center' }}>
+          <Typography size="lg" weight="500" style={{ opacity: 0.76 }}>
+            No Reviews Yet
+          </Typography>
+        </Box>
+      ),
     },
     {
       key: 'info',
       title: 'Info',
-      component: () => <Typography>Info</Typography>,
+      component: () => (
+        <Box style={{ flex: 1, alignItems: 'center' }}>
+          <Typography size="lg" weight="500" style={{ opacity: 0.76 }}>
+            No Info Yet
+          </Typography>
+        </Box>
+      ),
     },
   ];
   const ref = useRef<CollapsibleRef>(null);
