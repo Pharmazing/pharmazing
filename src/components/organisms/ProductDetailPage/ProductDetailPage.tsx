@@ -1,22 +1,36 @@
 import { useStyles } from 'react-native-unistyles';
-import { Box, ButtonVariantEnum, Icon, Typography, Button } from '../../atoms';
+import {
+  Box,
+  ButtonVariantEnum,
+  Icon,
+  Typography,
+  Button,
+  LoadingIndicator,
+} from '../../atoms';
 import { ProductDetailPageProps } from './ProductDetailPage.types';
 import { productDetailPageStyles } from './ProductDetailPage.styles';
 import { router } from 'expo-router';
 import { Image } from 'react-native';
 import { useState } from 'react';
 import AnimatedNumber from 'react-native-animated-numbers';
+import { useGetProductQuery } from '../../../generated/graphql';
+import { useToast } from '../../../utils/hooks/useToast';
 
 export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
   const { styles, theme } = useStyles(productDetailPageStyles);
-
+  const { data, loading } = useGetProductQuery({
+    onError: () => {
+      showToast({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Failed to get product',
+      });
+      router.back();
+    },
+    variables: { product: { productId } },
+  });
   const [count, setCount] = useState(0);
-
-  // const ItemCounter = () => {
-  //   return (
-
-  //   )
-  // };
+  const { showToast } = useToast();
 
   return (
     <Box style={styles.container}>
@@ -36,15 +50,14 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
       <Box style={styles.bottomSheet}>
         <Box style={{ gap: theme.size.layout.xs }}>
           <Typography size="xxl" weight="500">
-            Lorem ipsum dolor sit amet jdbskfbejkfb
+            {data?.getProduct?.productName}
           </Typography>
           <Typography style={{ opacity: 0.6 }} size="md">
-            24 capsules
+            {data?.getProduct?.productCategory}
           </Typography>
         </Box>
         <Typography numberOfLines={4} size="lg">
-          Lorem ipsum dolor sit, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua
+          {data?.getProduct?.productDescription}
         </Typography>
         <Box
           style={{
@@ -54,7 +67,7 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
           }}
         >
           <Typography size="xl" weight="500">
-            $24.99
+            {`$${data?.getProduct?.productPrice}`}
           </Typography>
           <Box
             style={{
@@ -93,6 +106,7 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
           btnVariant={ButtonVariantEnum.PRIMARY}
         />
       </Box>
+      <LoadingIndicator loading={loading} />
     </Box>
   );
 };

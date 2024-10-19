@@ -31,6 +31,7 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { core } from '../src/utils/unistyles/core';
 
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
@@ -106,6 +107,8 @@ function RootLayout() {
                     options={{
                       headerBackTitle: 'Settings',
                       headerTitle: 'Addresses',
+                      headerStyle: { backgroundColor: core.colors.Green500 },
+                      // headerBackTitleStyle: {color: core.colors.White},
                     }}
                   />
                 </Stack>
