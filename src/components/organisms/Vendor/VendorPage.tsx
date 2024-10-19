@@ -1,22 +1,35 @@
 import { useStyles } from 'react-native-unistyles';
-import { Box, Icon, ScrollBox, SearchBar, Typography } from '../../atoms';
+import {
+  Box,
+  Icon,
+  LoadingIndicator,
+  ScrollBox,
+  SearchBar,
+  Typography,
+} from '../../atoms';
 import { vendorPageStyles } from './VendorPages.styles';
 import { useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { TouchableOpacity, Image } from 'react-native';
 import { useDimensions } from '../../../utils';
 import { Tabs } from '../../molecules';
+import { useGetProductsQuery } from '../../../generated/graphql';
+import { ProductCardProps } from '../../molecules/ProductCard';
 
 export const VendorPage = ({ vendorId }: { vendorId: string }) => {
   const { styles, theme } = useStyles(vendorPageStyles);
   const [search, setSearch] = useState<string>('');
   const { dimensions } = useDimensions();
   const { vendorName } = useLocalSearchParams();
-
+  const { data, loading, error } = useGetProductsQuery({
+    variables: { vendor: { vendorId } },
+  });
+  const cards = data?.getAllProducts || [];
   // get the vendor from gql
   return (
     <ScrollBox contentContainerStyle={styles.container}>
       <Tabs
+        cards={cards as ProductCardProps[]}
         renderHeader={() => (
           <Box style={{ gap: theme.size.layout.md }}>
             <Box style={{ padding: theme.size.layout.lg, paddingBottom: 0 }}>
@@ -42,7 +55,7 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
                 height={32}
                 width={32}
                 name="ChevronRightIcon"
-                transform={'rotate(180)'}
+                transform={'rotate(180 12 12)'}
               />
               <Typography size="xl">
                 {vendorName || '{{Vendor Name}}'}
@@ -60,6 +73,7 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
           </Box>
         )}
       />
+      <LoadingIndicator loading={loading} />
     </ScrollBox>
   );
 };

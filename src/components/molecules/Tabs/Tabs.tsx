@@ -1,6 +1,5 @@
 import {
   Tabs as TabView,
-  CollapsibleProps,
   TabBarProps,
   CollapsibleRef,
 } from 'react-native-collapsible-tab-view';
@@ -12,14 +11,15 @@ import { useStyles } from 'react-native-unistyles';
 import { tabsStyles } from './Tabs.styles';
 import { useDimensions } from '../../../utils';
 import { ProductList } from '../../molecules';
-import { ProductCardProps } from '../ProductCard';
+import { TabsProps } from './Tabs.types';
 
 //refactor this so its modular
 
-export const Tabs = ({ renderHeader }: Partial<CollapsibleProps>) => {
+export const Tabs = ({ renderHeader, cards }: TabsProps) => {
   const { styles } = useStyles(tabsStyles);
   const { dimensions } = useDimensions();
   const [index, setIndex] = useState(0);
+  // const {}
   const routes = [
     {
       key: 'catalog',
@@ -100,16 +100,17 @@ export const Tabs = ({ renderHeader }: Partial<CollapsibleProps>) => {
     );
   };
 
-  const cards: ProductCardProps[] = Array.from({ length: 20 }).map((_, i) => ({
-    vendorId: '1',
-    productId: i.toString(),
-    productName: 'Product Name',
-    productCategory: 'Category',
-    productPrice: 100,
-    productDescription: 'Product Description',
-    media: [],
-    prescriptionRequired: false,
-  }));
+  // const
+  // const mockCards: ProductCardProps[] = Array.from({ length: 20 }).map((_, i) => ({
+  //   vendorId: '1',
+  //   productId: i.toString(),
+  //   productName: 'Product Name',
+  //   productCategory: 'Category',
+  //   productPrice: 100,
+  //   productDescription: 'Product Description',
+  //   media: [],
+  //   prescriptionRequired: false,
+  // }));
 
   return (
     <TabView.Container

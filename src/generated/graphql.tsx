@@ -167,6 +167,10 @@ export type GetAllProductsInput = {
   vendorId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type GetProductInput = {
+  productId: Scalars['String']['input'];
+};
+
 export type Hours = {
   __typename?: 'Hours';
   close?: Maybe<Scalars['String']['output']>;
@@ -265,12 +269,17 @@ export type Query = {
   getAllProducts?: Maybe<Array<Maybe<Product>>>;
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getAllVendors?: Maybe<Array<Maybe<Vendor>>>;
+  getProduct?: Maybe<Product>;
   getUserAddress?: Maybe<Array<Address>>;
   signIn?: Maybe<User>;
 };
 
 export type QueryGetAllProductsArgs = {
   vendor?: InputMaybe<GetAllProductsInput>;
+};
+
+export type QueryGetProductArgs = {
+  product?: InputMaybe<GetProductInput>;
 };
 
 export type QueryGetUserAddressArgs = {
@@ -539,6 +548,24 @@ export type GetAllVendorsQuery = {
       latitude?: number | null;
     } | null;
   } | null> | null;
+};
+
+export type GetProductQueryVariables = Exact<{
+  product?: InputMaybe<GetProductInput>;
+}>;
+
+export type GetProductQuery = {
+  __typename?: 'Query';
+  getProduct?: {
+    __typename?: 'Product';
+    productId?: string | null;
+    productName?: string | null;
+    vendorId?: string | null;
+    productPrice?: number | null;
+    productDescription?: string | null;
+    productCategory?: string | null;
+    prescriptionRequired?: boolean | null;
+  } | null;
 };
 
 export type GetProductsQueryVariables = Exact<{
@@ -969,12 +996,14 @@ export function useSignInLazyQuery(
   );
 }
 export function useSignInSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    SignInQuery,
-    SignInQueryVariables
-  >
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<SignInQuery, SignInQueryVariables>
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<SignInQuery, SignInQueryVariables>(
     SignInDocument,
     options
@@ -1056,12 +1085,17 @@ export function useGetAllUsersLazyQuery(
   );
 }
 export function useGetAllUsersSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetAllUsersQuery,
-    GetAllUsersQueryVariables
-  >
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetAllUsersQuery,
+        GetAllUsersQueryVariables
+      >
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
     GetAllUsersDocument,
     options
@@ -1140,12 +1174,14 @@ export function useGetAddressLazyQuery(
   );
 }
 export function useGetAddressSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetAddressQuery,
-    GetAddressQueryVariables
-  >
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetAddressQuery, GetAddressQueryVariables>
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<GetAddressQuery, GetAddressQueryVariables>(
     GetAddressDocument,
     options
@@ -1234,12 +1270,17 @@ export function useGetAllVendorsLazyQuery(
   );
 }
 export function useGetAllVendorsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetAllVendorsQuery,
-    GetAllVendorsQueryVariables
-  >
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetAllVendorsQuery,
+        GetAllVendorsQueryVariables
+      >
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<
     GetAllVendorsQuery,
     GetAllVendorsQueryVariables
@@ -1257,6 +1298,85 @@ export type GetAllVendorsSuspenseQueryHookResult = ReturnType<
 export type GetAllVendorsQueryResult = Apollo.QueryResult<
   GetAllVendorsQuery,
   GetAllVendorsQueryVariables
+>;
+export const GetProductDocument = gql`
+  query GetProduct($product: GetProductInput) {
+    getProduct(product: $product) {
+      productId
+      productName
+      vendorId
+      productPrice
+      productDescription
+      productCategory
+      prescriptionRequired
+    }
+  }
+`;
+
+/**
+ * __useGetProductQuery__
+ *
+ * To run a query within a React component, call `useGetProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductQuery({
+ *   variables: {
+ *      product: // value for 'product'
+ *   },
+ * });
+ */
+export function useGetProductQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetProductQuery,
+    GetProductQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetProductQuery, GetProductQueryVariables>(
+    GetProductDocument,
+    options
+  );
+}
+export function useGetProductLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetProductQuery,
+    GetProductQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetProductQuery, GetProductQueryVariables>(
+    GetProductDocument,
+    options
+  );
+}
+export function useGetProductSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetProductQuery, GetProductQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetProductQuery, GetProductQueryVariables>(
+    GetProductDocument,
+    options
+  );
+}
+export type GetProductQueryHookResult = ReturnType<typeof useGetProductQuery>;
+export type GetProductLazyQueryHookResult = ReturnType<
+  typeof useGetProductLazyQuery
+>;
+export type GetProductSuspenseQueryHookResult = ReturnType<
+  typeof useGetProductSuspenseQuery
+>;
+export type GetProductQueryResult = Apollo.QueryResult<
+  GetProductQuery,
+  GetProductQueryVariables
 >;
 export const GetProductsDocument = gql`
   query GetProducts($vendor: GetAllProductsInput) {
@@ -1318,12 +1438,17 @@ export function useGetProductsLazyQuery(
   );
 }
 export function useGetProductsSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<
-    GetProductsQuery,
-    GetProductsQueryVariables
-  >
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetProductsQuery,
+        GetProductsQueryVariables
+      >
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<GetProductsQuery, GetProductsQueryVariables>(
     GetProductsDocument,
     options

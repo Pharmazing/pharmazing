@@ -102,6 +102,20 @@ export const getAllVendorsQuery = gql`
   }
 `;
 
+export const getProduct = gql`
+  query GetProduct($product: GetProductInput) {
+    getProduct(product: $product) {
+      productId
+      productName
+      vendorId
+      productPrice
+      productDescription
+      productCategory
+      prescriptionRequired
+    }
+  }
+`;
+
 export const getProductsQuery = gql`
   query GetProducts($vendor: GetAllProductsInput) {
     getAllProducts(vendor: $vendor) {

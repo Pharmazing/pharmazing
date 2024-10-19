@@ -1,10 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { ScrollBox } from '../../atoms';
+
+import { ScrollBox, Typography } from '../../atoms';
 export function ActivityMobile() {
   return (
-    <ScrollBox>
-      <Text>I am the mobile activity page</Text>
+    <ScrollBox
+      contentContainerStyle={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Typography size="lg" weight="500" style={{ opacity: 0.7 }}>
+        No activity yet
+      </Typography>
     </ScrollBox>
   );
 }
