@@ -2,9 +2,10 @@ import { createStyleSheet } from 'react-native-unistyles';
 
 export const productCardStyles = createStyleSheet((theme) => ({
   container: {
-    minHeight: 156,
+    // minHeight: 156,
+    maxHeight: 256,
     width: '100%',
-    flexGrow: 1,
+    // flexGrow: 1,
     borderRadius: theme.size.layout.lg + 4,
     gap: theme.size.layout.md,
     padding: theme.size.layout.md,

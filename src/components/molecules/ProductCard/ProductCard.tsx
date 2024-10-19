@@ -57,9 +57,7 @@ export const ProductCard = ({
               style={{ opacity: 0.5, flexWrap: 'wrap', flex: 1, width: '90%' }}
               numberOfLines={2}
             >
-              {
-                'The quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog'
-              }
+              {productDescription}
             </Typography>
             <Box
               style={{
