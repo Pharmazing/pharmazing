@@ -89,3 +89,81 @@ export const deleteAddressMutation = gql`
     }
   }
 `;
+
+export const createCartMutation = gql`
+  mutation CreateCart($cart: CreateCartInput) {
+    createCart(cart: $cart) {
+      cartId
+      items {
+        productId
+        quantity
+      }
+      subtotal
+      tax
+      total
+      shippingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+      billingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+    }
+  }
+`;
+
+export const editCartMutation = gql`
+  mutation EditCart($cart: EditCartInput) {
+    editCart(cart: $cart) {
+      cartId
+      items {
+        productId
+        quantity
+      }
+      subtotal
+      tax
+      total
+      shippingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+      billingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+    }
+  }
+`;

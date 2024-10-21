@@ -6,7 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Icon } from '../../src/components/atoms';
 import { useStyles } from 'react-native-unistyles';
 import { LocationPickerHeader } from '../../src/components/molecules';
-import { useActionSheet } from '../../src/utils/hooks/useActionSheet';
+import { useActionSheet } from '../../src/utils/hooks';
 import { Actionsheet, NativeBaseProvider } from 'native-base';
 import {
   AddressType,

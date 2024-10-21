@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { VendorLayout } from '../../src/pages/Vendor';
 import { LocationPickerHeader } from '../../src/components/molecules';
-import { useActionSheet } from '../../src/utils/hooks/useActionSheet';
+import { useActionSheet } from '../../src/utils';
 import { Actionsheet, NativeBaseProvider } from 'native-base';
 import {
   useUser,

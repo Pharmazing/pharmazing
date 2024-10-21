@@ -8,7 +8,7 @@ import {
   useCreateAddressMutation,
   useDeleteAddressMutation,
 } from '../../../generated/graphql';
-import { useToast } from '../../../utils/hooks/useToast';
+import { useToast } from '../../../utils';
 import { AddressType, useUser } from '../../../utils/context';
 import { useRef } from 'react';
 import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
