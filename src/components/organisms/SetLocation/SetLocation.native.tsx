@@ -20,7 +20,7 @@ import {
   useUser,
 } from '../../../utils/context';
 import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
-import { useToast } from '../../../utils/hooks/useToast';
+import { useToast } from '../../../utils';
 
 type Location = {
   latitude: number;

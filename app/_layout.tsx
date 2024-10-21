@@ -6,6 +6,7 @@ import {
   DeliveryLocationProvider,
   SessionProvider,
   UserProvider,
+  CartProvider,
 } from '../src/utils/context';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../src/utils/api/apollo/apolloClient';
@@ -32,6 +33,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { core } from '../src/utils/unistyles/core';
+// import { CartProvider } from '../src/utils/context/useCart';
 
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
@@ -87,65 +89,67 @@ function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <UserProvider>
-        <DeliveryLocationProvider>
-          <SessionProvider>
-            <ApolloProvider client={client}>
-              {(isIOS || isAndroid) && (
-                <Stack>
-                  <Stack.Screen
-                    name="(tabs)"
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen name="signup" />
-                  <Stack.Screen
-                    name="signin2"
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="addresses"
-                    options={{
-                      headerBackTitle: 'Settings',
-                      headerTitle: 'Addresses',
-                      headerStyle: { backgroundColor: core.colors.Green500 },
-                      // headerBackTitleStyle: {color: core.colors.White},
-                    }}
-                  />
-                </Stack>
-              )}
-              {isWeb && (
-                <Stack>
-                  <Stack.Screen
-                    name="(tabs)"
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="signup"
-                    options={{
-                      headerLeft: () => (
-                        <Link href="/signin">
-                          <Text
-                            style={{
-                              fontFamily: 'RobotoRegular',
-                            }}
-                          >
-                            Back to login
-                          </Text>
-                        </Link>
-                      ),
-                    }}
-                  />
-                  <Stack.Screen
-                    name="signin"
-                    options={{ headerShown: false }}
-                  />
-                </Stack>
-              )}
-            </ApolloProvider>
-          </SessionProvider>
-          <Toast />
-        </DeliveryLocationProvider>
-      </UserProvider>
+      <ApolloProvider client={client}>
+        <UserProvider>
+          <CartProvider>
+            <DeliveryLocationProvider>
+              <SessionProvider>
+                {(isIOS || isAndroid) && (
+                  <Stack>
+                    <Stack.Screen
+                      name="(tabs)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen name="signup" />
+                    <Stack.Screen
+                      name="signin2"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="addresses"
+                      options={{
+                        headerBackTitle: 'Settings',
+                        headerTitle: 'Addresses',
+                        headerStyle: { backgroundColor: core.colors.Green500 },
+                        // headerBackTitleStyle: {color: core.colors.White},
+                      }}
+                    />
+                  </Stack>
+                )}
+                {isWeb && (
+                  <Stack>
+                    <Stack.Screen
+                      name="(tabs)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="signup"
+                      options={{
+                        headerLeft: () => (
+                          <Link href="/signin">
+                            <Text
+                              style={{
+                                fontFamily: 'RobotoRegular',
+                              }}
+                            >
+                              Back to login
+                            </Text>
+                          </Link>
+                        ),
+                      }}
+                    />
+                    <Stack.Screen
+                      name="signin"
+                      options={{ headerShown: false }}
+                    />
+                  </Stack>
+                )}
+              </SessionProvider>
+              <Toast />
+            </DeliveryLocationProvider>
+          </CartProvider>
+        </UserProvider>
+      </ApolloProvider>
     </SafeAreaProvider>
   );
 }

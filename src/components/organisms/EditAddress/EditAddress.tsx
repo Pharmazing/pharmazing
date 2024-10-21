@@ -3,7 +3,7 @@ import { LoadingIndicator, ScrollBox } from '../../atoms';
 import { EditAddressForm } from '../../molecules';
 import { EventProvider } from 'react-native-outside-press';
 import { useEditAddressMutation } from '../../../generated/graphql';
-import { useToast } from '../../../utils/hooks/useToast';
+import { useToast } from '../../../utils';
 
 export const EditAddress = () => {
   const { showToast } = useToast();

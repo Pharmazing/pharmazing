@@ -9,7 +9,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { useUser } from '../../../utils/context';
 import { useEditUserMutation } from '../../../generated/graphql';
-import { useToast } from '../../../utils/hooks/useToast';
+import { useToast } from '../../../utils';
 import { router } from 'expo-router';
 
 export function PersonalInfo() {
