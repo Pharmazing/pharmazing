@@ -14,7 +14,7 @@ import { Image } from 'react-native';
 import { useState } from 'react';
 import AnimatedNumber from 'react-native-animated-numbers';
 import { useGetProductQuery } from '../../../generated/graphql';
-import { useToast } from '../../../utils/hooks/useToast';
+import { useToast } from '../../../utils';
 
 export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
   const { styles, theme } = useStyles(productDetailPageStyles);
@@ -102,7 +102,7 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
         <Button
           style={{ width: '100%', alignSelf: 'center' }}
           activeOpacity={0.6}
-          title="Add to Cart"
+          title="Buy Now"
           btnVariant={ButtonVariantEnum.PRIMARY}
         />
       </Box>

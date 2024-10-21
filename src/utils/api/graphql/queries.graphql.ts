@@ -134,3 +134,42 @@ export const getProductsQuery = gql`
     }
   }
 `;
+
+export const getCartQuery = gql`
+  query GetCart($userId: String!) {
+    getCart(userId: $userId) {
+      cartId
+      items {
+        productId
+        quantity
+      }
+      subtotal
+      tax
+      total
+      shippingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+      billingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+    }
+  }
+`;

@@ -54,7 +54,7 @@ export const ProductCard = ({
           </Box>
           <Box style={{ width: '100%', gap: theme.size.layout.md }}>
             <Typography
-              style={{ opacity: 0.5, flexWrap: 'wrap', flex: 1, width: '90%' }}
+              style={{ opacity: 0.5, flexWrap: 'wrap', width: '100%' }}
               numberOfLines={2}
             >
               {productDescription}

@@ -21,7 +21,7 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
   const [search, setSearch] = useState<string>('');
   const { dimensions } = useDimensions();
   const { vendorName } = useLocalSearchParams();
-  const { data, loading, error } = useGetProductsQuery({
+  const { data, loading } = useGetProductsQuery({
     variables: { vendor: { vendorId } },
   });
   const cards = data?.getAllProducts || [];
