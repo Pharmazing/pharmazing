@@ -45,7 +45,6 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
   const getCart = (userId: string) => {
     // getCartTrigger({variables: {userId}});
   };
-  console.log('cart', cart);
   return (
     <CartContext.Provider value={{ getCart, cart, setCart, clearCart }}>
       {children}

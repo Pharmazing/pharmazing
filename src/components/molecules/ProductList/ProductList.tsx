@@ -6,8 +6,6 @@ import { ProductCard, ProductCardProps } from '../ProductCard';
 
 export const ProductList = ({ cards }: ProductListProps) => {
   const { styles } = useStyles(productListStyles);
-  // const { id: vendorId } = useLocalSearchParams();
-  // console.log();
   const renderCard = (card: ProductCardProps, i: number) => {
     return <ProductCard key={i} {...card} />;
   };

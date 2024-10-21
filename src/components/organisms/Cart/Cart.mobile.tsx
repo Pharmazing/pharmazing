@@ -10,8 +10,6 @@ export function CartMobile() {
   const { theme } = useStyles();
   const { cart } = useCart();
 
-  console.log('cart', cart);
-
   const productIds = cart?.items?.map((item) => item?.productId || '') || [];
 
   const { data, loading: getProductsLoading } = useGetProductsQuery({
@@ -21,8 +19,6 @@ export function CartMobile() {
     },
     variables: { vendor: { productId: productIds } },
   });
-
-  console.log('data', data);
 
   const isLoading = getProductsLoading;
 
