@@ -45,6 +45,29 @@ export type Address = {
   zip?: Maybe<Scalars['String']['output']>;
 };
 
+export type Cart = {
+  __typename?: 'Cart';
+  billingAddress?: Maybe<Address>;
+  cartId?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<CartItem>>>;
+  shippingAddress?: Maybe<Address>;
+  subtotal?: Maybe<Scalars['Float']['output']>;
+  tax?: Maybe<Scalars['Float']['output']>;
+  total?: Maybe<Scalars['Float']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type CartItem = {
+  __typename?: 'CartItem';
+  productId?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CartItemInput = {
+  productId?: InputMaybe<Scalars['String']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type CreateAddressInput = {
   addressLine1: Scalars['String']['input'];
   addressLine2?: InputMaybe<Scalars['String']['input']>;
@@ -55,6 +78,16 @@ export type CreateAddressInput = {
   parish: Scalars['String']['input'];
   primary: Scalars['Boolean']['input'];
   zip: Scalars['String']['input'];
+};
+
+export type CreateCartInput = {
+  billingAddress?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<CartItemInput>>>;
+  shippingAddress?: InputMaybe<Scalars['String']['input']>;
+  subtotal?: InputMaybe<Scalars['Float']['input']>;
+  tax?: InputMaybe<Scalars['Float']['input']>;
+  total?: InputMaybe<Scalars['Float']['input']>;
+  userId: Scalars['String']['input'];
 };
 
 export type CreateHours = {
@@ -136,6 +169,16 @@ export type EditAddressInput = {
   zip?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type EditCartInput = {
+  billingAddress?: InputMaybe<Scalars['String']['input']>;
+  cartId: Scalars['String']['input'];
+  items?: InputMaybe<Array<InputMaybe<CartItemInput>>>;
+  shippingAddress?: InputMaybe<Scalars['String']['input']>;
+  subtotal?: InputMaybe<Scalars['Float']['input']>;
+  tax?: InputMaybe<Scalars['Float']['input']>;
+  total?: InputMaybe<Scalars['Float']['input']>;
+};
+
 export type EditProductInput = {
   media?: InputMaybe<Array<InputMaybe<Array<InputMaybe<CreateMedia>>>>>;
   prescriptionRequired?: InputMaybe<Scalars['Boolean']['input']>;
@@ -164,6 +207,7 @@ export type EditVendorInput = {
 };
 
 export type GetAllProductsInput = {
+  productId?: InputMaybe<Array<Scalars['String']['input']>>;
   vendorId?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -188,6 +232,7 @@ export type Media = {
 export type Mutation = {
   __typename?: 'Mutation';
   createAddress?: Maybe<Address>;
+  createCart?: Maybe<Cart>;
   createProduct?: Maybe<Product>;
   createUser?: Maybe<User>;
   createVendor?: Maybe<Vendor>;
@@ -196,6 +241,7 @@ export type Mutation = {
   deleteUser?: Maybe<DeleteAddressResult>;
   deleteVendor?: Maybe<DeleteVendorResult>;
   editAddress?: Maybe<Address>;
+  editCart?: Maybe<Cart>;
   editProduct?: Maybe<Product>;
   editUser?: Maybe<User>;
   editVendor?: Maybe<Vendor>;
@@ -204,6 +250,10 @@ export type Mutation = {
 export type MutationCreateAddressArgs = {
   address?: InputMaybe<CreateAddressInput>;
   userId: Scalars['String']['input'];
+};
+
+export type MutationCreateCartArgs = {
+  cart?: InputMaybe<CreateCartInput>;
 };
 
 export type MutationCreateProductArgs = {
@@ -240,6 +290,10 @@ export type MutationEditAddressArgs = {
   userId: Scalars['String']['input'];
 };
 
+export type MutationEditCartArgs = {
+  cart?: InputMaybe<EditCartInput>;
+};
+
 export type MutationEditProductArgs = {
   product?: InputMaybe<EditProductInput>;
 };
@@ -269,6 +323,7 @@ export type Query = {
   getAllProducts?: Maybe<Array<Maybe<Product>>>;
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getAllVendors?: Maybe<Array<Maybe<Vendor>>>;
+  getCart?: Maybe<Cart>;
   getProduct?: Maybe<Product>;
   getUserAddress?: Maybe<Array<Address>>;
   signIn?: Maybe<User>;
@@ -276,6 +331,10 @@ export type Query = {
 
 export type QueryGetAllProductsArgs = {
   vendor?: InputMaybe<GetAllProductsInput>;
+};
+
+export type QueryGetCartArgs = {
+  userId: Scalars['String']['input'];
 };
 
 export type QueryGetProductArgs = {
@@ -427,6 +486,98 @@ export type DeleteAddressMutation = {
   deleteAddress?: {
     __typename?: 'DeleteAddressResult';
     success: boolean;
+  } | null;
+};
+
+export type CreateCartMutationVariables = Exact<{
+  cart?: InputMaybe<CreateCartInput>;
+}>;
+
+export type CreateCartMutation = {
+  __typename?: 'Mutation';
+  createCart?: {
+    __typename?: 'Cart';
+    cartId?: string | null;
+    subtotal?: number | null;
+    tax?: number | null;
+    total?: number | null;
+    items?: Array<{
+      __typename?: 'CartItem';
+      productId?: string | null;
+      quantity?: number | null;
+    } | null> | null;
+    shippingAddress?: {
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    } | null;
+    billingAddress?: {
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    } | null;
+  } | null;
+};
+
+export type EditCartMutationVariables = Exact<{
+  cart?: InputMaybe<EditCartInput>;
+}>;
+
+export type EditCartMutation = {
+  __typename?: 'Mutation';
+  editCart?: {
+    __typename?: 'Cart';
+    cartId?: string | null;
+    subtotal?: number | null;
+    tax?: number | null;
+    total?: number | null;
+    items?: Array<{
+      __typename?: 'CartItem';
+      productId?: string | null;
+      quantity?: number | null;
+    } | null> | null;
+    shippingAddress?: {
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    } | null;
+    billingAddress?: {
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    } | null;
   } | null;
 };
 
@@ -590,6 +741,52 @@ export type GetProductsQuery = {
       url?: string | null;
     } | null> | null;
   } | null> | null;
+};
+
+export type GetCartQueryVariables = Exact<{
+  userId: Scalars['String']['input'];
+}>;
+
+export type GetCartQuery = {
+  __typename?: 'Query';
+  getCart?: {
+    __typename?: 'Cart';
+    cartId?: string | null;
+    subtotal?: number | null;
+    tax?: number | null;
+    total?: number | null;
+    items?: Array<{
+      __typename?: 'CartItem';
+      productId?: string | null;
+      quantity?: number | null;
+    } | null> | null;
+    shippingAddress?: {
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    } | null;
+    billingAddress?: {
+      __typename?: 'Address';
+      addressId?: string | null;
+      addressLine1?: string | null;
+      addressLine2?: string | null;
+      city?: string | null;
+      parish?: string | null;
+      country?: string | null;
+      zip?: string | null;
+      primary?: boolean | null;
+      longitude?: number | null;
+      latitude?: number | null;
+    } | null;
+  } | null;
 };
 
 export const CreateUserDocument = gql`
@@ -933,6 +1130,165 @@ export type DeleteAddressMutationResult =
 export type DeleteAddressMutationOptions = Apollo.BaseMutationOptions<
   DeleteAddressMutation,
   DeleteAddressMutationVariables
+>;
+export const CreateCartDocument = gql`
+  mutation CreateCart($cart: CreateCartInput) {
+    createCart(cart: $cart) {
+      cartId
+      items {
+        productId
+        quantity
+      }
+      subtotal
+      tax
+      total
+      shippingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+      billingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+    }
+  }
+`;
+export type CreateCartMutationFn = Apollo.MutationFunction<
+  CreateCartMutation,
+  CreateCartMutationVariables
+>;
+
+/**
+ * __useCreateCartMutation__
+ *
+ * To run a mutation, you first call `useCreateCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCartMutation, { data, loading, error }] = useCreateCartMutation({
+ *   variables: {
+ *      cart: // value for 'cart'
+ *   },
+ * });
+ */
+export function useCreateCartMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateCartMutation,
+    CreateCartMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateCartMutation, CreateCartMutationVariables>(
+    CreateCartDocument,
+    options
+  );
+}
+export type CreateCartMutationHookResult = ReturnType<
+  typeof useCreateCartMutation
+>;
+export type CreateCartMutationResult =
+  Apollo.MutationResult<CreateCartMutation>;
+export type CreateCartMutationOptions = Apollo.BaseMutationOptions<
+  CreateCartMutation,
+  CreateCartMutationVariables
+>;
+export const EditCartDocument = gql`
+  mutation EditCart($cart: EditCartInput) {
+    editCart(cart: $cart) {
+      cartId
+      items {
+        productId
+        quantity
+      }
+      subtotal
+      tax
+      total
+      shippingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+      billingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+    }
+  }
+`;
+export type EditCartMutationFn = Apollo.MutationFunction<
+  EditCartMutation,
+  EditCartMutationVariables
+>;
+
+/**
+ * __useEditCartMutation__
+ *
+ * To run a mutation, you first call `useEditCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editCartMutation, { data, loading, error }] = useEditCartMutation({
+ *   variables: {
+ *      cart: // value for 'cart'
+ *   },
+ * });
+ */
+export function useEditCartMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditCartMutation,
+    EditCartMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<EditCartMutation, EditCartMutationVariables>(
+    EditCartDocument,
+    options
+  );
+}
+export type EditCartMutationHookResult = ReturnType<typeof useEditCartMutation>;
+export type EditCartMutationResult = Apollo.MutationResult<EditCartMutation>;
+export type EditCartMutationOptions = Apollo.BaseMutationOptions<
+  EditCartMutation,
+  EditCartMutationVariables
 >;
 export const SignInDocument = gql`
   query SignIn($email: String, $password: String) {
@@ -1464,4 +1820,101 @@ export type GetProductsSuspenseQueryHookResult = ReturnType<
 export type GetProductsQueryResult = Apollo.QueryResult<
   GetProductsQuery,
   GetProductsQueryVariables
+>;
+export const GetCartDocument = gql`
+  query GetCart($userId: String!) {
+    getCart(userId: $userId) {
+      cartId
+      items {
+        productId
+        quantity
+      }
+      subtotal
+      tax
+      total
+      shippingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+      billingAddress {
+        addressId
+        addressLine1
+        addressLine2
+        city
+        parish
+        country
+        zip
+        primary
+        longitude
+        latitude
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetCartQuery__
+ *
+ * To run a query within a React component, call `useGetCartQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCartQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCartQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetCartQuery(
+  baseOptions: Apollo.QueryHookOptions<GetCartQuery, GetCartQueryVariables> &
+    ({ variables: GetCartQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCartQuery, GetCartQueryVariables>(
+    GetCartDocument,
+    options
+  );
+}
+export function useGetCartLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetCartQuery, GetCartQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCartQuery, GetCartQueryVariables>(
+    GetCartDocument,
+    options
+  );
+}
+export function useGetCartSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetCartQuery, GetCartQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetCartQuery, GetCartQueryVariables>(
+    GetCartDocument,
+    options
+  );
+}
+export type GetCartQueryHookResult = ReturnType<typeof useGetCartQuery>;
+export type GetCartLazyQueryHookResult = ReturnType<typeof useGetCartLazyQuery>;
+export type GetCartSuspenseQueryHookResult = ReturnType<
+  typeof useGetCartSuspenseQuery
+>;
+export type GetCartQueryResult = Apollo.QueryResult<
+  GetCartQuery,
+  GetCartQueryVariables
 >;
