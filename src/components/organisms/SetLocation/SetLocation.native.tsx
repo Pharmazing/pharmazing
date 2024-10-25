@@ -132,6 +132,8 @@ export const SetLocation = () => {
         updateShippingAddress(addressQueryVars as AddressType);
         router.replace('/home');
       }
+    }else{
+      router.replace('/home');
     }
   };
 
@@ -206,7 +208,7 @@ export const SetLocation = () => {
             placeholder="Find address"
             onSelect={handleAutocompleteSelect}
           />
-          {showContinueBtn && (
+          {(
             <Button title={'Continue'} onPress={onLocationSubmit} />
           )}
         </Box>
