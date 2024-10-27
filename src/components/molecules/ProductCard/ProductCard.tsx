@@ -5,6 +5,7 @@ import { productCardStyles } from './ProductCard.styles';
 import { ProductCardProps } from './ProductCard.types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, useLocalSearchParams } from 'expo-router';
+import { useCart } from '../../../utils/context';
 
 export const ProductCard = ({
   productName,
@@ -15,6 +16,7 @@ export const ProductCard = ({
   ...rest
 }: ProductCardProps) => {
   const { id: vendorId } = useLocalSearchParams();
+  const { setItemQuantity, cart } = useCart();
   const { styles, theme } = useStyles(productCardStyles);
   return (
     <TouchableHighlight
@@ -89,7 +91,12 @@ export const ProductCard = ({
                 renderShadow={false}
                 btnVariant={ButtonVariantEnum.PRIMARY}
                 title="Add to Cart"
-                onPress={() => {}}
+                onPress={() => {
+                  const cartItemQuantity =
+                    cart?.items?.find((val) => val?.productId === productId)
+                      ?.quantity || 0;
+                  setItemQuantity(productId || '', cartItemQuantity + 1);
+                }}
               />
             </Box>
           </Box>

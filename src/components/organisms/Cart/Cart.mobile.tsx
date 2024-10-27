@@ -9,13 +9,14 @@ import { useStyles } from 'react-native-unistyles';
 export function CartMobile() {
   const { theme } = useStyles();
   const { cart } = useCart();
+  // console.warn('cart', cart);
 
   const productIds = cart?.items?.map((item) => item?.productId || '') || [];
 
   const { data, loading: getProductsLoading } = useGetProductsQuery({
     skip: !cart?.items?.length,
     onError: (err) => {
-      console.warn(err.message);
+      // console.warn(err.message);
     },
     variables: { vendor: { productId: productIds } },
   });
@@ -24,6 +25,7 @@ export function CartMobile() {
 
   return (
     <ScrollBox
+      nestedScrollEnabled
       contentContainerStyle={{
         flex: 1,
       }}
@@ -50,10 +52,27 @@ export function CartMobile() {
         </Box>
       )}
       {data?.getAllProducts?.length ? (
-        <Box style={{ flex: 1, gap: theme.size.layout.md }}>
-          {data.getAllProducts.map((item, index) => (
-            <ProductCard key={index} {...item} />
-          ))}
+        <ScrollBox
+          nestedScrollEnabled
+          contentContainerStyle={{ gap: theme.size.layout.md }}
+        >
+          {data.getAllProducts.map((item, index) => {
+            const quantity =
+              cart?.items?.find((val) => val?.productId === item?.productId)
+                ?.quantity || 99;
+            // console.warn('newPrices', quantity);
+            return (
+              <ProductCard
+                key={index}
+                {...item}
+                productPrice={
+                  item?.productPrice
+                    ? item?.productPrice * quantity
+                    : item?.productPrice
+                }
+              />
+            );
+          })}
           <Box
             style={{
               width: '100%',
@@ -61,7 +80,7 @@ export function CartMobile() {
               height: theme.size.layout.xs,
             }}
           ></Box>
-        </Box>
+        </ScrollBox>
       ) : (
         !isLoading && (
           <Box

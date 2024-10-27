@@ -132,7 +132,7 @@ export const SetLocation = () => {
         updateShippingAddress(addressQueryVars as AddressType);
         router.replace('/home');
       }
-    }else{
+    } else {
       router.replace('/home');
     }
   };
@@ -208,9 +208,7 @@ export const SetLocation = () => {
             placeholder="Find address"
             onSelect={handleAutocompleteSelect}
           />
-          {(
-            <Button title={'Continue'} onPress={onLocationSubmit} />
-          )}
+          {<Button title={'Continue'} onPress={onLocationSubmit} />}
         </Box>
       </Box>
       <LoadingIndicator loading={loading || editAddyLoading} />
