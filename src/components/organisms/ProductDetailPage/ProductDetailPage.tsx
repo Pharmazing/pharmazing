@@ -11,14 +11,18 @@ import { ProductDetailPageProps } from './ProductDetailPage.types';
 import { productDetailPageStyles } from './ProductDetailPage.styles';
 import { router } from 'expo-router';
 import { Image } from 'react-native';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import AnimatedNumber from 'react-native-animated-numbers';
 import { useGetProductQuery } from '../../../generated/graphql';
-import { useToast } from '../../../utils';
+import { useDimensions, useToast } from '../../../utils';
+import { useCart } from '../../../utils/context';
+import { debounce } from 'lodash';
+// import { debounce } from 'lodash';
 
 export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
   const { styles, theme } = useStyles(productDetailPageStyles);
-  const { data, loading } = useGetProductQuery({
+  const { cart, setItemQuantity, loading: cartLoading } = useCart();
+  const { data, loading: productLoading } = useGetProductQuery({
     onError: () => {
       showToast({
         type: 'error',
@@ -29,8 +33,25 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
     },
     variables: { product: { productId } },
   });
-  const [count, setCount] = useState(0);
+  const productQuantity =
+    cart?.items?.find((item) => item?.productId === productId)?.quantity || 0;
+  const [count, setCount] = useState(productQuantity);
   const { showToast } = useToast();
+  const { dimensions } = useDimensions();
+
+  const handleIncrement = () => {
+    setCount((prev) => prev + 1);
+  };
+
+  const handleDecrement = useCallback(() => {
+    setCount((prev) => (prev - 1 < 0 ? 0 : prev - 1));
+  }, []);
+
+  const handleAddToCart = debounce(() => {
+    setItemQuantity(productId, count);
+  }, 500);
+
+  const loading = productLoading || cartLoading;
 
   return (
     <Box style={styles.container}>
@@ -81,7 +102,7 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
               activeOpacity={0.6}
               title="-"
               btnVariant={ButtonVariantEnum.SECONDARY}
-              onPress={() => setCount((prev) => (prev - 1 < 0 ? 0 : prev - 1))}
+              onPress={handleDecrement}
             />
             <AnimatedNumber
               animateToNumber={count}
@@ -94,17 +115,55 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
               activeOpacity={0.6}
               title="+"
               btnVariant={ButtonVariantEnum.SECONDARY}
-              onPress={() => setCount((prev) => prev + 1)}
+              onPress={handleIncrement}
             />
           </Box>
         </Box>
 
-        <Button
-          style={{ width: '100%', alignSelf: 'center' }}
-          activeOpacity={0.6}
-          title="Buy Now"
-          btnVariant={ButtonVariantEnum.PRIMARY}
-        />
+        <Box
+          style={{
+            width: '100%',
+            alignItems: 'center',
+            flexDirection: 'row',
+            gap: theme.size.layout.lg,
+            justifyContent: 'center',
+          }}
+        >
+          <Button
+            style={styles.addToCartButton({
+              width: dimensions.screen.width * 0.5,
+            })}
+            activeOpacity={0.6}
+            title="Checkout"
+            icon={
+              <Icon
+                name="CartIcon"
+                height={28}
+                width={28}
+                color={theme.colors.Green700}
+              />
+            }
+            btnVariant={ButtonVariantEnum.SECONDARY}
+            onPress={() => router.push('/cart')}
+          />
+          <Button
+            style={styles.addToCartButton({
+              width: dimensions.screen.width * 0.4,
+            })}
+            activeOpacity={0.6}
+            title="Add to Cart"
+            btnVariant={ButtonVariantEnum.PRIMARY}
+            onPress={handleAddToCart}
+          />
+          {/* <Box
+            style={{
+              height: 40,
+              width: 40,
+              backgroundColor: 'black',
+              borderRadius: 24,
+            }}
+          ></Box> */}
+        </Box>
       </Box>
       <LoadingIndicator loading={loading} />
     </Box>

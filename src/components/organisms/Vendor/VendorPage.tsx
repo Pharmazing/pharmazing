@@ -15,17 +15,20 @@ import { useDimensions } from '../../../utils';
 import { Tabs } from '../../molecules';
 import { useGetProductsQuery } from '../../../generated/graphql';
 import { ProductCardProps } from '../../molecules/ProductCard';
+import { useCart } from '../../../utils/context';
 
 export const VendorPage = ({ vendorId }: { vendorId: string }) => {
   const { styles, theme } = useStyles(vendorPageStyles);
   const [search, setSearch] = useState<string>('');
+  const { loading: cartLoading } = useCart();
   const { dimensions } = useDimensions();
   const { vendorName } = useLocalSearchParams();
-  const { data, loading } = useGetProductsQuery({
+  const { data, loading: productsLoading } = useGetProductsQuery({
     variables: { vendor: { vendorId } },
   });
   const cards = data?.getAllProducts || [];
   // get the vendor from gql
+  const loading = productsLoading || cartLoading;
   return (
     <ScrollBox contentContainerStyle={styles.container}>
       <Tabs
