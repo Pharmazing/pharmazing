@@ -67,7 +67,15 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
   );
 
   const [editCartTrigger, { loading: editCartLoading }] = useEditCartMutation({
-    onCompleted: (data) => setCart(data.editCart as CartType),
+    onCompleted: (data) => {
+      setCart(data.editCart as CartType);
+      showToast({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Item added to cart',
+        visibilityTime: 1500,
+      });
+    },
     onError: () => {
       showToast({
         type: 'error',
@@ -104,7 +112,11 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
       cartItems = [...cartItems, { productId, quantity }];
     }
     const newItems = cartItems?.map((item: any) =>
-      item?.productId === productId ? { ...item, quantity } : item
+      item?.productId === productId
+        ? quantity === 0
+          ? null
+          : { ...item, quantity }
+        : item
     );
     // console.warn('newItems', newItems);
     editCartTrigger({
