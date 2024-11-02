@@ -15,6 +15,7 @@ export const AnimatedInputField = ({
   control,
   watch,
   rules,
+  textColor,
   type = 'text',
   ...rest
 }: InputProps) => {
@@ -70,13 +71,15 @@ export const AnimatedInputField = ({
               return (
                 <OutsidePressHandler onOutsidePress={() => Keyboard.dismiss()}>
                   {label && (
-                    <Animated.Text style={[styles.label, floatingLabelStyle]}>
+                    <Animated.Text
+                      style={[styles.label({ textColor }), floatingLabelStyle]}
+                    >
                       {label}
                     </Animated.Text>
                   )}
                   <TextInput
                     autoCapitalize="none"
-                    style={styles.input}
+                    style={styles.input({ textColor })}
                     value={value}
                     onChangeText={onChange}
                     onFocus={handleFocus}

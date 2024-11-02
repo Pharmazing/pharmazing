@@ -101,9 +101,10 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
   };
 
   const getCart = async (userIdParam?: string) => {
-    await getCartTrigger({
-      variables: { userId: userIdParam || userId || '' },
-    });
+    userId &&
+      (await getCartTrigger({
+        variables: { userId: userIdParam || userId || '' },
+      }));
   };
 
   const setItemQuantity = (productId: string, quantity: number) => {
@@ -119,14 +120,26 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
         : item
     );
     // console.warn('newItems', newItems);
-    editCartTrigger({
-      variables: {
-        cart: {
-          cartId: cart?.cartId || '',
-          items: newItems,
+    if (userId) {
+      editCartTrigger({
+        variables: {
+          cart: {
+            cartId: cart?.cartId || '',
+            items: newItems,
+          },
         },
-      },
-    });
+      });
+    } else {
+      setCart({
+        cartId: '',
+        items: newItems,
+      });
+      showToast({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Item added to cart',
+      });
+    }
   };
 
   const loading = cartLoading || createCartLoading || editCartLoading;

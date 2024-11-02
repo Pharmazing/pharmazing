@@ -1,15 +1,15 @@
 import React from 'react';
-import { Box, ScrollBox, Typography } from '../../atoms';
+import { Box, Icon, ScrollBox, Typography } from '../../atoms';
 import { useCart } from '../../../utils/context/useCart';
 import { useGetProductsQuery } from '../../../generated/graphql';
 import { Skeleton } from 'native-base';
 import { ProductCard } from '../../molecules/ProductCard';
 import { useStyles } from 'react-native-unistyles';
+import { router } from 'expo-router';
 
 export function CartMobile() {
   const { theme } = useStyles();
   const { cart } = useCart();
-  // console.warn('cart', cart);
 
   const productIds = cart?.items?.map((item) => item?.productId || '') || [];
 
@@ -65,6 +65,19 @@ export function CartMobile() {
               <ProductCard
                 key={index}
                 {...item}
+                ctaTitle="Edit"
+                ctaIcon={
+                  <Icon
+                    name="EditIcon"
+                    color={theme.colors.white}
+                    height={16}
+                    width={16}
+                  />
+                }
+                onPress={() =>
+                  item?.productId &&
+                  router.push(`/pharmacy/${item?.vendorId}/${item?.productId}`)
+                }
                 productPrice={
                   item?.productPrice
                     ? item?.productPrice * quantity
