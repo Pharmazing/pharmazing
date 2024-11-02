@@ -6,13 +6,10 @@ import { useStyles } from 'react-native-unistyles';
 import { HeroCarousel, VendorList, VendorType } from '../../molecules';
 import { RefreshControl } from 'react-native';
 import { useEffect, useState } from 'react';
-import { useCart, useUser } from '../../../utils/context';
+import { useCart } from '../../../utils/context';
 
 export function HomeMobile() {
   const { styles, theme } = useStyles(homeStyles);
-  const {
-    user: { userId },
-  } = useUser();
   const { loading, data, refetch } = useGetAllVendorsQuery();
   const [search, setSearch] = useState<string>('');
 
@@ -23,7 +20,7 @@ export function HomeMobile() {
   );
 
   useEffect(() => {
-    userId && getCart();
+    getCart();
   }, []);
 
   return (

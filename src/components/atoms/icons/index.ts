@@ -13,3 +13,5 @@ export * from './EditIcon';
 export * from './DeliveryBusIcon';
 export * from './SearchIcon';
 export * from './PlusIcon';
+export * from './GoogleIcon';
+export * from './MetaIcon';

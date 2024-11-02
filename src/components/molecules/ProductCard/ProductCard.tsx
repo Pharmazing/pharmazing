@@ -5,18 +5,21 @@ import { productCardStyles } from './ProductCard.styles';
 import { ProductCardProps } from './ProductCard.types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useCart } from '../../../utils/context';
+// import { useCart } from '../../../utils/context';
 
 export const ProductCard = ({
+  onPress,
   productName,
   media,
   productDescription,
   productPrice,
   productId,
+  ctaTitle = 'Add to cart',
+  ctaIcon = <Icon name="PlusIcon" color="white" height={16} width={16} />,
   ...rest
 }: ProductCardProps) => {
   const { id: vendorId } = useLocalSearchParams();
-  const { setItemQuantity, cart } = useCart();
+
   const { styles, theme } = useStyles(productCardStyles);
   return (
     <TouchableHighlight
@@ -72,14 +75,7 @@ export const ProductCard = ({
                 {`$${productPrice?.toFixed(2)}`}
               </Typography>
               <Button
-                icon={
-                  <Icon
-                    name="PlusIcon"
-                    color={theme.colors.white}
-                    height={16}
-                    width={16}
-                  />
-                }
+                icon={ctaIcon}
                 activeOpacity={0.6}
                 style={{
                   margin: 0,
@@ -90,13 +86,8 @@ export const ProductCard = ({
                 shadowRadius={0}
                 renderShadow={false}
                 btnVariant={ButtonVariantEnum.PRIMARY}
-                title="Add to Cart"
-                onPress={() => {
-                  const cartItemQuantity =
-                    cart?.items?.find((val) => val?.productId === productId)
-                      ?.quantity || 0;
-                  setItemQuantity(productId || '', cartItemQuantity + 1);
-                }}
+                title={ctaTitle}
+                onPress={onPress}
               />
             </Box>
           </Box>
