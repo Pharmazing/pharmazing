@@ -14,6 +14,7 @@ export const AnimatedInputField = ({
   name,
   control,
   watch,
+  errorTextColor,
   rules,
   textColor,
   type = 'text',
@@ -21,7 +22,7 @@ export const AnimatedInputField = ({
 }: InputProps) => {
   const value = watch(name);
 
-  const { styles } = useStyles(textInputStyles);
+  const { styles, theme } = useStyles(textInputStyles);
   const floatingLabelAnimation = useRef(
     new Animated.Value(value ? 1 : 0)
   ).current;
@@ -90,7 +91,10 @@ export const AnimatedInputField = ({
                     {...rest}
                   />
                   {
-                    <Typography size="sm" style={{ color: 'red' }}>
+                    <Typography
+                      size="sm"
+                      style={{ color: errorTextColor || theme.colors.Red400 }}
+                    >
                       {error?.message}
                     </Typography>
                   }

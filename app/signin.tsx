@@ -114,19 +114,6 @@ export default function Page() {
             }}
           >
             <Login />
-            {showContinueAsGuest && (
-              <Button
-                title={'Continue As Guest'}
-                onPress={() => {
-                  loginAsGuest(isSecondarySignin);
-                  // Sentry.captureMessage("Continue As Guest");
-                }}
-              />
-            )}
-            <Button
-              title={'sign up'}
-              onPress={() => router.replace('/signup')}
-            />
             {error && (
               <Text style={{ height: 200 }}>
                 SessionError: {JSON.stringify(error)}
