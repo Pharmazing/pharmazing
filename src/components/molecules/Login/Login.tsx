@@ -5,8 +5,9 @@ import { useStyles } from 'react-native-unistyles';
 import { loginStyles } from './Login.styles';
 import { AnimatedInputField } from '../../atoms/Input';
 import { useForm } from 'react-hook-form';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Button as NativeButton } from 'react-native';
 import { useSession } from '../../../utils/context';
+import { router, useSegments } from 'expo-router';
 
 export const Login = (props: LoginProps) => {
   const { styles } = useStyles(loginStyles);
@@ -16,10 +17,15 @@ export const Login = (props: LoginProps) => {
       password: '',
     },
   });
-  const { loginWithGoogle } = useSession();
+  const { loginWithGoogle, loginAsGuest } = useSession();
   const onLogin = () => {
     console.warn(control._formValues);
   };
+
+  const segments = useSegments();
+  const isSecondarySignin = segments?.[0] === 'signin2';
+
+  const showContinueAsGuest = segments?.[0] === 'signin' || isSecondarySignin;
   return (
     <Box style={styles.container}>
       <BlurView intensity={100} style={styles.blurView} tint="dark">
@@ -40,6 +46,7 @@ export const Login = (props: LoginProps) => {
             name="password"
             type="text"
             label="Password"
+            secureTextEntry
             textColor="white"
             rules={{ required: `Password is required` }}
           />
@@ -50,9 +57,30 @@ export const Login = (props: LoginProps) => {
           onPress={handleSubmit(onLogin)}
           style={{ margin: 0 }}
         />
-        <Typography size="lg" style={{ color: 'white' }}>
+        <Typography weight="700" size="xl" style={{ color: 'white' }}>
           or
         </Typography>
+        <Box
+          style={{
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+            width: '100%',
+          }}
+        >
+          {showContinueAsGuest && (
+            <NativeButton
+              title={'Continue As Guest'}
+              onPress={() => {
+                loginAsGuest(isSecondarySignin);
+                // Sentry.captureMessage("Continue As Guest");
+              }}
+            />
+          )}
+          <NativeButton
+            title={'sign up'}
+            onPress={() => router.replace('/signup')}
+          />
+        </Box>
         <Box
           style={{
             flexDirection: 'row',

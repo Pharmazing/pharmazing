@@ -93,6 +93,7 @@ export function CartMobile() {
               height: theme.size.layout.xs,
             }}
           ></Box>
+          <Typography>Inputs go here</Typography>
         </ScrollBox>
       ) : (
         !isLoading && (
