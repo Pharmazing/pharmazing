@@ -1,4 +1,4 @@
-import { Link, Stack, useNavigationContainerRef } from 'expo-router';
+import { Link, router, Stack, useNavigationContainerRef } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 import { isAndroid, isIOS, isWeb } from '../src/utils';
@@ -33,8 +33,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { core } from '../src/utils/unistyles/core';
+import { Icon } from '../src/components/atoms';
 // import { CartProvider } from '../src/utils/context/useCart';
 
+import { useStyles } from 'react-native-unistyles';
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
 Sentry.init({
@@ -68,6 +70,8 @@ function RootLayout() {
     Roboto_900Black,
     Roboto_900Black_Italic,
   });
+
+  const { theme } = useStyles();
 
   useEffect(() => {
     if (loaded || fontsErr) {
@@ -108,6 +112,20 @@ function RootLayout() {
                     <Stack.Screen
                       name="addresses"
                       options={{
+                        headerTitleStyle: {
+                          fontSize: 24,
+                        },
+                        // headerLargeTitle: true,
+                        headerLeft: () => (
+                          <Icon
+                            name="ChevronRightIcon"
+                            color={theme.colors.white}
+                            height={36}
+                            width={36}
+                            transform={'rotate(180 12 12)'}
+                            onPress={() => router.back()}
+                          />
+                        ),
                         headerBackTitle: 'Settings',
                         headerTitle: 'Addresses',
                         headerStyle: { backgroundColor: core.colors.Green500 },

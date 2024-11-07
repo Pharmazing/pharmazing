@@ -119,11 +119,13 @@ export const Tabs = ({ renderHeader, cards }: TabsProps) => {
       headerContainerStyle={{ backgroundColor: 'none' }}
       onTabChange={({ index }) => setIndex(index)}
       renderTabBar={renderTabBar}
+      // revealHeaderOnScroll={false}
     >
       {routes.map((route, i) => {
         return (
           <TabView.Tab name={route.title} key={i}>
             <TabView.ScrollView
+              // pointerEvents='box-none'
               showsVerticalScrollIndicator={false}
               persistentScrollbar={false}
             >

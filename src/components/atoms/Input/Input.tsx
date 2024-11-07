@@ -18,6 +18,7 @@ export const AnimatedInputField = ({
   rules,
   textColor,
   type = 'text',
+  style,
   ...rest
 }: InputProps) => {
   const value = watch(name);
@@ -80,7 +81,7 @@ export const AnimatedInputField = ({
                   )}
                   <TextInput
                     autoCapitalize="none"
-                    style={styles.input({ textColor })}
+                    style={[styles.input({ textColor }), style]}
                     value={value}
                     onChangeText={onChange}
                     onFocus={handleFocus}
