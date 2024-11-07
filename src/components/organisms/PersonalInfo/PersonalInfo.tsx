@@ -67,20 +67,19 @@ export function PersonalInfo() {
   };
 
   return (
-    <ScrollBox contentContainerStyle={{ flex: 1, backgroundColor: 'white' }}>
-      <Typography
-        size="xxl"
-        weight={'500'}
-        style={{ alignSelf: 'center', margin: 12, alignItems: 'flex-end' }}
-      >
-        Personal Info
-      </Typography>
-
+    <ScrollBox
+      contentContainerStyle={{
+        flex: 1,
+        backgroundColor: 'white',
+        paddingTop: 32,
+      }}
+    >
       <AnimatedInputField
         watch={watch}
         label="First Name"
         name="firstName"
         control={control}
+        // style={{ marginTop:  }}
         rules={{ required: `First name is required` }}
       />
 
@@ -116,7 +115,7 @@ export function PersonalInfo() {
       <Button
         disabled={!formState.isDirty}
         style={{ alignSelf: 'center' }}
-        btnVariant={ButtonVariantEnum.DANGER}
+        btnVariant={ButtonVariantEnum.SECONDARY}
         title="Save"
         onPress={handleSubmit(onSave)}
       />

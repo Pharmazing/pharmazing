@@ -1,15 +1,38 @@
 import React from 'react';
-import { Box, Icon, ScrollBox, Typography } from '../../atoms';
+import {
+  Box,
+  Icon,
+  ScrollBox,
+  Typography,
+  CustomInput,
+  Button,
+  ButtonVariantEnum,
+} from '../../atoms';
 import { useCart } from '../../../utils/context/useCart';
 import { useGetProductsQuery } from '../../../generated/graphql';
 import { Skeleton } from 'native-base';
 import { ProductCard } from '../../molecules/ProductCard';
 import { useStyles } from 'react-native-unistyles';
 import { router } from 'expo-router';
+import { useForm } from 'react-hook-form';
+import { useDeliveryLocation } from '../../../utils/context';
+import { TouchableOpacity } from 'react-native';
 
+const DELIVERY_FEE = 600;
 export function CartMobile() {
   const { theme } = useStyles();
   const { cart } = useCart();
+  const { shippingAddress } = useDeliveryLocation();
+  // console.warn('shippingAddress', shippingAddress);
+
+  const { watch, control } = useForm({
+    defaultValues: {
+      name: '',
+      cardNumber: '',
+      expiry: '',
+      cvv: '',
+    },
+  });
 
   const productIds = cart?.items?.map((item) => item?.productId || '') || [];
 
@@ -20,6 +43,22 @@ export function CartMobile() {
     },
     variables: { vendor: { productId: productIds } },
   });
+
+  const test = cart?.items?.reduce<{ subtotal: number }>(
+    (acc, item) => {
+      const productPrice = data?.getAllProducts?.find(
+        (val) => val?.productId === item?.productId
+      )?.productPrice;
+      const subtotal =
+        acc?.subtotal + (item?.quantity || 0) * (productPrice || 0);
+      return {
+        subtotal,
+      };
+    },
+    { subtotal: 0 }
+  );
+  // console.warn('test', );
+  const taxes = (test?.subtotal || 0) * 0.15;
 
   const isLoading = getProductsLoading;
 
@@ -53,6 +92,7 @@ export function CartMobile() {
       )}
       {data?.getAllProducts?.length ? (
         <ScrollBox
+          showsVerticalScrollIndicator={false}
           nestedScrollEnabled
           contentContainerStyle={{ gap: theme.size.layout.md }}
         >
@@ -65,7 +105,7 @@ export function CartMobile() {
               <ProductCard
                 key={index}
                 {...item}
-                ctaTitle="Edit"
+                ctaTitle={`(${quantity}) Edit`}
                 ctaIcon={
                   <Icon
                     name="EditIcon"
@@ -93,7 +133,122 @@ export function CartMobile() {
               height: theme.size.layout.xs,
             }}
           ></Box>
-          <Typography>Inputs go here</Typography>
+          <Box style={{ padding: 8, gap: 16 }}>
+            <Typography weight="500" size="xl">
+              Shipping Address
+            </Typography>
+            <Box>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Typography
+                  weight="400"
+                  size="lg"
+                  style={{ color: theme.colors.Green500 }}
+                >
+                  {shippingAddress?.addressLine1 || 'Add Address'}
+                </Typography>
+                <Icon name="LocationIcon" color={theme.colors.Green500} />
+              </TouchableOpacity>
+            </Box>
+
+            {/* <Typography>Inputs go here</Typography> */}
+            <Box
+              style={{
+                width: '95%',
+                alignSelf: 'center',
+                backgroundColor: theme.colors.Gray100,
+                height: theme.size.layout.xs,
+                borderRadius: 50,
+              }}
+            ></Box>
+            <Box
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Typography weight="500" size="lg">
+                Subtotal
+              </Typography>
+              <Typography>{`$${test?.subtotal.toFixed(2)} `}</Typography>
+            </Box>
+            <Box
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Typography weight="500" size="lg">
+                Delivery Fee
+              </Typography>
+              <Typography>{`$${DELIVERY_FEE.toFixed(2)} `}</Typography>
+            </Box>
+            <Box
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Typography weight="500" size="lg">
+                Fees & Taxes
+              </Typography>
+              <Typography>{`$${taxes.toFixed(2)} `}</Typography>
+            </Box>
+            <Box
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Typography weight="500" size="lg">
+                Total
+              </Typography>
+              <Typography>
+                {`$${((test?.subtotal || 0) + DELIVERY_FEE + taxes).toFixed(2)} `}
+              </Typography>
+            </Box>
+            <Box
+              style={{
+                width: '95%',
+                alignSelf: 'center',
+                backgroundColor: theme.colors.Gray100,
+                height: theme.size.layout.xs,
+                borderRadius: 50,
+              }}
+            ></Box>
+            <Typography
+              weight="500"
+              size="xl"
+              style={{ color: theme.colors.Green500 }}
+            >
+              Payment Method
+            </Typography>
+            <CustomInput
+              control={control}
+              watch={watch}
+              name="name"
+              placeholder="Name on card"
+            />
+            <CustomInput
+              control={control}
+              watch={watch}
+              name="cardNumber"
+              placeholder="Card Number"
+            />
+            <Box style={{ flexDirection: 'row', gap: 16 }}>
+              <CustomInput
+                control={control}
+                watch={watch}
+                name="expiry"
+                placeholder="MM/YY"
+                style={{ paddingHorizontal: 16, maxWidth: '100%' }}
+              />
+              <CustomInput
+                control={control}
+                watch={watch}
+                name="cvv"
+                placeholder="CVV"
+                style={{ paddingHorizontal: 16, maxWidth: 64 }}
+              />
+            </Box>
+          </Box>
+          <Button
+            btnVariant={ButtonVariantEnum.PRIMARY}
+            style={{ alignSelf: 'center' }}
+            title="Checkout"
+          />
         </ScrollBox>
       ) : (
         !isLoading && (
