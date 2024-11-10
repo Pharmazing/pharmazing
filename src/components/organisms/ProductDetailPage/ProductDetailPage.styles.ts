@@ -3,6 +3,8 @@ import { createStyleSheet } from 'react-native-unistyles';
 export const productDetailPageStyles = createStyleSheet((theme) => ({
   container: {
     flex: 1,
+    height: '100%',
+    backgroundColor: theme.colors.Gray150,
   },
   headerContainer: {
     height: 'auto',

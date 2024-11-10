@@ -55,7 +55,7 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
 
   return (
     <Box style={styles.container}>
-      <Box style={styles.headerContainer}>
+      {/* <Box style={styles.headerContainer}>
         <Icon
           onPress={() => router.back()}
           name="ChevronRightIcon"
@@ -63,7 +63,7 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
           width={48}
           transform={'rotate(180 12 12)'}
         />
-      </Box>
+      </Box> */}
       <Image
         source={{ uri: 'https://picsum.photos/900/900' }}
         style={styles.imageContainer}

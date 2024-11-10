@@ -1,8 +1,11 @@
 import { Stack, router } from 'expo-router';
 import * as Constants from 'expo-constants';
 import { Button } from 'react-native';
+import { Icon } from '../../src/components';
+import { useStyles } from 'react-native-unistyles';
 
 export default function Layout() {
+  const { theme } = useStyles();
   return (
     <Stack>
       <Stack.Screen name="signin2b" options={{ headerShown: false }} />
@@ -12,9 +15,22 @@ export default function Layout() {
           headerShown: router.canGoBack(),
           headerBackTitleVisible: true,
           headerBackTitle: 'Back',
+          headerStyle: {
+            backgroundColor: theme.colors.Green500,
+            // height: 56,
+          },
+          headerTitleStyle: {
+            fontSize: 24,
+            color: 'white',
+          },
+          headerTitle: 'Find Delivery Location',
           headerLeft: () => (
-            <Button
-              title="Back"
+            <Icon
+              name="ChevronRightIcon"
+              height={36}
+              width={36}
+              color={theme.colors.white}
+              transform={'rotate(180 12 12)'}
               onPress={() => {
                 if (router.canGoBack()) router.back();
               }}

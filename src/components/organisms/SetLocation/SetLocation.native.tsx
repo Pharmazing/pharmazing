@@ -1,8 +1,14 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { Box, Icon, LoadingIndicator } from '../../atoms';
-import { Button } from 'react-native';
+import {
+  Box,
+  Button,
+  ButtonVariantEnum,
+  Icon,
+  LoadingIndicator,
+} from '../../atoms';
+// import { Button } from 'react-native';
 import { PlacesAutocomplete } from '../../molecules';
 import { EventProvider } from 'react-native-outside-press';
 import { useStyles } from 'react-native-unistyles';
@@ -165,9 +171,9 @@ export const SetLocation = () => {
     }
   }, [defaultData]);
 
-  const showContinueBtn = defaultData
-    ? Boolean(autocompleteRef.current?.getAddressText())
-    : !!markerLocation;
+  // const showContinueBtn = defaultData
+  //   ? Boolean(autocompleteRef.current?.getAddressText())
+  //   : !!markerLocation;
 
   return (
     <EventProvider>
@@ -208,7 +214,14 @@ export const SetLocation = () => {
             placeholder="Find address"
             onSelect={handleAutocompleteSelect}
           />
-          {<Button title={'Continue'} onPress={onLocationSubmit} />}
+          {
+            <Button
+              style={{ alignSelf: 'center' }}
+              btnVariant={ButtonVariantEnum.SECONDARY}
+              title={'Continue'}
+              onPress={onLocationSubmit}
+            />
+          }
         </Box>
       </Box>
       <LoadingIndicator loading={loading || editAddyLoading} />
