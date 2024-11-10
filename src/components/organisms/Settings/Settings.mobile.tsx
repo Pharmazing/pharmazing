@@ -48,7 +48,7 @@ export function SettingsMobile() {
         />
       }
       <Button
-        btnVariant={ButtonVariantEnum.DANGER}
+        btnVariant={ButtonVariantEnum.SECONDARY}
         title={'Logout'}
         onPress={signOut}
         activeOpacity={0.6}

@@ -53,7 +53,9 @@ export function AddressList({
         longitude,
       })
     );
-  const [listData, setListData] = useState<ListDataType[]>(loadAddresses());
+  const [listData, setListData] = useState<ListDataType[]>(
+    loadAddresses() as ListDataType[]
+  );
 
   const closeRow = (rowMap: any, rowKey: any) => {
     if (rowMap[rowKey]) {
@@ -62,7 +64,7 @@ export function AddressList({
   };
 
   useEffect(() => {
-    setListData(loadAddresses());
+    setListData(loadAddresses() as ListDataType[]);
   }, [address]);
 
   const deleteRow = async (rowMap: any, rowKey: any, id: string) => {
@@ -139,6 +141,9 @@ export function AddressList({
       >
         <Box style={styles.rowFrontContent}>
           <Icon
+            onPress={() => {
+              console.warn('LocationIcon pressed', data.item);
+            }}
             name="LocationIcon"
             color={data.item.primary ? theme.colors.Red700 : ''}
           />

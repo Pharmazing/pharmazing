@@ -22,8 +22,8 @@ export const CustomInput = ({
     <Controller
       control={control}
       name={name}
-      rules={rules}
       render={({ field: { onChange, value }, fieldState: { error } }) => {
+        // console.warn7('fieldState', error);
         return (
           <Box>
             {label && (
@@ -38,9 +38,18 @@ export const CustomInput = ({
               value={value}
               {...rest}
             />
+            {
+              <Typography
+                size="sm"
+                style={{ color: errorTextColor || theme.colors.Red400 }}
+              >
+                {error?.message}
+              </Typography>
+            }
           </Box>
         );
       }}
+      rules={rules}
     />
   );
 };

@@ -114,6 +114,7 @@ function RootLayout() {
                       options={{
                         headerTitleStyle: {
                           fontSize: 24,
+                          color: theme.colors.white,
                         },
                         // headerLargeTitle: true,
                         headerLeft: () => (

@@ -70,7 +70,6 @@ export function PersonalInfo() {
     <ScrollBox
       contentContainerStyle={{
         flex: 1,
-        backgroundColor: 'white',
         paddingTop: 32,
       }}
     >

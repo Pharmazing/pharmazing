@@ -21,14 +21,15 @@ import { TouchableOpacity } from 'react-native';
 const DELIVERY_FEE = 600;
 export function CartMobile() {
   const { theme } = useStyles();
+  // console.warn('breakpoint', breakpoint);
   const { cart } = useCart();
   const { shippingAddress } = useDeliveryLocation();
   // console.warn('shippingAddress', shippingAddress);
 
-  const { watch, control } = useForm({
+  const { watch, control, handleSubmit } = useForm({
     defaultValues: {
       name: '',
-      cardNumber: '',
+      cardNumber: null,
       expiry: '',
       cvv: '',
     },
@@ -226,14 +227,35 @@ export function CartMobile() {
               watch={watch}
               name="cardNumber"
               placeholder="Card Number"
+              keyboardType="number-pad"
+              maxLength={16}
+              rules={{
+                validate: (val) => {
+                  if (!Number(val)) {
+                    return 'Card number is invalid';
+                  }
+                  return true;
+                },
+              }}
             />
             <Box style={{ flexDirection: 'row', gap: 16 }}>
               <CustomInput
                 control={control}
                 watch={watch}
                 name="expiry"
+                keyboardType="number-pad"
+                maxLength={5}
                 placeholder="MM/YY"
                 style={{ paddingHorizontal: 16, maxWidth: '100%' }}
+                rules={{
+                  validate: (val) => {
+                    const valid = val.match(/^(0[1-9]|1[0-2])\/\d{2}$/);
+                    if (!valid && val.length === 5) {
+                      return 'Expiry is invalid';
+                    }
+                    return true;
+                  },
+                }}
               />
               <CustomInput
                 control={control}
@@ -241,6 +263,16 @@ export function CartMobile() {
                 name="cvv"
                 placeholder="CVV"
                 style={{ paddingHorizontal: 16, maxWidth: 64 }}
+                maxLength={3}
+                keyboardType="number-pad"
+                rules={{
+                  validate: (val) => {
+                    if (!Number(val) && val.length === 3) {
+                      return 'Cvv is invalid';
+                    }
+                    return true;
+                  },
+                }}
               />
             </Box>
           </Box>
@@ -248,6 +280,9 @@ export function CartMobile() {
             btnVariant={ButtonVariantEnum.PRIMARY}
             style={{ alignSelf: 'center' }}
             title="Checkout"
+            onPress={handleSubmit(() => {
+              console.warn('Checkout', control._formValues);
+            })}
           />
         </ScrollBox>
       ) : (
