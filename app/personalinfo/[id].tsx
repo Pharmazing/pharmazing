@@ -18,6 +18,7 @@ export default function Page() {
               headerTitle: 'Personal Info',
               headerTitleStyle: {
                 fontSize: 24,
+                color: theme.colors.white,
               },
               // headerBackTitle: 'Settings',
               headerLeft: () => (
