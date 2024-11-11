@@ -8,3 +8,4 @@ export * from './VendorList';
 export * from './HeroCarousel';
 export * from './Tabs';
 export * from './ProductList';
+export * from './Login';

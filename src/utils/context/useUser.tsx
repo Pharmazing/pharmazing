@@ -1,18 +1,16 @@
 import { createContext, useContext, useState } from 'react';
-import { Address, User } from '../../generated/graphql';
+import { Address, Maybe, User } from '../../generated/graphql';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-export type AddressType = Omit<Address, '__typename'>;
+export type AddressType = Address;
 
-export type UserType = Omit<User, '__typename' | 'address'> & {
-  address: Array<AddressType>;
-};
+export type UserType = User;
 
 type IUserContext = {
   user: UserType;
-  address: Array<AddressType>;
+  address: Maybe<Array<AddressType>> | undefined;
   setUser: (user: UserType) => void;
   getUser: (id: string) => UserType | null | undefined;
   deleteUser: () => void;
@@ -95,13 +93,13 @@ export function UserProvider({ children }: React.PropsWithChildren) {
   const addAddress = (address: AddressType) => {
     setUser((prevUser) => ({
       ...prevUser,
-      address: [...prevUser.address, address],
+      address: [...(prevUser.address || []), address],
     }));
   };
 
   const updateAddress = (address: AddressType) => {
     setUser((prevUser) => {
-      const newAddress = prevUser.address.map((a) => {
+      const newAddress = prevUser.address?.map((a) => {
         if (a.addressId === address.addressId) {
           return { ...a, ...address };
         }
@@ -113,7 +111,7 @@ export function UserProvider({ children }: React.PropsWithChildren) {
 
   const deleteAddress = (addressId: string) => {
     setUser((prevUser) => {
-      const newAddress = prevUser.address.filter(
+      const newAddress = prevUser.address?.filter(
         (a) => a.addressId !== addressId
       );
       return { ...prevUser, address: newAddress };

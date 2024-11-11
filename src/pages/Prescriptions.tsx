@@ -1,9 +1,9 @@
-import { View, Text } from 'react-native';
+import { Box, Typography } from '../components';
 
 export default function PrescriptionsLayout() {
   return (
-    <View>
-      <Text>I am prescriptions page</Text>
-    </View>
+    <Box>
+      <Typography>I am prescriptions page</Typography>
+    </Box>
   );
 }

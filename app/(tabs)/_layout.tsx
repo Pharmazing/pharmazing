@@ -56,13 +56,15 @@ export default function Layout() {
               name="home"
               options={{
                 // headerTransparent: true,
-                header: () => (
-                  <LocationPickerHeader
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    onOpen={onOpen}
-                  />
-                ),
+                header: (props) => {
+                  return (
+                    <LocationPickerHeader
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onOpen={onOpen}
+                    />
+                  );
+                },
                 headerTitle: 'Home',
                 tabBarIcon: ({ color }) => (
                   <Icon name="HomeIcon" color={color} />
