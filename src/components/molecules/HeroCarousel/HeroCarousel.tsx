@@ -19,10 +19,9 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
     HeroCarousel.displayName = 'HeroCarousel';
     useImperativeHandle(forwardedRef, () => ref.current as ICarouselInstance);
 
-    const { styles, theme } = useStyles(heroCarouselStyles);
+    const { styles, theme, breakpoint } = useStyles(heroCarouselStyles);
     const { dimensions } = useDimensions();
 
-    const isLgScreen = dimensions.screen.width > 768;
     const progress = useSharedValue<number>(0);
 
     const renderItem = ({ item }: { item: CarouselItem }) => {
@@ -41,26 +40,37 @@ export const HeroCarousel = forwardRef<ICarouselInstance, HeroCarouselProps>(
         animated: true,
       });
     };
+
+    let parallaxScrollingOffset = 100;
+    switch (breakpoint) {
+      case 'md':
+        parallaxScrollingOffset = 470;
+        break;
+      case 'lg':
+        parallaxScrollingOffset = 600;
+        break;
+      default:
+        break;
+    }
     return (
       <GestureHandlerRootView>
         <Box
           style={{
+            alignItems: 'center',
             height: 196,
-            // width: dimensions.window.width,
             gap: theme.size.layout.md,
           }}
         >
           <Carousel
             modeConfig={{
-              parallaxScrollingScale: 0.95,
-              parallaxScrollingOffset: isLgScreen ? 512 : -theme.size.layout.lg,
+              parallaxScrollingOffset,
             }}
             loop
             autoPlay
             autoPlayInterval={5000}
-            style={styles.carousel}
+            style={[styles.carousel]}
             vertical={false}
-            width={dimensions.screen.width * (isLgScreen ? 1 : 0.92)}
+            width={dimensions.screen.width}
             mode="parallax"
             data={mockPromoCards}
             renderItem={renderItem}

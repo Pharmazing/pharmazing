@@ -14,13 +14,16 @@ export const AnimatedInputField = ({
   name,
   control,
   watch,
+  errorTextColor,
   rules,
+  textColor,
   type = 'text',
+  style,
   ...rest
 }: InputProps) => {
   const value = watch(name);
 
-  const { styles } = useStyles(textInputStyles);
+  const { styles, theme } = useStyles(textInputStyles);
   const floatingLabelAnimation = useRef(
     new Animated.Value(value ? 1 : 0)
   ).current;
@@ -70,13 +73,15 @@ export const AnimatedInputField = ({
               return (
                 <OutsidePressHandler onOutsidePress={() => Keyboard.dismiss()}>
                   {label && (
-                    <Animated.Text style={[styles.label, floatingLabelStyle]}>
+                    <Animated.Text
+                      style={[styles.label({ textColor }), floatingLabelStyle]}
+                    >
                       {label}
                     </Animated.Text>
                   )}
                   <TextInput
                     autoCapitalize="none"
-                    style={styles.input}
+                    style={[styles.input({ textColor }), style]}
                     value={value}
                     onChangeText={onChange}
                     onFocus={handleFocus}
@@ -87,7 +92,10 @@ export const AnimatedInputField = ({
                     {...rest}
                   />
                   {
-                    <Typography size="sm" style={{ color: 'red' }}>
+                    <Typography
+                      size="sm"
+                      style={{ color: errorTextColor || theme.colors.Red400 }}
+                    >
                       {error?.message}
                     </Typography>
                   }

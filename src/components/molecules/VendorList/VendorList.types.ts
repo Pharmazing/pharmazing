@@ -1,6 +1,6 @@
 import { Vendor } from '../../../generated/graphql';
 
-export type VendorType = Omit<Vendor, '__typename'>;
+export type VendorType = Vendor;
 
 export type VendorListProps = {
   vendors?: VendorType[];

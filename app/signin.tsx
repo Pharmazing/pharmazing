@@ -4,16 +4,18 @@ import { Text, Button, View, ImageBackground } from 'react-native';
 import { styles as appStyles } from '../src/utils/appStyles/styles';
 import { isAndroid, isIOS, isWeb } from '../src/utils';
 import { useDeliveryLocation, useSession, useUser } from '../src/utils/context';
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
+// import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import {
   useCreateUserMutation,
   useSignInLazyQuery,
 } from '../src/generated/graphql';
 import { LoadingIndicator } from '../src/components/atoms';
 import { useStyles } from 'react-native-unistyles';
+import { Login } from '../src/components';
+import { EventProvider } from 'react-native-outside-press';
 
 export default function Page() {
-  const { loginAsGuest, session, loginWithGoogle, error } = useSession();
+  const { loginAsGuest, session, error } = useSession();
   const { updateUser, user, address } = useUser();
   const parsedSession = JSON.parse(session || '{}');
   const { updateShippingAddress } = useDeliveryLocation();
@@ -72,7 +74,7 @@ export default function Page() {
             updateShippingAddress(primaryAddress);
           }
           router.replace(
-            isSecondarySignin && !address.length
+            isSecondarySignin && !address?.length
               ? '/signin2/setlocation'
               : '/home'
           );
@@ -100,59 +102,47 @@ export default function Page() {
   // check here to see if the issue s that this needs to be a memo or callback
   const Mobile = useCallback(() => {
     return (
-      <View style={[styles.container, { padding: 0 }]}>
-        {/* <Spinner visible={(signInLoading) || (signUpLoading)} textContent={"Loading"} /> */}
-        <ImageBackground
-          resizeMode="cover"
-          style={styles.backgroundImage}
-          // defaultSource={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
-          source={{
-            uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png`,
-          }}
-        >
-          <Text style={{ fontFamily: 'Roboto_700Bold_Italic' }}>
-            Sign In Page
-          </Text>
-          <GoogleSigninButton onPress={loginWithGoogle} />
-          {showContinueAsGuest && (
-            <Button
-              title={'Continue As Guest'}
-              onPress={() => {
-                loginAsGuest(isSecondarySignin);
-                // Sentry.captureMessage("Continue As Guest");
-              }}
-            />
-          )}
-          <Button title={'sign up'} onPress={() => router.replace('/signup')} />
-          {error && (
-            <Text style={{ height: 200 }}>
-              SessionError: {JSON.stringify(error)}
-            </Text>
-          )}
-          {signInError && (
-            <Text style={{ height: 200 }}>
-              SigninError: {JSON.stringify(signInError)}
-            </Text>
-          )}
-          {signUpError && (
-            <Text style={{ height: 200 }}>
-              Error: {JSON.stringify(signUpError)}
-            </Text>
-          )}
+      <EventProvider>
+        <View style={[styles.container, { padding: 0 }]}>
+          {/* <Spinner visible={(signInLoading) || (signUpLoading)} textContent={"Loading"} /> */}
+          <ImageBackground
+            resizeMode="cover"
+            style={styles.backgroundImage}
+            // defaultSource={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
+            source={{
+              uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png`,
+            }}
+          >
+            <Login />
+            {error && (
+              <Text style={{ height: 200 }}>
+                SessionError: {JSON.stringify(error)}
+              </Text>
+            )}
+            {signInError && (
+              <Text style={{ height: 200 }}>
+                SigninError: {JSON.stringify(signInError)}
+              </Text>
+            )}
+            {signUpError && (
+              <Text style={{ height: 200 }}>
+                Error: {JSON.stringify(signUpError)}
+              </Text>
+            )}
 
-          <LoadingIndicator
-            size="large"
-            loading={signInLoading || signUpLoading}
-          />
-        </ImageBackground>
-      </View>
+            <LoadingIndicator
+              size="large"
+              loading={signInLoading || signUpLoading}
+            />
+          </ImageBackground>
+        </View>
+      </EventProvider>
     );
   }, [signInLoading, signUpLoading, error, signInError, signUpError]);
 
   const Web = () => (
     <>
       <Text>Sign In Page</Text>
-      <GoogleSigninButton onPress={loginWithGoogle} />
       {showContinueAsGuest && (
         <Button
           title={'Continue As Guest'}

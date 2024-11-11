@@ -25,10 +25,9 @@ export const productCardStyles = createStyleSheet((theme) => ({
   },
   contentContainer: {
     display: 'flex',
-
+    flex: 1,
     gap: theme.size.layout.xs,
     justifyContent: 'space-between',
-    width: { xs: '60%', md: '70%' },
   },
   shadow: {
     shadowColor: theme.colors.black,

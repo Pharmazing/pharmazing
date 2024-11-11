@@ -39,7 +39,7 @@ export const lightTheme = {
       xs: 2,
       sm: 4,
       md: 8,
-      lg: 16,
+      lg: 16 as number,
       xl: 24,
       xxl: 32,
     },
