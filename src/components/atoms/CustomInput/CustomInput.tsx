@@ -25,7 +25,7 @@ export const CustomInput = ({
       render={({ field: { onChange, value }, fieldState: { error } }) => {
         // console.warn7('fieldState', error);
         return (
-          <Box>
+          <Box style={[style]}>
             {label && (
               <Typography style={{ color: textColor || theme.colors.Blue900 }}>
                 {label}
