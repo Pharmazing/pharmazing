@@ -7,6 +7,7 @@ import {
   CustomInput,
   Button,
   ButtonVariantEnum,
+  Toggle,
 } from '../../atoms';
 import { useCart } from '../../../utils/context/useCart';
 import { useGetProductsQuery } from '../../../generated/graphql';
@@ -20,11 +21,11 @@ import { TouchableOpacity } from 'react-native';
 
 const DELIVERY_FEE = 600;
 export function CartMobile() {
+  const [autoBilling, setAutoBilling] = React.useState(true);
   const { theme } = useStyles();
-  // console.warn('breakpoint', breakpoint);
+
   const { cart } = useCart();
   const { shippingAddress } = useDeliveryLocation();
-  // console.warn('shippingAddress', shippingAddress);
 
   const { watch, control, handleSubmit } = useForm({
     defaultValues: {
@@ -32,6 +33,12 @@ export function CartMobile() {
       cardNumber: null,
       expiry: '',
       cvv: '',
+      billingAddressLine1: '',
+      billingAddressLine2: '',
+      billingCity: '',
+      billingParish: '',
+      billingCountry: '',
+      billingZip: '',
     },
   });
 
@@ -106,7 +113,7 @@ export function CartMobile() {
               <ProductCard
                 key={index}
                 {...item}
-                ctaTitle={`(${quantity}) Edit`}
+                ctaTitle={`(${quantity}) Update`}
                 ctaIcon={
                   <Icon
                     name="EditIcon"
@@ -154,6 +161,103 @@ export function CartMobile() {
                 </Typography>
                 <Icon name="LocationIcon" color={theme.colors.Green500} />
               </TouchableOpacity>
+            </Box>
+            <Typography weight="500" size="xl">
+              Billing Address
+            </Typography>
+            <Box style={{ gap: theme.size.layout.lg }}>
+              <Box
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: theme.size.layout.lg,
+                }}
+              >
+                <Toggle value={autoBilling} onValueChange={setAutoBilling} />
+                <Typography weight="400" size="lg">
+                  Same as shipping address
+                </Typography>
+              </Box>
+              {!autoBilling && (
+                <>
+                  <CustomInput
+                    control={control}
+                    watch={watch}
+                    name="billingAddressLine1"
+                    placeholder="Address Line 1"
+                    rules={{
+                      required: 'Billing address is required',
+                    }}
+                  />
+                  <CustomInput
+                    control={control}
+                    watch={watch}
+                    name="billingAddressLine2"
+                    placeholder="Address Line 2"
+                    rules={{
+                      required: 'Billing address is required',
+                    }}
+                  />
+                  <CustomInput
+                    style={{ flex: 1 }}
+                    control={control}
+                    watch={watch}
+                    name="billingCity"
+                    placeholder="City"
+                    rules={{
+                      required: 'City is required',
+                    }}
+                  />
+                  <Box
+                    style={{
+                      flexDirection: 'row',
+                      width: '100%',
+                      justifyContent: 'center',
+                      gap: theme.size.layout.lg,
+                    }}
+                  >
+                    <CustomInput
+                      style={{ flex: 1 }}
+                      control={control}
+                      watch={watch}
+                      name="billingParish"
+                      placeholder="Parish"
+                      rules={{
+                        required: 'Parish is required',
+                      }}
+                    />
+                  </Box>
+                  <Box
+                    style={{
+                      flexDirection: 'row',
+                      width: '100%',
+                      justifyContent: 'center',
+                      gap: theme.size.layout.lg,
+                    }}
+                  >
+                    <CustomInput
+                      style={{ flex: 1 }}
+                      control={control}
+                      watch={watch}
+                      name="billingCountry"
+                      placeholder="Country"
+                      rules={{
+                        required: 'Country is required',
+                      }}
+                    />
+                    <CustomInput
+                      style={{ flex: 1 }}
+                      control={control}
+                      watch={watch}
+                      name="billingZip"
+                      placeholder="Zip"
+                      rules={{
+                        required: 'Zip is required',
+                      }}
+                    />
+                  </Box>
+                </>
+              )}
             </Box>
 
             {/* <Typography>Inputs go here</Typography> */}
@@ -221,6 +325,9 @@ export function CartMobile() {
               watch={watch}
               name="name"
               placeholder="Name on card"
+              rules={{
+                required: 'Name is required',
+              }}
             />
             <CustomInput
               control={control}
@@ -230,6 +337,7 @@ export function CartMobile() {
               keyboardType="number-pad"
               maxLength={16}
               rules={{
+                required: 'Card number is required',
                 validate: (val) => {
                   if (!Number(val)) {
                     return 'Card number is invalid';
@@ -238,7 +346,7 @@ export function CartMobile() {
                 },
               }}
             />
-            <Box style={{ flexDirection: 'row', gap: 16 }}>
+            <Box style={{ flexDirection: 'row', width: '100%' }}>
               <CustomInput
                 control={control}
                 watch={watch}
@@ -246,8 +354,9 @@ export function CartMobile() {
                 keyboardType="number-pad"
                 maxLength={5}
                 placeholder="MM/YY"
-                style={{ paddingHorizontal: 16, maxWidth: '100%' }}
+                style={{ width: '50%' }}
                 rules={{
+                  required: 'Expiry is required',
                   validate: (val) => {
                     const valid = val.match(/^(0[1-9]|1[0-2])\/\d{2}$/);
                     if (!valid && val.length === 5) {
@@ -262,10 +371,11 @@ export function CartMobile() {
                 watch={watch}
                 name="cvv"
                 placeholder="CVV"
-                style={{ paddingHorizontal: 16, maxWidth: 64 }}
+                style={{ width: '40%' }}
                 maxLength={3}
                 keyboardType="number-pad"
                 rules={{
+                  required: 'Cvv is required',
                   validate: (val) => {
                     if (!Number(val) && val.length === 3) {
                       return 'Cvv is invalid';
