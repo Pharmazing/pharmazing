@@ -8,3 +8,4 @@ export * from './Toggle';
 export * from './SearchBar';
 export * from './LoadingImage';
 export * from './CustomInput';
+export * from './SlidingButton';
