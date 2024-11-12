@@ -1,6 +1,6 @@
 import React from 'react';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { Box, Icon, ScrollBox } from '../../src/components/atoms';
+import { Box, Icon } from '../../src/components/atoms';
 import { PersonalInfo } from '../../src/components/organisms';
 import { isAndroid, isIOS } from '../../src/utils';
 import { EventProvider } from 'react-native-outside-press';
@@ -32,7 +32,7 @@ export default function Page() {
                 />
               ),
               headerStyle: {
-                backgroundColor: theme.colors.Blue500,
+                backgroundColor: theme.colors.Green500,
               },
             }}
           />

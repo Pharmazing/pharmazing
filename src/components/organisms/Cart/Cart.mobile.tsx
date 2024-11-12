@@ -5,9 +5,8 @@ import {
   ScrollBox,
   Typography,
   CustomInput,
-  Button,
-  ButtonVariantEnum,
   Toggle,
+  SlidingButton,
 } from '../../atoms';
 import { useCart } from '../../../utils/context/useCart';
 import { useGetProductsQuery } from '../../../generated/graphql';
@@ -150,7 +149,7 @@ export function CartMobile() {
                 height: theme.size.layout.xs,
               }}
             ></Box>
-            <Box style={{ padding: 8, gap: 16 }}>
+            <Box style={{ padding: 8, gap: 16, paddingBottom: 16 }}>
               <Typography weight="500" size="xl">
                 Shipping Address
               </Typography>
@@ -406,15 +405,13 @@ export function CartMobile() {
                   }}
                 />
               </Box>
+              <SlidingButton
+                title="Slide to Checkout"
+                onReachedToEnd={handleSubmit(() => {
+                  console.warn('Checkout', control._formValues);
+                })}
+              />
             </Box>
-            <Button
-              btnVariant={ButtonVariantEnum.PRIMARY}
-              style={{ alignSelf: 'center' }}
-              title="Checkout"
-              onPress={handleSubmit(() => {
-                console.warn('Checkout', control._formValues);
-              })}
-            />
           </ScrollBox>
         ) : (
           !isLoading && (
