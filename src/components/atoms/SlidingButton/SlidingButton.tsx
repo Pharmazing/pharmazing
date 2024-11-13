@@ -20,6 +20,8 @@ export const SlidingButton = ({
         autoReset
         title={title}
         width={width}
+        animation
+        animationDuration={200}
         onReachedToEnd={onReachedToEnd}
       />
     </GestureHandlerRootView>
