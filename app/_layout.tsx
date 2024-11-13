@@ -1,7 +1,7 @@
 import { Link, router, Stack, useNavigationContainerRef } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
-import { isAndroid, isIOS, isWeb } from '../src/utils';
+import { isAndroid, isIOS, isWeb, toastConfig } from '../src/utils';
 import {
   DeliveryLocationProvider,
   SessionProvider,
@@ -128,7 +128,7 @@ function RootLayout() {
                           />
                         ),
                         headerBackTitle: 'Settings',
-                        headerTitle: 'Addresses',
+                        headerTitle: 'Delivery Addresses',
                         headerStyle: { backgroundColor: core.colors.Green500 },
                         // headerBackTitleStyle: {color: core.colors.White},
                       }}
@@ -164,7 +164,7 @@ function RootLayout() {
                   </Stack>
                 )}
               </SessionProvider>
-              <Toast />
+              <Toast config={toastConfig} />
             </DeliveryLocationProvider>
           </CartProvider>
         </UserProvider>
