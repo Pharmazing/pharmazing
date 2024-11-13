@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Icon,
@@ -7,6 +7,8 @@ import {
   CustomInput,
   Toggle,
   SlidingButton,
+  Button,
+  ButtonVariantEnum,
 } from '../../atoms';
 import { useCart } from '../../../utils/context/useCart';
 import { useGetProductsQuery } from '../../../generated/graphql';
@@ -15,7 +17,7 @@ import { ProductCard } from '../../molecules/ProductCard';
 import { useStyles } from 'react-native-unistyles';
 import { router } from 'expo-router';
 import { useForm } from 'react-hook-form';
-import { useDeliveryLocation } from '../../../utils/context';
+import { useDeliveryLocation, useUser } from '../../../utils/context';
 import { KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { isIOS } from '../../../utils';
 
@@ -26,8 +28,10 @@ export function CartMobile() {
 
   const { cart } = useCart();
   const { shippingAddress } = useDeliveryLocation();
-
-  const { watch, control, handleSubmit } = useForm({
+  const {
+    user: { userId },
+  } = useUser();
+  const { watch, control, handleSubmit, setValue } = useForm({
     defaultValues: {
       name: '',
       cardNumber: null,
@@ -65,10 +69,25 @@ export function CartMobile() {
     },
     { subtotal: 0 }
   );
-  // console.warn('test', );
   const taxes = (test?.subtotal || 0) * 0.15;
 
   const isLoading = getProductsLoading;
+
+  const matchBillingAddress = (val: boolean) => {
+    // setAutoBilling(val);
+    if (val) {
+      setValue('billingAddressLine1', shippingAddress?.addressLine1 || '');
+      setValue('billingAddressLine2', shippingAddress?.addressLine2 || '');
+      setValue('billingCity', shippingAddress?.city || '');
+      setValue('billingParish', shippingAddress?.parish || '');
+      setValue('billingCountry', shippingAddress?.country || '');
+      setValue('billingZip', shippingAddress?.zip || '');
+    }
+  };
+
+  useEffect(() => {
+    matchBillingAddress(autoBilling);
+  }, [shippingAddress]);
 
   return (
     <KeyboardAvoidingView
@@ -78,7 +97,13 @@ export function CartMobile() {
       style={{ flex: 1 }}
     >
       <ScrollBox
-        nestedScrollEnabled
+        scrollEnabled={false}
+        StickyHeaderComponent={() => (
+          <Typography weight="500" size="xl">
+            Cart
+          </Typography>
+        )}
+        // nestedScrollEnabled
         contentContainerStyle={{
           flex: 1,
         }}
@@ -155,6 +180,11 @@ export function CartMobile() {
               </Typography>
               <Box>
                 <TouchableOpacity
+                  onPress={() =>
+                    userId
+                      ? router.replace('/home')
+                      : router.push('/signin2/setlocation')
+                  }
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -181,7 +211,13 @@ export function CartMobile() {
                     gap: theme.size.layout.lg,
                   }}
                 >
-                  <Toggle value={autoBilling} onValueChange={setAutoBilling} />
+                  <Toggle
+                    value={autoBilling}
+                    onValueChange={(val: boolean) => {
+                      setAutoBilling(val);
+                      matchBillingAddress(val);
+                    }}
+                  />
                   <Typography weight="400" size="lg">
                     Same as shipping address
                   </Typography>
@@ -202,9 +238,9 @@ export function CartMobile() {
                       watch={watch}
                       name="billingAddressLine2"
                       placeholder="Address Line 2"
-                      rules={{
-                        required: 'Billing address is required',
-                      }}
+                      // rules={{
+                      //   required: 'Billing address is required',
+                      // }}
                     />
                     <CustomInput
                       style={{ flex: 1 }}
@@ -405,12 +441,23 @@ export function CartMobile() {
                   }}
                 />
               </Box>
-              <SlidingButton
-                title="Slide to Checkout"
-                onReachedToEnd={handleSubmit(() => {
-                  console.warn('Checkout', control._formValues);
-                })}
-              />
+              {isIOS ? (
+                <SlidingButton
+                  title="Slide to Checkout"
+                  onReachedToEnd={handleSubmit(() => {
+                    console.warn('Checkout', control._formValues);
+                  })}
+                />
+              ) : (
+                <Button
+                  btnVariant={ButtonVariantEnum.PRIMARY}
+                  title="Checkout"
+                  style={{ alignSelf: 'center' }}
+                  onPress={handleSubmit(() => {
+                    console.warn('Checkout', control._formValues);
+                  })}
+                />
+              )}
             </Box>
           </ScrollBox>
         ) : (
