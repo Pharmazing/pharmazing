@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const getUserQuery = gql`
-  query SignIn($email: String, $password: String) {
-    signIn(email: $email, password: $password) {
+  query SignIn($method: String) {
+    signIn(method: $method) {
       userId
       token
       firstName

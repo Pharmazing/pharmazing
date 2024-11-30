@@ -15,7 +15,7 @@ import { Login } from '../src/components';
 import { EventProvider } from 'react-native-outside-press';
 
 export default function Page() {
-  const { loginAsGuest, session, error } = useSession();
+  const { loginAsGuest, session, error, method } = useSession();
   const { updateUser, user, address } = useUser();
   const parsedSession = JSON.parse(session || '{}');
   const { updateShippingAddress } = useDeliveryLocation();
@@ -65,7 +65,7 @@ export default function Page() {
     try {
       if (parsedSession?.idToken) {
         if (!user?.userId) {
-          triggerSignIn();
+          triggerSignIn({ variables: { method } });
         } else {
           // set the current delivery address to the primary address
           const primaryAddress =
@@ -94,6 +94,7 @@ export default function Page() {
             firstName: user?.firstName || '',
             lastName: user?.lastName || '',
           },
+          method,
         },
       });
     }
@@ -104,31 +105,19 @@ export default function Page() {
     return (
       <EventProvider>
         <View style={[styles.container, { padding: 0 }]}>
-          {/* <Spinner visible={(signInLoading) || (signUpLoading)} textContent={"Loading"} /> */}
           <ImageBackground
             resizeMode="cover"
             style={styles.backgroundImage}
-            // defaultSource={{ uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png` }}
             source={{
               uri: `${process.env.EXPO_PUBLIC_API_MEDIA_URL}/login.png`,
             }}
           >
             <Login />
-            {error && (
+            {/* {error && (
               <Text style={{ height: 200 }}>
                 SessionError: {JSON.stringify(error)}
               </Text>
-            )}
-            {signInError && (
-              <Text style={{ height: 200 }}>
-                SigninError: {JSON.stringify(signInError)}
-              </Text>
-            )}
-            {signUpError && (
-              <Text style={{ height: 200 }}>
-                Error: {JSON.stringify(signUpError)}
-              </Text>
-            )}
+            )} */}
 
             <LoadingIndicator
               size="large"

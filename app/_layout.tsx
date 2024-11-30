@@ -34,7 +34,6 @@ import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { core } from '../src/utils/unistyles/core';
 import { Icon } from '../src/components/atoms';
-// import { CartProvider } from '../src/utils/context/useCart';
 
 import { useStyles } from 'react-native-unistyles';
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
@@ -104,7 +103,10 @@ function RootLayout() {
                       name="(tabs)"
                       options={{ headerShown: false }}
                     />
-                    <Stack.Screen name="signup" />
+                    <Stack.Screen
+                      name="signup"
+                      options={{ headerShown: false }}
+                    />
                     <Stack.Screen
                       name="signin2"
                       options={{ headerShown: false }}
@@ -116,7 +118,6 @@ function RootLayout() {
                           fontSize: 24,
                           color: theme.colors.white,
                         },
-                        // headerLargeTitle: true,
                         headerLeft: () => (
                           <Icon
                             name="ChevronRightIcon"
@@ -129,8 +130,9 @@ function RootLayout() {
                         ),
                         headerBackTitle: 'Settings',
                         headerTitle: 'Delivery Addresses',
-                        headerStyle: { backgroundColor: core.colors.Green500 },
-                        // headerBackTitleStyle: {color: core.colors.White},
+                        headerStyle: {
+                          backgroundColor: core.colors.Green500,
+                        },
                       }}
                     />
                   </Stack>

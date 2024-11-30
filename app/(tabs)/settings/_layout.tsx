@@ -1,5 +1,6 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useStyles } from 'react-native-unistyles';
+import { Icon } from '../../../src/components';
 
 export default function Layout() {
   const { theme } = useStyles();
@@ -19,7 +20,25 @@ export default function Layout() {
       />
       <Stack.Screen
         name="prescriptions"
-        options={{ headerBackTitle: 'Settings' }}
+        options={{
+          headerLeft: () => (
+            <Icon
+              name="ChevronRightIcon"
+              transform={'rotate(180 12 12)'}
+              color={theme.colors.white}
+              height={36}
+              width={36}
+              onPress={() => router.back()}
+            />
+          ),
+          headerTitle: 'Prescriptions',
+          headerBackTitle: 'Settings',
+          headerTitleStyle: {
+            fontSize: 24,
+            color: theme.colors.white,
+          },
+          headerStyle: { backgroundColor: theme.colors.Green500 },
+        }}
       />
     </Stack>
   );

@@ -216,6 +216,7 @@ export const SetLocation = () => {
           />
           {
             <Button
+              textStyle={{ color: 'white' }}
               style={{ alignSelf: 'center' }}
               btnVariant={ButtonVariantEnum.SECONDARY}
               title={'Continue'}

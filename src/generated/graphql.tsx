@@ -118,6 +118,7 @@ export type CreateUserInput = {
   firstName: Scalars['String']['input'];
   lastName: Scalars['String']['input'];
   password?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateVendorInput = {
@@ -261,6 +262,7 @@ export type MutationCreateProductArgs = {
 };
 
 export type MutationCreateUserArgs = {
+  method?: InputMaybe<Scalars['String']['input']>;
   user?: InputMaybe<CreateUserInput>;
 };
 
@@ -346,8 +348,7 @@ export type QueryGetUserAddressArgs = {
 };
 
 export type QuerySignInArgs = {
-  email?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
+  method?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
@@ -376,6 +377,7 @@ export type Vendor = {
 
 export type CreateUserMutationVariables = Exact<{
   user?: InputMaybe<CreateUserInput>;
+  method?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type CreateUserMutation = {
@@ -582,8 +584,7 @@ export type EditCartMutation = {
 };
 
 export type SignInQueryVariables = Exact<{
-  email?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
+  method?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type SignInQuery = {
@@ -790,8 +791,8 @@ export type GetCartQuery = {
 };
 
 export const CreateUserDocument = gql`
-  mutation CreateUser($user: CreateUserInput) {
-    createUser(user: $user) {
+  mutation CreateUser($user: CreateUserInput, $method: String) {
+    createUser(user: $user, method: $method) {
       age
       email
       firstName
@@ -834,6 +835,7 @@ export type CreateUserMutationFn = Apollo.MutationFunction<
  * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
  *   variables: {
  *      user: // value for 'user'
+ *      method: // value for 'method'
  *   },
  * });
  */
@@ -1291,8 +1293,8 @@ export type EditCartMutationOptions = Apollo.BaseMutationOptions<
   EditCartMutationVariables
 >;
 export const SignInDocument = gql`
-  query SignIn($email: String, $password: String) {
-    signIn(email: $email, password: $password) {
+  query SignIn($method: String) {
+    signIn(method: $method) {
       userId
       token
       firstName
@@ -1328,8 +1330,7 @@ export const SignInDocument = gql`
  * @example
  * const { data, loading, error } = useSignInQuery({
  *   variables: {
- *      email: // value for 'email'
- *      password: // value for 'password'
+ *      method: // value for 'method'
  *   },
  * });
  */
