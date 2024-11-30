@@ -71,7 +71,6 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
       setCart(data.editCart as CartType);
       showToast({
         type: 'success',
-        text1: 'Success',
         text2: 'Item added to cart',
         visibilityTime: 1500,
       });
@@ -119,13 +118,13 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
           : { ...item, quantity }
         : item
     );
-    // console.warn('newItems', newItems);
+    const filteredItems = newItems.filter((item: any) => !!item);
     if (userId) {
       editCartTrigger({
         variables: {
           cart: {
             cartId: cart?.cartId || '',
-            items: newItems,
+            items: filteredItems,
           },
         },
       });
@@ -136,7 +135,7 @@ export function CartProvider({ children }: React.PropsWithChildren<{}>) {
       });
       showToast({
         type: 'success',
-        text1: 'Success',
+        // text1: 'Success',
         text2: 'Item added to cart',
       });
     }

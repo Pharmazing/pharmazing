@@ -22,7 +22,7 @@ export function SettingsMobile() {
         marginTop: isAndroid ? 0 : height + Constants.default.statusBarHeight,
       }}
     >
-      {
+      {userId && (
         <SettingsBox
           // title="Profile"
           settingLinks={[
@@ -46,7 +46,7 @@ export function SettingsMobile() {
             },
           ]}
         />
-      }
+      )}
       <Button
         btnVariant={ButtonVariantEnum.SECONDARY}
         title={'Logout'}

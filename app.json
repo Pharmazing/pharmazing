@@ -13,6 +13,7 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "googleServicesFile": "./ios/Pharmazing/GoogleService-Info.plist",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses your location to provide you with the best experience.",
         "NSLocationAlwaysUsageDescription": "This app uses your location to provide you with the best experience."
@@ -33,7 +34,8 @@
           "apiKey": "AIzaSyCtPsZodG3NtL7QEq6tiU1D70uXqjeshCE"
         }
       },
-      "package": "com.vincentvanity.pharmazing"
+      "package": "com.vincentvanity.pharmazing",
+      "googleServicesFile": "./android/google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -58,7 +60,17 @@
           "project": "pharmazing",
           "organization": "pharmazing-g7"
         }
-      ]
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth"
     ]
   }
 }

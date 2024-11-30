@@ -5,9 +5,11 @@ import { useStyles } from 'react-native-unistyles';
 import { loginStyles } from './Login.styles';
 import { AnimatedInputField } from '../../atoms/Input';
 import { useForm } from 'react-hook-form';
-import { TouchableOpacity, Button as NativeButton } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { useSession } from '../../../utils/context';
 import { router, useSegments } from 'expo-router';
+import { emailRegex } from '../../../utils';
+import auth from '@react-native-firebase/auth';
 
 export const Login = (props: LoginProps) => {
   const { styles } = useStyles(loginStyles);
@@ -17,8 +19,18 @@ export const Login = (props: LoginProps) => {
       password: '',
     },
   });
-  const { loginWithGoogle, loginAsGuest } = useSession();
-  const onLogin = () => {
+  const { loginWithGoogle, loginAsGuest, setSession, setMethod } = useSession();
+  const onLogin = async () => {
+    try {
+      setMethod('firebase');
+      const { email, password } = control._formValues;
+      const result = await auth().signInWithEmailAndPassword(email, password);
+      const idToken = await result.user.getIdToken();
+      // console.warn('result', idToken);
+      setSession(JSON.stringify({ idToken }));
+    } catch (e: any) {
+      console.warn('error', e.message);
+    }
     console.warn(control._formValues);
   };
 
@@ -37,7 +49,15 @@ export const Login = (props: LoginProps) => {
             type="text"
             label="Email"
             textColor="white"
-            rules={{ required: `Email is required` }}
+            rules={{
+              required: `Email is required`,
+              validate: (val) => {
+                if (!emailRegex.test(val)) {
+                  return 'Invalid email address';
+                }
+                return true;
+              },
+            }}
           />
 
           <AnimatedInputField
@@ -63,12 +83,17 @@ export const Login = (props: LoginProps) => {
         <Box
           style={{
             flexDirection: 'column',
+            alignItems: 'center',
             justifyContent: 'space-evenly',
             width: '100%',
+            gap: 16,
           }}
         >
           {showContinueAsGuest && (
-            <NativeButton
+            <Button
+              style={{ margin: 0 }}
+              btnVariant={ButtonVariantEnum.SECONDARY}
+              textStyle={{ color: 'white' }}
               title={'Continue As Guest'}
               onPress={() => {
                 loginAsGuest(isSecondarySignin);
@@ -76,8 +101,11 @@ export const Login = (props: LoginProps) => {
               }}
             />
           )}
-          <NativeButton
-            title={'sign up'}
+          <Button
+            style={{ margin: 0 }}
+            textStyle={{ color: 'white' }}
+            btnVariant={ButtonVariantEnum.SECONDARY}
+            title={'Sign Up'}
             onPress={() => router.replace('/signup')}
           />
         </Box>

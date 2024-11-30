@@ -18,11 +18,15 @@ export const toastConfig = {
           borderRadius: 24,
           overflow: 'hidden',
           padding: 8,
-          alignItems: 'center',
+          paddingLeft: text1 ? 16 : 0,
+          alignItems: text1 ? 'flex-start' : 'center',
           justifyContent: 'center',
         }}
       >
-        <Typography weight="700" style={{ color: 'white' }}>
+        <Typography weight="700" style={{ color: core.colors.Green400 }}>
+          {text1}
+        </Typography>
+        <Typography weight="400" style={{ color: 'white' }}>
           {text2}
         </Typography>
       </BlurView>
