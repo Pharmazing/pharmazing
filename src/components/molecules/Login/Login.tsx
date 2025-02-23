@@ -77,6 +77,23 @@ export const Login = (props: LoginProps) => {
           onPress={handleSubmit(onLogin)}
           style={{ margin: 0 }}
         />
+        <Box
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            width: '100%',
+          }}
+        >
+          <TouchableOpacity
+            style={styles.providerButton}
+            onPress={loginWithGoogle}
+          >
+            <Icon name="GoogleIcon" height={36} width={36} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.providerButton}>
+            <Icon name="MetaIcon" height={36} width={36} />
+          </TouchableOpacity>
+        </Box>
         <Typography weight="700" size="xl" style={{ color: 'white' }}>
           or
         </Typography>
@@ -108,23 +125,6 @@ export const Login = (props: LoginProps) => {
             title={'Sign Up'}
             onPress={() => router.replace('/signup')}
           />
-        </Box>
-        <Box
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            width: '100%',
-          }}
-        >
-          <TouchableOpacity
-            style={styles.providerButton}
-            onPress={loginWithGoogle}
-          >
-            <Icon name="GoogleIcon" height={36} width={36} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.providerButton}>
-            <Icon name="MetaIcon" height={36} width={36} />
-          </TouchableOpacity>
         </Box>
       </BlurView>
     </Box>
