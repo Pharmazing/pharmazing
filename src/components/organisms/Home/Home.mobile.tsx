@@ -24,42 +24,44 @@ export function HomeMobile() {
   }, []);
 
   return (
-    <>
-      <ScrollBox
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={loading}
-            onRefresh={async () => await refetch()}
-          />
-        }
-      >
-        <Box style={styles.container}>
-          <SearchBar
-            autoComplete="off"
-            placeholder="What are you looking for today?"
-            value={search}
-            onChangeText={setSearch}
-            clearButtonMode="always"
-            caretHidden
-          />
-          <HeroCarousel />
-          <Typography
-            weight="500"
-            size="xl"
-            style={{ marginBottom: theme.size.layout.md }}
-          >
-            Stores
-          </Typography>
+    <ScrollBox
+      contentContainerStyle={{ backgroundColor: theme.colors.BgDefault400 }}
+      style={{ backgroundColor: theme.colors.BgDefault400 }}
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={loading}
+          onRefresh={async () => await refetch()}
+        />
+      }
+    >
+      <Box style={styles.container}>
+        <SearchBar
+          autoComplete="off"
+          placeholder="What are you looking for today?"
+          value={search}
+          onChangeText={setSearch}
+          clearButtonMode="always"
+          caretHidden
+        />
+        <HeroCarousel />
+        <Typography
+          weight="500"
+          size="xl"
+          style={{
+            marginBottom: theme.size.layout.md,
+            color: theme.colors.FgDefault,
+          }}
+        >
+          Stores
+        </Typography>
 
-          <VendorList
-            vendors={filteredVendors as VendorType[]}
-            loading={loading || cartLoading}
-          />
-          <StatusBar style="auto" />
-        </Box>
-      </ScrollBox>
-      {/* <LoadingIndicator loading={loading} /> */}
-    </>
+        <VendorList
+          vendors={filteredVendors as VendorType[]}
+          loading={loading || cartLoading}
+        />
+        <StatusBar style="auto" />
+      </Box>
+    </ScrollBox>
   );
 }

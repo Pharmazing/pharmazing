@@ -16,7 +16,7 @@ export const vendorListStyles = createStyleSheet((theme) => ({
   vendorCardButton: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.BgDefault,
     borderRadius: theme.size.layout.xl - 2,
     padding: theme.size.layout.md,
     height: { xs: 128, lg: 248 },
@@ -36,7 +36,7 @@ export const vendorListStyles = createStyleSheet((theme) => ({
     borderRadius: theme.size.layout.lg,
   },
   vendorCardTitle: {
-    color: theme.colors.Blue900,
+    color: theme.colors.FgDefault,
   },
   vendorCardsubTitle: {
     color: theme.colors.Gray500,
