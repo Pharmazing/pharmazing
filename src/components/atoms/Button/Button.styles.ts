@@ -36,7 +36,7 @@ export const buttonStyles = createStyleSheet((theme) => ({
   },
   textStyle: {
     fontFamily: 'Roboto_700Bold',
-    color: theme.colors.white,
+    color: theme.colors.FgDefault,
   },
   shadow: ({
     shadowRadius,

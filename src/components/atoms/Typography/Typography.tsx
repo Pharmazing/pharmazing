@@ -6,6 +6,7 @@ import { typographyStyles } from './Typography.styles';
 export const Typography = ({
   style,
   children,
+  inverted = false,
   size = 'md',
   weight,
   ...rest
@@ -15,7 +16,10 @@ export const Typography = ({
     return null;
   }
   return (
-    <Text {...rest} style={[styles.typography({ size, weight }), style]}>
+    <Text
+      {...rest}
+      style={[styles.typography({ size, weight, inverted }), style]}
+    >
       {children}
     </Text>
   );

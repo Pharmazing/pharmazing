@@ -38,7 +38,7 @@ export const Button = ({
               size="md"
               style={[
                 styles.textStyle,
-                { color: theme.colors.Green700 },
+                { color: theme.colors.FgGreen700 },
                 textStyle,
               ]}
             >

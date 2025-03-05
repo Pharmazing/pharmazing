@@ -30,7 +30,7 @@ export const productDetailPageStyles = createStyleSheet((theme) => ({
     borderTopRightRadius: theme.size.layout.lg + 4,
     position: 'absolute',
     zIndex: 3,
-    backgroundColor: theme.colors.Gray100,
+    backgroundColor: theme.colors.BgDefault,
     padding: theme.size.layout.lg,
     paddingBottom: theme.size.layout.xxl,
   },

@@ -47,7 +47,7 @@ export default function Page() {
         <Stack.Screen
           options={{
             contentStyle: {
-              backgroundColor: '#FAFAFA',
+              backgroundColor: theme.colors.BgDefault,
               gap: 40,
               display: 'flex',
               flexDirection: 'column',

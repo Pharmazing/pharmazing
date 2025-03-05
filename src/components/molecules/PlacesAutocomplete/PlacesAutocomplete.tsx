@@ -73,6 +73,13 @@ export const PlacesAutocomplete = React.forwardRef<
             listView: styles.listView,
             textInput: styles.textInput({ disabled }),
           }}
+          textInputProps={{
+            onChangeText: (text) => {
+              if (text === '') {
+                onSelect?.(null);
+              }
+            },
+          }}
           enablePoweredByContainer={false}
           placeholder={placeholder || 'Add new address'}
           onPress={handleAutocompleteSelect}
@@ -91,3 +98,5 @@ export const PlacesAutocomplete = React.forwardRef<
     </Box>
   );
 });
+
+PlacesAutocomplete.displayName = 'PlacesAutocomplete';
