@@ -8,6 +8,7 @@ import { VendorCard } from './VendorCard';
 import { VendorListSkeleton } from './VendorListSkeleton';
 
 export const VendorList = ({ vendors, loading }: VendorListProps) => {
+  // loading = true
   const { styles } = useStyles(vendorListStyles);
 
   const renderVendorList = () => {

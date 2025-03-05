@@ -107,7 +107,11 @@ export const ProductDetailPage = ({ productId }: ProductDetailPageProps) => {
             <AnimatedNumber
               animateToNumber={count}
               animationDuration={300}
-              fontStyle={{ fontSize: 20, fontFamily: 'Roboto_500Medium' }}
+              fontStyle={{
+                color: theme.colors.FgDefault,
+                fontSize: 20,
+                fontFamily: 'Roboto_500Medium',
+              }}
             />
 
             <Button

@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "739739212160",
+    "project_id": "pharmazing-425018",
+    "storage_bucket": "pharmazing-425018.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739739212160:android:e1342f5031362a3d620965",
+        "android_client_info": {
+          "package_name": "com.vincentvanity.pharmazing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739739212160-dm24m6im6q2jgseb9t2ucck4vh4brc5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vincentvanity.pharmazing",
+            "certificate_hash": "20f41f60b7ef88d5f48f275765261d86294d3a83"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFAQ9Q8LC_xqQANyu2hEJWjb5PS96IHEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739739212160-0ac32nkqefrhrf0mbg3qcgbcvs2aj26q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "739739212160-9hngin51nv8i8qulhisqt7ka10picum5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vincentvanity.pharmazing"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

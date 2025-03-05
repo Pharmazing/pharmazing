@@ -22,11 +22,15 @@ export const typographyStyles = createStyleSheet((theme) => ({
   typography: ({
     size,
     weight,
+    inverted,
   }: {
     weight: TypographyProps['weight'];
     size: TypographyProps['size'];
+    inverted: TypographyProps['inverted'];
   }) => ({
-    color: theme.colors.text.fg,
+    color: inverted
+      ? theme.colors.FgDefaultInverted200
+      : theme.colors.FgDefault,
     fontSize: theme.size.text[size || 'md'],
     fontFamily: weightToFontFamily(weight),
   }),

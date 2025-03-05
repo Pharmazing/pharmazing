@@ -6,6 +6,12 @@ export const lightTheme = {
     loadingPrimary: core.colors.Blue600,
     loadingBackground: core.colors.Gray400,
     tabsContentBg: '#FFFFFF',
+    BgDefault400: 'white',
+    BgDefault200: core.colors.Gray200,
+    BgDefault: '#FFFFFF',
+    FgDefault: core.colors.Blue900,
+    FgGreen700: core.colors.Green700,
+    FgDefaultInverted200: core.colors.white,
     tabBarIcon: {
       default: '#505050',
       focused: core.colors.Green500,
@@ -49,9 +55,15 @@ export const lightTheme = {
 export const darkTheme = {
   colors: {
     ...core.colors,
+    BgDefault400: '#3d3d3d',
+    FgDefault: core.colors.Gray100,
+    FgDefaultInverted200: core.colors.Gray600,
+    BgDefault: '#242424',
+    BgDefault200: '#424242',
+    FgGreen700: core.colors.Green300,
     loadingPrimary: '#345ABB',
     loadingBackground: '#B9B9B9',
-    tabsContentBg: '#FFFFFF',
+    tabsContentBg: '#3d3d3d',
     addressBtnBg: '#AAAAAA',
     addressBtnFg: '#CCCCCC',
     tabBarIcon: {

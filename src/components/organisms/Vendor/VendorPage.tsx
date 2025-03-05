@@ -60,7 +60,7 @@ export const VendorPage = ({ vendorId }: { vendorId: string }) => {
                 name="ChevronRightIcon"
                 transform={'rotate(180 12 12)'}
               />
-              <Typography size="xl">
+              <Typography size="xl" style={{ color: theme.colors.FgDefault }}>
                 {vendorName || '{{Vendor Name}}'}
               </Typography>
             </TouchableOpacity>

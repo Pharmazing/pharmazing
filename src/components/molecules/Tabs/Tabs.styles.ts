@@ -17,7 +17,7 @@ export const tabsStyles = createStyleSheet((theme) => ({
     // alignItems: 'center',
     // justifyContent: 'space-around',
     marginVertical: theme.size.layout.lg,
-    backgroundColor: theme.colors.Gray200,
+    backgroundColor: theme.colors.BgDefault200,
   },
   tabItem: {
     flex: 1,
@@ -29,7 +29,9 @@ export const tabsStyles = createStyleSheet((theme) => ({
     // borderWidth: 1
   },
   tabLabel: ({ selected }: { selected: boolean }) => ({
-    color: selected ? 'white' : theme.colors.Gray600,
+    color: selected
+      ? theme.colors.FgDefaultInverted200
+      : theme.colors.FgDefault,
     opacity: selected ? 1 : 0.5,
     // zIndex: 50,
     // borderWidth: 1,

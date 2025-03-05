@@ -20,16 +20,19 @@ import { useForm } from 'react-hook-form';
 import { useDeliveryLocation, useUser } from '../../../utils/context';
 import { KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { isIOS } from '../../../utils';
+import { WebView } from 'react-native-webview';
 
 const DELIVERY_FEE = 600;
+// const FYGARO_SECRET= process.env.EXPO_PUBLIC_FYGARO_SECRET;
 export function CartMobile() {
+  const [checkedOut, setCheckedOut] = React.useState(false);
   const [autoBilling, setAutoBilling] = React.useState(true);
   const { theme } = useStyles();
 
   const { cart } = useCart();
   const { shippingAddress } = useDeliveryLocation();
   const {
-    user: { userId },
+    user: { userId, email },
   } = useUser();
   const { watch, control, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -89,7 +92,11 @@ export function CartMobile() {
     matchBillingAddress(autoBilling);
   }, [shippingAddress]);
 
-  return (
+  console.log('checkedout', checkedOut);
+
+  const total = ((test?.subtotal || 0) + DELIVERY_FEE + taxes).toFixed(2);
+
+  return !checkedOut ? (
     <KeyboardAvoidingView
       enabled
       behavior={isIOS ? 'padding' : 'height'}
@@ -356,9 +363,7 @@ export function CartMobile() {
                 <Typography weight="500" size="lg">
                   Total
                 </Typography>
-                <Typography>
-                  {`$${((test?.subtotal || 0) + DELIVERY_FEE + taxes).toFixed(2)} `}
-                </Typography>
+                <Typography>{`$${total} `}</Typography>
               </Box>
               <Box
                 style={{
@@ -441,11 +446,13 @@ export function CartMobile() {
                   }}
                 />
               </Box>
+
               {isIOS ? (
                 <SlidingButton
                   title="Slide to Checkout"
                   onReachedToEnd={handleSubmit(() => {
                     console.warn('Checkout', control._formValues);
+                    setCheckedOut(true);
                   })}
                 />
               ) : (
@@ -455,6 +462,7 @@ export function CartMobile() {
                   style={{ alignSelf: 'center' }}
                   onPress={handleSubmit(() => {
                     console.warn('Checkout', control._formValues);
+                    setCheckedOut(true);
                   })}
                 />
               )}
@@ -477,5 +485,42 @@ export function CartMobile() {
         )}
       </ScrollBox>
     </KeyboardAvoidingView>
+  ) : (
+    <>
+      <Button
+        btnVariant={ButtonVariantEnum.SECONDARY}
+        title="Back to cart"
+        onPress={() => setCheckedOut(false)}
+        style={{ alignSelf: 'center' }}
+      />
+      <WebView
+        javaScriptEnabled
+        source={{
+          uri: `https://www.fygaro.com/en/pb/f114d44a-e26e-4ece-9efd-90babe3636a6?amount=${total}`,
+          // method: 'POST',
+          // headers: {
+          //   alg: "HS256",
+          //   typ: "JWT",
+          //   kid: FYGARO_SECRET,
+          // },
+          // body: JSON.stringify({
+          //   amount: total,
+          //   currency: 'JMD',
+          //   email,
+          //   name: watch('name'),
+          // }),
+        }}
+        style={{ flex: 1, width: '100%' }}
+        onNavigationStateChange={(navState) => {
+          console.warn('navState', navState.url);
+          if (
+            navState.url !==
+            `https://www.fygaro.com/en/pb/f114d44a-e26e-4ece-9efd-90babe3636a6?amount=${total}`
+          ) {
+            setCheckedOut(false);
+          }
+        }}
+      />
+    </>
   );
 }

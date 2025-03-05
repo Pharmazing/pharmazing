@@ -1,16 +1,28 @@
 import React, { useMemo } from 'react';
 import { useSession, useUser } from '../../../utils/context';
-import { Button, ButtonVariantEnum, ScrollBox } from '../../atoms';
+import {
+  Box,
+  Button,
+  ButtonVariantEnum,
+  ScrollBox,
+  Toggle,
+  Typography,
+} from '../../atoms';
 import { SettingsBox } from '../../molecules';
 import * as Constants from 'expo-constants';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { isAndroid } from '../../../utils';
+import { UnistylesRuntime } from 'react-native-unistyles';
 
 export function SettingsMobile() {
   const { signOut } = useSession();
   const { user } = useUser();
   const userId = useMemo(() => user?.userId || '', [user]);
   const height = useHeaderHeight();
+  const [active, setActive] = React.useState(
+    UnistylesRuntime.themeName === 'light'
+  );
+  console.log('theme', UnistylesRuntime.themeName);
   return (
     <ScrollBox
       contentContainerStyle={{
@@ -22,7 +34,7 @@ export function SettingsMobile() {
         marginTop: isAndroid ? 0 : height + Constants.default.statusBarHeight,
       }}
     >
-      {
+      {userId && (
         <SettingsBox
           // title="Profile"
           settingLinks={[
@@ -46,7 +58,30 @@ export function SettingsMobile() {
             },
           ]}
         />
-      }
+      )}
+      <Box
+        style={{
+          width: '100%',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginTop: 20,
+        }}
+      >
+        <Typography weight="500" size="xl">
+          Toggle Theme
+        </Typography>
+        <Toggle
+          value={active}
+          onValueChange={() => {
+            setActive(!active);
+            if (UnistylesRuntime.themeName === 'light') {
+              UnistylesRuntime.setTheme('dark');
+            } else {
+              UnistylesRuntime.setTheme('light');
+            }
+          }}
+        />
+      </Box>
       <Button
         btnVariant={ButtonVariantEnum.SECONDARY}
         title={'Logout'}
