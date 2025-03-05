@@ -45,8 +45,9 @@ const initialRegion = {
 export const SetLocation = () => {
   const { theme } = useStyles();
   const { userId: userIdParam, defaultData } = useLocalSearchParams();
-  const { updateShippingAddress } = useDeliveryLocation();
+  const { updateShippingAddress, shippingAddress } = useDeliveryLocation();
   const { showToast } = useToast();
+  // console.log('shippingAddress', shippingAddress);
 
   const [markerLocation, setMarker] = useState<Location | null>(null);
   const [addressQueryVars, setAddressQueryVars] = useState<
@@ -154,6 +155,9 @@ export const SetLocation = () => {
       setMarker(newLocation);
       moveToLocation(newLocation);
       setAddressQueryVars(point as CreateAddressInput);
+    } else {
+      setMarker(null);
+      setAddressQueryVars(null);
     }
   };
 
@@ -219,7 +223,7 @@ export const SetLocation = () => {
               textStyle={{ color: 'white' }}
               style={{ alignSelf: 'center' }}
               btnVariant={ButtonVariantEnum.SECONDARY}
-              title={'Continue'}
+              title={!markerLocation ? 'Skip' : 'Continue'}
               onPress={onLocationSubmit}
             />
           }
