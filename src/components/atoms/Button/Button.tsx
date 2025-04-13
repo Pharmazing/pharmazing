@@ -14,6 +14,7 @@ export const Button = ({
   textStyle,
   shadowRadius,
   renderShadow = true,
+  iconPlacement = 'left',
   ...rest
 }: ButtonProps) => {
   const { styles, theme } = useStyles(buttonStyles);
@@ -23,10 +24,11 @@ export const Button = ({
       return (
         <DropShadow style={styles.shadow({ shadowRadius, renderShadow })}>
           <TouchableOpacity style={[styles.primary, style]} {...rest}>
+            {iconPlacement === 'left' && icon}
             <Typography size="md" style={[styles.textStyle, textStyle]}>
               {title}
             </Typography>
-            {icon}
+            {iconPlacement === 'right' && icon}
           </TouchableOpacity>
         </DropShadow>
       );
@@ -34,6 +36,7 @@ export const Button = ({
       return (
         <DropShadow style={styles.shadow({ shadowRadius, renderShadow })}>
           <TouchableOpacity style={[styles.secondary, style]} {...rest}>
+          {iconPlacement === 'left' && icon}
             <Typography
               size="md"
               style={[
@@ -44,7 +47,7 @@ export const Button = ({
             >
               {title}
             </Typography>
-            {icon}
+            {iconPlacement === 'right' && icon}
           </TouchableOpacity>
         </DropShadow>
       );
@@ -52,10 +55,11 @@ export const Button = ({
       return (
         <DropShadow style={styles.shadow({ shadowRadius, renderShadow })}>
           <TouchableOpacity style={[styles.danger, style]} {...rest}>
+          {iconPlacement === 'left' && icon}
             <Typography size="md" style={[styles.textStyle, textStyle]}>
               {title}
             </Typography>
-            {icon}
+            {iconPlacement === 'right' && icon}
           </TouchableOpacity>
         </DropShadow>
       );
