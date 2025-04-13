@@ -16,4 +16,5 @@ export interface ButtonProps extends TouchableOpacityProps {
   icon?: ReactElement<IconProps>;
   shadowRadius?: number;
   renderShadow?: boolean;
+  iconPlacement?: 'left' | 'right';
 }
