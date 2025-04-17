@@ -12,9 +12,11 @@ import { useToast } from '../../../utils';
 import { AddressType, useUser } from '../../../utils/context';
 import { useRef } from 'react';
 import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
+import { useStyles } from 'react-native-unistyles';
 
 export function Addresses() {
   const { showToast } = useToast();
+  const { theme } = useStyles();
   const { addAddress, deleteAddress } = useUser();
   const autocompleteRef = useRef<GooglePlacesAutocompleteRef>(null);
   const deleteAddyIdRef = useRef<string | null>(null);
@@ -96,7 +98,7 @@ export function Addresses() {
 
   return (
     <EventProvider>
-      <Box style={{ flex: 1, backgroundColor: 'white' }}>
+      <Box style={{ flex: 1, backgroundColor: theme.colors.BgDefault }}>
         <Box
           style={{
             width: '100%',
