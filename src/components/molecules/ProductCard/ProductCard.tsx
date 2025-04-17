@@ -75,6 +75,7 @@ export const ProductCard = ({
                 {`$${productPrice?.toFixed(2)}`}
               </Typography>
               <Button
+                textStyle={{ color: theme.colors.white }}
                 icon={ctaIcon}
                 activeOpacity={0.6}
                 style={{

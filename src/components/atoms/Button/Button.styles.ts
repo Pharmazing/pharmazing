@@ -11,6 +11,7 @@ export const buttonStyles = createStyleSheet((theme) => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 16,
   },
   secondary: {
     borderRadius: 24,

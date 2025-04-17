@@ -11,7 +11,7 @@ import {
 // import { Button } from 'react-native';
 import { PlacesAutocomplete } from '../../molecules';
 import { EventProvider } from 'react-native-outside-press';
-import { useStyles } from 'react-native-unistyles';
+import { UnistylesRuntime, useStyles } from 'react-native-unistyles';
 import {
   CreateAddressInput,
   CreateAddressMutation,
@@ -27,6 +27,26 @@ import {
 } from '../../../utils/context';
 import { GooglePlacesAutocompleteRef } from 'react-native-google-places-autocomplete';
 import { useToast } from '../../../utils';
+
+const darkMapStyle = [
+  {
+    elementType: 'geometry',
+    stylers: [
+      {
+        color: '#242f3e',
+      },
+    ],
+  },
+  {
+    elementType: 'labels.text.fill',
+    stylers: [
+      {
+        color: '#746855',
+      },
+    ],
+  },
+  // ... other style configurations for roads, water, etc.
+];
 
 type Location = {
   latitude: number;
@@ -183,12 +203,16 @@ export const SetLocation = () => {
     <EventProvider>
       <Box style={{ flex: 1 }}>
         <MapView
+          tintColor="dark"
           ref={mapRef}
           initialRegion={initialRegion}
           onRegionChangeComplete={() =>
             markerLocation && moveToLocation(markerLocation)
           }
           style={{ flex: 1 }}
+          customMapStyle={
+            UnistylesRuntime.themeName === 'light' ? undefined : darkMapStyle
+          }
           showsUserLocation
           showsMyLocationButton
           provider={PROVIDER_GOOGLE}

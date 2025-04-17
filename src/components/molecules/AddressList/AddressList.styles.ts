@@ -25,7 +25,7 @@ export const addressListStyles = createStyleSheet((theme) => ({
   },
   rowFront: () => ({
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.BgDefault,
     height: ITEM_HEIGHT,
     justifyContent: 'center',
     width: '100%',
