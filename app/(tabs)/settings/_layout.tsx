@@ -1,6 +1,7 @@
 import { router, Stack } from 'expo-router';
 import { useStyles } from 'react-native-unistyles';
 import { Icon } from '../../../src/components';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Layout() {
   const { theme } = useStyles();
@@ -25,7 +26,7 @@ export default function Layout() {
             <Icon
               name="ChevronRightIcon"
               transform={'rotate(180 12 12)'}
-              color={theme.colors.white}
+              color={theme.colors.FgDefaultInverted}
               height={36}
               width={36}
               onPress={() => router.back()}
@@ -35,9 +36,16 @@ export default function Layout() {
           headerBackTitle: 'Settings',
           headerTitleStyle: {
             fontSize: 24,
-            color: theme.colors.white,
+            color: theme.colors.FgDefaultInverted,
           },
-          headerStyle: { backgroundColor: theme.colors.Green500 },
+          headerBackground: () => (
+            <LinearGradient
+              colors={[theme.colors.Blue400, theme.colors.Green400]}
+              start={[0, 0]}
+              end={[1, 1]}
+              style={{ flex: 1 }}
+            />
+          ),
         }}
       />
     </Stack>

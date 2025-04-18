@@ -1,4 +1,4 @@
-import { TouchableHighlight, Image, TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { Box, Typography } from '../../atoms';
 import { VendorCardProps } from './VendorList.types';
 import { useStyles } from 'react-native-unistyles';
