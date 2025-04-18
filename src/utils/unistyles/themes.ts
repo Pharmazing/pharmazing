@@ -10,6 +10,7 @@ export const lightTheme = {
     BgDefault200: core.colors.Gray200,
     BgDefault: '#FFFFFF',
     FgDefault: core.colors.Blue900,
+    FgDefaultInverted: core.colors.Gray100,
     FgGreen700: core.colors.Green700,
     FgDefaultInverted200: core.colors.white,
     tabBarIcon: {
@@ -57,6 +58,7 @@ export const darkTheme = {
     ...core.colors,
     BgDefault400: '#3d3d3d',
     FgDefault: core.colors.Gray100,
+    FgDefaultInverted: core.colors.Blue900,
     FgDefaultInverted200: core.colors.Gray600,
     BgDefault: '#242424',
     BgDefault200: '#424242',
