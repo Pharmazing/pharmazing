@@ -1,4 +1,14 @@
 Contact me for a demo at vinceterp@outlook.com, happy exploring!
+
+![image](https://github.com/user-attachments/assets/4088a9da-93b4-494b-b43c-8dda558d41b6)
+
+![image](https://github.com/user-attachments/assets/d83f35bc-3bd8-46d7-af5b-1e4c1dc52010)
+
+![image](https://github.com/user-attachments/assets/bd95ecfe-4724-4b4c-be1f-c998fe91fa4d)
+
+![image](https://github.com/user-attachments/assets/5dff7ca4-9130-46e6-aad3-c566c55110c7)
+
+
 ![image](https://github.com/user-attachments/assets/599391d8-08ee-4c6e-8529-a0854696370a)
 
 ![image](https://github.com/user-attachments/assets/e856027c-3adb-4b97-9b70-34ec1531ddc7)
